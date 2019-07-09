@@ -1,0 +1,25 @@
+spring:
+  cloud:
+    gcp:
+      credentials:
+        location: file:/Projects/ergosurgeon/crud/src/main/resources/postgresGcp.json
+      sql:
+        database-name: ergosurgeon
+        instance-connection-name: tactile-atlas-218500:us-central1:postgres
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        temp:
+          use_jdbc_metadata_defaults: false
+    open-in-view: false
+
+  datasource:
+    username: postgres
+    password: postgres
+    continue-on-error: false
+    initialization-mode: always

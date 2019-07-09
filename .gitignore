@@ -1,5 +1,6 @@
 # INTELLIJ IDEA files
 *.idea
+.idea
 
 # Compiled class file
 *.class

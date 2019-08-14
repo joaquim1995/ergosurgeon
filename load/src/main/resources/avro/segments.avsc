@@ -1,0 +1,73 @@
+{
+  "type" : "record",
+  "name" : "Segments",
+  "namespace" : "com.mei.ergosurgeon.load.data.entities",
+  "fields" : [ {
+    "name" : "segment",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "Segment",
+        "fields" : [ {
+          "name" : "points",
+          "type" : {
+            "type" : "record",
+            "name" : "Points",
+            "fields" : [ {
+              "name" : "point",
+              "type" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "record",
+                  "name" : "Point",
+                  "fields" : [ {
+                    "name" : "posS",
+                    "type" : "string"
+                  }, {
+                    "name" : "label",
+                    "type" : "string"
+                  }, {
+                    "name" : "position",
+                    "type" : {
+                      "type" : "record",
+                      "name" : "Vector",
+                      "namespace" : "com.mei.ergosurgeon.load.data.entities.custom",
+                      "fields" : [ {
+                        "name" : "time",
+                        "type" : "long"
+                      }, {
+                        "name" : "q0",
+                        "type" : "float"
+                      }, {
+                        "name" : "q1",
+                        "type" : "float"
+                      }, {
+                        "name" : "q2",
+                        "type" : "float"
+                      }, {
+                        "name" : "segmentLabel",
+                        "type" : "string"
+                      } ]
+                    }
+                  } ]
+                },
+                "java-class" : "java.util.List"
+              }
+            } ]
+          }
+        }, {
+          "name" : "label",
+          "type" : "string"
+        }, {
+          "name" : "segmentId",
+          "type" : {
+            "type" : "string",
+            "java-class" : "java.math.BigInteger"
+          }
+        } ]
+      },
+      "java-class" : "java.util.List"
+    }
+  } ]
+}

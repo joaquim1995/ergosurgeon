@@ -1,0 +1,35 @@
+{
+  "type" : "record",
+  "name" : "Point",
+  "namespace" : "com.mei.ergosurgeon.load.data.entities",
+  "fields" : [ {
+    "name" : "posS",
+    "type" : "string"
+  }, {
+    "name" : "label",
+    "type" : "string"
+  }, {
+    "name" : "position",
+    "type" : {
+      "type" : "record",
+      "name" : "Vector",
+      "namespace" : "com.mei.ergosurgeon.load.data.entities.custom",
+      "fields" : [ {
+        "name" : "time",
+        "type" : "long"
+      }, {
+        "name" : "q0",
+        "type" : "float"
+      }, {
+        "name" : "q1",
+        "type" : "float"
+      }, {
+        "name" : "q2",
+        "type" : "float"
+      }, {
+        "name" : "segmentLabel",
+        "type" : "string"
+      } ]
+    }
+  } ]
+}

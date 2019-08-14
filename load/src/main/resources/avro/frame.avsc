@@ -1,0 +1,120 @@
+{
+  "type" : "record",
+  "name" : "Frame",
+  "namespace" : "com.mei.ergosurgeon.load.data.entities",
+  "fields" : [ {
+    "name" : "orientation",
+    "type" : "string"
+  }, {
+    "name" : "position",
+    "type" : "string"
+  }, {
+    "name" : "velocity",
+    "type" : "string"
+  }, {
+    "name" : "acceleration",
+    "type" : "string"
+  }, {
+    "name" : "angularVelocity",
+    "type" : "string"
+  }, {
+    "name" : "angularAcceleration",
+    "type" : "string"
+  }, {
+    "name" : "sensorAcceleration",
+    "type" : "string"
+  }, {
+    "name" : "sensorAngularVelocity",
+    "type" : "string"
+  }, {
+    "name" : "sensorMagneticField",
+    "type" : "string"
+  }, {
+    "name" : "sensorOrientation",
+    "type" : "string"
+  }, {
+    "name" : "jointAngle",
+    "type" : "string"
+  }, {
+    "name" : "jointAngleXZY",
+    "type" : "string"
+  }, {
+    "name" : "centerOfMass",
+    "type" : "string"
+  }, {
+    "name" : "marker",
+    "type" : "string"
+  }, {
+    "name" : "time",
+    "type" : "string"
+  }, {
+    "name" : "index",
+    "type" : "string"
+  }, {
+    "name" : "tc",
+    "type" : "string"
+  }, {
+    "name" : "ms",
+    "type" : "string"
+  }, {
+    "name" : "type",
+    "type" : "string"
+  }, {
+    "name" : "orientations",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "Quaternion",
+        "namespace" : "com.mei.ergosurgeon.load.data.entities.custom",
+        "fields" : [ {
+          "name" : "time",
+          "type" : "long"
+        }, {
+          "name" : "q0",
+          "type" : "float"
+        }, {
+          "name" : "q1",
+          "type" : "float"
+        }, {
+          "name" : "q2",
+          "type" : "float"
+        }, {
+          "name" : "q3",
+          "type" : "float"
+        }, {
+          "name" : "segmentLabel",
+          "type" : "string"
+        } ]
+      },
+      "java-class" : "java.util.List"
+    }
+  }, {
+    "name" : "positions",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "Vector",
+        "namespace" : "com.mei.ergosurgeon.load.data.entities.custom",
+        "fields" : [ {
+          "name" : "time",
+          "type" : "long"
+        }, {
+          "name" : "q0",
+          "type" : "float"
+        }, {
+          "name" : "q1",
+          "type" : "float"
+        }, {
+          "name" : "q2",
+          "type" : "float"
+        }, {
+          "name" : "segmentLabel",
+          "type" : "string"
+        } ]
+      },
+      "java-class" : "java.util.List"
+    }
+  } ]
+}

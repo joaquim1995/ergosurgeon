@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        elementFormDefault="qualified">
+
+    <xsd:element name='mvnx'>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref='mvn'/>
+                <xsd:element ref='comment'/>
+                <xsd:element ref='subject'/>
+                <xsd:element ref='securityCode'/>
+            </xsd:sequence>
+            <xsd:attribute name='version' type='xsd:string' use='required'/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name='mvn'>
+        <xsd:complexType>
+            <xsd:attribute name='version' type='xsd:string' use='required'/>
+            <xsd:attribute name='build' type='xsd:string' use='required'/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name='comment' type='xsd:string'>
+    </xsd:element>
+
+    <xsd:element name='subject'>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref='comment'/>
+                <xsd:element ref='segments'/>
+                <xsd:sequence minOccurs='0' maxOccurs='1'>
+                    <xsd:element ref='sensors'/>
+                </xsd:sequence>
+                <xsd:sequence minOccurs='0' maxOccurs='1'>
+                    <xsd:element ref='joints'/>
+                </xsd:sequence>
+                <xsd:element ref='frames'/>
+            </xsd:sequence>
+            <xsd:attribute name='label' type='xsd:string' use='required'/>
+            <xsd:attribute name='torsoColor' type='xsd:string' use='required'/>
+            <xsd:attribute name='frameRate' type='xsd:nonNegativeInteger' use='required'/>
+            <xsd:attribute name='segmentCount' type='xsd:string' use='required'/>
+            <xsd:attribute name='recDate' type='xsd:string' use='required'/>
+            <xsd:attribute name='originalFilename' type='xsd:string' use='required'/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name='securityCode'>
+        <xsd:complexType>
+            <xsd:attribute name='code' type='xsd:string' use='required'/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name='sensors'>
+        <xsd:complexType>
+            <xsd:sequence minOccurs='0' maxOccurs='unbounded'>
+                <xsd:element ref='sensor'/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name='sensor'>
+        <xsd:complexType>
+            <xsd:attribute name='label' type='xsd:string' use='required'/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name='joints'>
+        <xsd:complexType>
+            <xsd:sequence maxOccurs='unbounded'>
+                <xsd:element ref='joint'/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name='joint'>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref='connector1'/>
+                <xsd:element ref='connector2'/>
+            </xsd:sequence>
+            <xsd:attribute name='label' type='xsd:string' use='required'/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name='frames'>
+        <xsd:complexType>
+            <xsd:sequence maxOccurs='unbounded'>
+                <xsd:element ref='frame'/>
+            </xsd:sequence>
+            <xsd:attribute name='segmentCount' type='xsd:string' use='required'/>
+            <xsd:attribute name='sensorCount' type='xsd:string'/>
+            <xsd:attribute name='jointCount' type='xsd:string'/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name='frame'>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref='orientation'/>
+                <xsd:element ref='position'/>
+                <xsd:sequence minOccurs='0' maxOccurs='1'>
+                    <xsd:element ref='velocity'/>
+                </xsd:sequence>
+                <xsd:sequence minOccurs='0' maxOccurs='1'>
+                    <xsd:element ref='acceleration'/>
+                </xsd:sequence>
+                <xsd:sequence minOccurs='0' maxOccurs='1'>
+                    <xsd:element ref='angularVelocity'/>
+                </xsd:sequence>
+                <xsd:sequence minOccurs='0' maxOccurs='1'>
+                    <xsd:element ref='angularAcceleration'/>
+                </xsd:sequence>
+                <xsd:sequence minOccurs='0' maxOccurs='1'>
+                    <xsd:element ref='sensorAcceleration'/>
+                </xsd:sequence>
+                <xsd:sequence minOccurs='0' maxOccurs='1'>
+                    <xsd:element ref='sensorAngularVelocity'/>
+                </xsd:sequence>
+                <xsd:sequence minOccurs='0' maxOccurs='1'>
+                    <xsd:element ref='sensorMagneticField'/>
+                </xsd:sequence>
+                <xsd:sequence minOccurs='0' maxOccurs='1'>
+                    <xsd:element ref='sensorOrientation'/>
+                </xsd:sequence>
+                <xsd:sequence minOccurs='0' maxOccurs='1'>
+                    <xsd:element ref='jointAngle'/>
+                </xsd:sequence>
+                <xsd:sequence minOccurs='0' maxOccurs='1'>
+                    <xsd:element ref='jointAngleXZY'/>
+                </xsd:sequence>
+                <xsd:sequence minOccurs='0' maxOccurs='1'>
+                    <xsd:element ref='centerOfMass'/>
+                </xsd:sequence>
+                <xsd:sequence minOccurs='0' maxOccurs='1'>
+                    <xsd:element ref='marker'/>
+                </xsd:sequence>
+            </xsd:sequence>
+            <xsd:attribute name='time' type='xsd:string' use='required'/>
+            <xsd:attribute name='index' type='xsd:string' use='required'/>
+            <xsd:attribute name='tc' type='xsd:string'/>
+            <xsd:attribute name='ms' type='xsd:string'/>
+            <xsd:attribute name='type' type='xsd:string' use='required'/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:simpleType name='notEmptyString'>
+        <xsd:restriction base='xsd:string'>
+            <xsd:minLength value='1'/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name='notEmptyStringNoSpecialChars'>
+        <xsd:restriction base='xsd:string'>
+            <xsd:pattern value='([a-zA-Z0-9])*'/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:element name='pos_s'>
+    </xsd:element>
+
+    <xsd:element name='point'>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref='pos_s'/>
+            </xsd:sequence>
+            <xsd:attribute name='label' use='required'/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name='points'>
+        <xsd:complexType>
+            <xsd:sequence maxOccurs='unbounded'>
+                <xsd:element ref='point'/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name='segment'>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref='points'/>
+            </xsd:sequence>
+            <xsd:attribute name='label' use='required'/>
+            <xsd:attribute name='id' type='xsd:nonNegativeInteger' use='required'/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name='segments'>
+        <xsd:complexType>
+            <xsd:sequence maxOccurs='unbounded'>
+                <xsd:element ref='segment'/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name='connector1'>
+    </xsd:element>
+
+    <xsd:element name='connector2'>
+    </xsd:element>
+
+    <xsd:element name='orientation'>
+    </xsd:element>
+
+    <xsd:element name='position'>
+    </xsd:element>
+
+    <xsd:element name='velocity'>
+    </xsd:element>
+
+    <xsd:element name='acceleration'>
+    </xsd:element>
+
+    <xsd:element name='angularVelocity'>
+    </xsd:element>
+
+    <xsd:element name='angularAcceleration'>
+    </xsd:element>
+
+    <xsd:element name='sensorAcceleration'>
+    </xsd:element>
+
+    <xsd:element name='sensorAngularVelocity'>
+    </xsd:element>
+
+    <xsd:element name='sensorMagneticField'>
+    </xsd:element>
+
+    <xsd:element name='sensorOrientation'>
+    </xsd:element>
+
+    <xsd:element name='jointAngle'>
+    </xsd:element>
+
+    <xsd:element name='jointAngleXZY'>
+    </xsd:element>
+
+    <xsd:element name='centerOfMass'>
+    </xsd:element>
+
+    <xsd:element name='marker'>
+    </xsd:element>
+
+</xsd:schema>

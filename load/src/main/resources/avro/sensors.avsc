@@ -1,0 +1,20 @@
+{
+  "type" : "record",
+  "name" : "Sensors",
+  "namespace" : "com.mei.ergosurgeon.load.data.entities",
+  "fields" : [ {
+    "name" : "sensor",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "Sensor",
+        "fields" : [ {
+          "name" : "label",
+          "type" : "string"
+        } ]
+      },
+      "java-class" : "java.util.List"
+    }
+  } ]
+}

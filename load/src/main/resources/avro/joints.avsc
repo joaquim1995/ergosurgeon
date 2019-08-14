@@ -1,0 +1,26 @@
+{
+  "type" : "record",
+  "name" : "Joints",
+  "namespace" : "com.mei.ergosurgeon.load.data.entities",
+  "fields" : [ {
+    "name" : "joint",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "Joint",
+        "fields" : [ {
+          "name" : "connector1",
+          "type" : "string"
+        }, {
+          "name" : "connector2",
+          "type" : "string"
+        }, {
+          "name" : "label",
+          "type" : "string"
+        } ]
+      },
+      "java-class" : "java.util.List"
+    }
+  } ]
+}

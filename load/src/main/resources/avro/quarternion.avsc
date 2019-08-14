@@ -1,0 +1,24 @@
+{
+  "type" : "record",
+  "name" : "Quaternion",
+  "namespace" : "com.mei.ergosurgeon.load.data.entities.custom",
+  "fields" : [ {
+    "name" : "time",
+    "type" : "long"
+  }, {
+    "name" : "q0",
+    "type" : "float"
+  }, {
+    "name" : "q1",
+    "type" : "float"
+  }, {
+    "name" : "q2",
+    "type" : "float"
+  }, {
+    "name" : "q3",
+    "type" : "float"
+  }, {
+    "name" : "segmentLabel",
+    "type" : "string"
+  } ]
+}

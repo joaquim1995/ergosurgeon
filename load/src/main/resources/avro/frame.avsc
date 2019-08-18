@@ -4,117 +4,60 @@
   "namespace" : "com.mei.ergosurgeon.load.data.entities",
   "fields" : [ {
     "name" : "orientation",
-    "type" : "string"
+    "type": "string"
   }, {
     "name" : "position",
-    "type" : "string"
+    "type": "string"
   }, {
     "name" : "velocity",
-    "type" : "string"
+    "type": ["null", "string"]
   }, {
     "name" : "acceleration",
-    "type" : "string"
+    "type": ["null", "string"]
   }, {
     "name" : "angularVelocity",
-    "type" : "string"
+    "type": ["null", "string"]
   }, {
     "name" : "angularAcceleration",
-    "type" : "string"
+    "type": ["null", "string"]
   }, {
     "name" : "sensorAcceleration",
-    "type" : "string"
+    "type": ["null", "string"]
   }, {
     "name" : "sensorAngularVelocity",
-    "type" : "string"
+    "type": ["null", "string"]
   }, {
     "name" : "sensorMagneticField",
-    "type" : "string"
+    "type": ["null", "string"]
   }, {
     "name" : "sensorOrientation",
-    "type" : "string"
+    "type": ["null", "string"]
   }, {
     "name" : "jointAngle",
-    "type" : "string"
+    "type": ["null", "string"]
   }, {
     "name" : "jointAngleXZY",
-    "type" : "string"
+    "type": ["null", "string"]
   }, {
     "name" : "centerOfMass",
-    "type" : "string"
+    "type": ["null", "string"]
   }, {
     "name" : "marker",
-    "type" : "string"
+    "type": ["null", "string"]
   }, {
     "name" : "time",
-    "type" : "string"
+    "type": ["null", "string"]
   }, {
     "name" : "index",
-    "type" : "string"
+    "type": ["null", "string"]
   }, {
     "name" : "tc",
-    "type" : "string"
+    "type": ["null", "string"]
   }, {
     "name" : "ms",
-    "type" : "string"
+    "type": ["null", "string"]
   }, {
     "name" : "type",
-    "type" : "string"
-  }, {
-    "name" : "orientations",
-    "type" : {
-      "type" : "array",
-      "items" : {
-        "type" : "record",
-        "name" : "Quaternion",
-        "namespace" : "com.mei.ergosurgeon.load.data.entities.custom",
-        "fields" : [ {
-          "name" : "time",
-          "type" : "long"
-        }, {
-          "name" : "q0",
-          "type" : "float"
-        }, {
-          "name" : "q1",
-          "type" : "float"
-        }, {
-          "name" : "q2",
-          "type" : "float"
-        }, {
-          "name" : "q3",
-          "type" : "float"
-        }, {
-          "name" : "segmentLabel",
-          "type" : "string"
-        } ]
-      },
-      "java-class" : "java.util.List"
-    }
-  }, {
-    "name" : "positions",
-    "type" : {
-      "type" : "array",
-      "items" : {
-        "type" : "record",
-        "name" : "Vector",
-        "namespace" : "com.mei.ergosurgeon.load.data.entities.custom",
-        "fields" : [ {
-          "name" : "time",
-          "type" : "long"
-        }, {
-          "name" : "q0",
-          "type" : "float"
-        }, {
-          "name" : "q1",
-          "type" : "float"
-        }, {
-          "name" : "q2",
-          "type" : "float"
-        }, {
-          "name" : "segmentLabel",
-          "type" : "string"
-        } ]
-      },
-      "java-class" : "java.util.List"
-    }
-  } ]
+    "type": ["null", "string"]
+  }]
 }

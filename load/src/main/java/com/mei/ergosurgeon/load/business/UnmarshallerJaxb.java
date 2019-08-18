@@ -10,8 +10,10 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.InputStream;
 
+import static org.apache.naming.ResourceRef.SINGLETON;
+
 @Service
-@Scope("singleton")
+@Scope(SINGLETON)
 public class UnmarshallerJaxb {
 
     private static Unmarshaller jaxbUnmarshaller;

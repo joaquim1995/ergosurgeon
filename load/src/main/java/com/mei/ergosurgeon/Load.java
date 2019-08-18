@@ -24,9 +24,9 @@ public class Load {
     @Bean
     public Executor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(4);
-        executor.setMaxPoolSize(8);
-        executor.setQueueCapacity(500);
+        executor.setCorePoolSize(8);
+        executor.setMaxPoolSize(64);
+        executor.setQueueCapacity(5000);
         executor.setThreadNamePrefix("Executor-");
         executor.initialize();
         return executor;

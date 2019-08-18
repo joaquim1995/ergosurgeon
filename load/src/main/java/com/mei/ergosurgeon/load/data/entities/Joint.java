@@ -8,13 +8,17 @@
 
 package com.mei.ergosurgeon.load.data.entities;
 
-import com.mei.ergosurgeon.load.business.AvroFiles;
-import com.mei.ergosurgeon.load.business.KafkaTemplates;
+import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
+import com.mei.ergosurgeon.load.business.utils.AvroFilesUtil;
+import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
 import java.io.File;
+
+import static com.mei.ergosurgeon.load.common.IlegalStateExceptionEnum.AVRO_INDEX_RECORD_GET;
+import static com.mei.ergosurgeon.load.common.IlegalStateExceptionEnum.AVRO_INDEX_RECORD_PUT;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -54,11 +58,15 @@ public class Joint implements KafkaTopic<Joint> {
         this.label = value;
     }
 
-    public Joint process() {
+    public Joint process(KafkaLoadService proxy) throws Exception {
+
+        proxy.send(this);
+        /*
         connector1 = connector1.split("\\/")[0];
         connector2 = connector2.split("\\/")[0];
 
         //send(this);
+        */
         return this;
     }
 
@@ -70,11 +78,42 @@ public class Joint implements KafkaTopic<Joint> {
 
     @Override
     public KafkaTemplate<Object, Joint> getKafkaTemplate() {
-        return KafkaTemplates.getKafkaJointTemplate();
+        return KafkaTemplatesUtil.getKafkaJointTemplate();
     }
 
     @Override
-    public File getAvroFile() {
-        return AvroFiles.getAvroJointSchema();
+    public File getAvroSchemaFile() {
+        return AvroFilesUtil.getAvroJointSchema();
+    }
+
+    @Override
+    public void put(int i, Object v) {
+        switch (i) {
+            case 0:
+                setConnector1((String) v);
+                break;
+            case 1:
+                setConnector2((String) v);
+                break;
+            case 2:
+                setLabel((String) v);
+                break;
+            default:
+                throw new IllegalStateException(AVRO_INDEX_RECORD_PUT.getValue());
+        }
+    }
+
+    @Override
+    public Object get(int i) {
+        switch (i) {
+            case 0:
+                return getConnector1();
+            case 1:
+                return getConnector2();
+            case 2:
+                return getLabel();
+            default:
+                throw new IllegalStateException(AVRO_INDEX_RECORD_GET.getValue());
+        }
     }
 }

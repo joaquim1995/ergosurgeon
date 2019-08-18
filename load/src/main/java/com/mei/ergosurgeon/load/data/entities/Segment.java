@@ -8,20 +8,25 @@
 
 package com.mei.ergosurgeon.load.data.entities;
 
-import com.mei.ergosurgeon.load.business.AvroFiles;
-import com.mei.ergosurgeon.load.business.KafkaTemplates;
+import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
+import com.mei.ergosurgeon.load.business.utils.AvroFilesUtil;
+import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
+import org.apache.avro.reflect.AvroIgnore;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
 import java.io.File;
-import java.math.BigInteger;
+
+import static com.mei.ergosurgeon.load.common.IlegalStateExceptionEnum.AVRO_INDEX_RECORD_GET;
+import static com.mei.ergosurgeon.load.common.IlegalStateExceptionEnum.AVRO_INDEX_RECORD_PUT;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "segment")
 public class Segment implements KafkaTopic<Segment> {
 
+    @AvroIgnore
     @XmlElement(required = true)
     protected Points points;
 
@@ -30,7 +35,7 @@ public class Segment implements KafkaTopic<Segment> {
 
     @XmlAttribute(name = "id", required = true)
     @XmlSchemaType(name = "nonNegativeInteger")
-    protected BigInteger segmentId;
+    protected Long segmentId;
 
     public Points getPoints() {
         return points;
@@ -48,17 +53,18 @@ public class Segment implements KafkaTopic<Segment> {
         this.label = value;
     }
 
-    public BigInteger getSegmentId() {
+    public Long getSegmentId() {
         return segmentId;
     }
 
-    public void setSegmentId(BigInteger segmentId) {
+    public void setSegmentId(Long segmentId) {
         this.segmentId = segmentId;
     }
 
-    public Segment process() {
-        getPoints().process();
-        //send(this);
+    public Segment process(KafkaLoadService proxy) throws Exception {
+
+        proxy.send(this);
+        getPoints().process(proxy);
         return this;
     }
 
@@ -69,11 +75,38 @@ public class Segment implements KafkaTopic<Segment> {
 
     @Override
     public KafkaTemplate<Object, Segment> getKafkaTemplate() {
-        return KafkaTemplates.getKafkaSegmentTemplate();
+        return KafkaTemplatesUtil.getKafkaSegmentTemplate();
     }
 
     @Override
-    public File getAvroFile() {
-        return AvroFiles.getAvroSegmentSchema();
+    public File getAvroSchemaFile() {
+        return AvroFilesUtil.getAvroSegmentSchema();
+    }
+
+    @Override
+    public void put(int i, Object v) {
+        switch (i) {
+            case 0:
+                setLabel((String) v);
+                break;
+            case 1:
+                setSegmentId((Long) v);
+                break;
+            default:
+                throw new IllegalStateException(AVRO_INDEX_RECORD_PUT.getValue());
+
+        }
+    }
+
+    @Override
+    public Object get(int i) {
+        switch (i) {
+            case 0:
+                return getLabel();
+            case 1:
+                return getSegmentId();
+            default:
+                throw new IllegalStateException(AVRO_INDEX_RECORD_GET.getValue());
+        }
     }
 }

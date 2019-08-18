@@ -9,21 +9,17 @@
 package com.mei.ergosurgeon.load.data.entities;
 
 
-import com.mei.ergosurgeon.load.business.AvroFiles;
-import com.mei.ergosurgeon.load.business.KafkaTemplates;
-import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
-import org.springframework.kafka.core.KafkaTemplate;
+import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "sensors")
-public class Sensors implements KafkaTopic<Sensors> {
+public class Sensors {
 
     protected List<Sensor> sensor;
 
@@ -34,27 +30,13 @@ public class Sensors implements KafkaTopic<Sensors> {
         return this.sensor;
     }
 
-    public Sensors process() {
+    public Sensors process(KafkaLoadService proxy) throws Exception {
 
-        getSensor().stream().forEach(item -> item.process());
+        for (Sensor item : getSensor()) {
+            item.process(proxy);
+        }
 
         //send(this);
         return this;
-    }
-
-    @Override
-    public String getTopic() {
-        return "sensors";
-    }
-
-
-    @Override
-    public KafkaTemplate<Object, Sensors> getKafkaTemplate() {
-        return KafkaTemplates.getKafkaSensorsTemplate();
-    }
-
-    @Override
-    public File getAvroFile() {
-        return AvroFiles.getAvroSensorsSchema();
     }
 }

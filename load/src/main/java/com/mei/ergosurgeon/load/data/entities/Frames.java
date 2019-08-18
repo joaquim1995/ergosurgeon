@@ -9,21 +9,16 @@
 package com.mei.ergosurgeon.load.data.entities;
 
 
-import com.mei.ergosurgeon.load.business.AvroFiles;
-import com.mei.ergosurgeon.load.business.KafkaTemplates;
-import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
+import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "frames")
-public class Frames implements KafkaTopic<Frames> {
-
+public class Frames {
     @XmlElement(required = true)
     protected List<Frame> frame;
 
@@ -68,29 +63,15 @@ public class Frames implements KafkaTopic<Frames> {
         this.jointCount = value;
     }
 
-    public Frames process() {
+    public Frames process(KafkaLoadService proxy) throws Exception {
 
-        getFrame()
-                .stream()
-                .filter(item -> StringUtils.equalsIgnoreCase(item.getType(), "normal"))
-                .forEach(item -> item.process());
+        for (Frame item : getFrame()) {
+            if (StringUtils.equalsIgnoreCase(item.getType(), "normal")) {
+                item.process(proxy);
+            }
+        }
 
         //send(this);
         return this;
-    }
-
-    @Override
-    public String getTopic() {
-        return "frames";
-    }
-
-    @Override
-    public KafkaTemplate<Object, Frames> getKafkaTemplate() {
-        return KafkaTemplates.getKafkaFramesTemplate();
-    }
-
-    @Override
-    public File getAvroFile() {
-        return AvroFiles.getAvroFramesSchema();
     }
 }

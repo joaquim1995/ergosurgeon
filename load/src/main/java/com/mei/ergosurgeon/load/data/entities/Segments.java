@@ -8,23 +8,19 @@
 
 package com.mei.ergosurgeon.load.data.entities;
 
-import com.mei.ergosurgeon.load.business.AvroFiles;
-import com.mei.ergosurgeon.load.business.KafkaTemplates;
-import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
-import org.springframework.kafka.core.KafkaTemplate;
+import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "segments")
-public class Segments implements KafkaTopic<Segments> {
+public class Segments {
 
     @XmlElement(required = true)
     protected List<Segment> segment;
@@ -36,25 +32,11 @@ public class Segments implements KafkaTopic<Segments> {
         return this.segment;
     }
 
-    public Segments process() {
-        getSegment().stream().forEach(item -> item.process());
+    public Segments process(KafkaLoadService proxy) throws Exception {
+        for (Segment item : getSegment()) {
+            item.process(proxy);
+        }
         //send(this);
         return this;
-    }
-
-    @Override
-    public String getTopic() {
-        return "segments";
-    }
-
-
-    @Override
-    public KafkaTemplate<Object, Segments> getKafkaTemplate() {
-        return KafkaTemplates.getKafkaSegmentsTemplate();
-    }
-
-    @Override
-    public File getAvroFile() {
-        return AvroFiles.getAvroSegmentsSchema();
     }
 }

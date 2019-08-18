@@ -8,23 +8,19 @@
 
 package com.mei.ergosurgeon.load.data.entities;
 
-import com.mei.ergosurgeon.load.business.AvroFiles;
-import com.mei.ergosurgeon.load.business.KafkaTemplates;
-import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
-import org.springframework.kafka.core.KafkaTemplate;
+import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "points")
-public class Points implements KafkaTopic<Points> {
+public class Points {
 
     @XmlElement(required = true)
     protected List<Point> point;
@@ -36,25 +32,11 @@ public class Points implements KafkaTopic<Points> {
         return this.point;
     }
 
-    public Points process() {
-        getPoint().stream().forEach(item -> item.process());
+    public Points process(KafkaLoadService proxy) throws Exception {
+        for (Point item : getPoint()) {
+            item.process(proxy);
+        }
         //send(this);
         return this;
-    }
-
-    @Override
-    public String getTopic() {
-        return "points";
-    }
-
-
-    @Override
-    public KafkaTemplate<Object, Points> getKafkaTemplate() {
-        return KafkaTemplates.getKafkaPointsTemplate();
-    }
-
-    @Override
-    public File getAvroFile() {
-        return AvroFiles.getAvroPointsSchema();
     }
 }

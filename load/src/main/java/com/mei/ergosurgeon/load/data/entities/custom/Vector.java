@@ -1,10 +1,9 @@
 package com.mei.ergosurgeon.load.data.entities.custom;
 
 
-import java.io.Serializable;
 import java.util.Objects;
 
-public class Vector implements Serializable {
+public class Vector {
 
     private Long time;
 

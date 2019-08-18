@@ -8,8 +8,9 @@
 
 package com.mei.ergosurgeon.load.data.entities;
 
-import com.mei.ergosurgeon.load.business.AvroFiles;
-import com.mei.ergosurgeon.load.business.KafkaTemplates;
+import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
+import com.mei.ergosurgeon.load.business.utils.AvroFilesUtil;
+import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
 import org.springframework.kafka.core.KafkaTemplate;
 
@@ -18,6 +19,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.File;
+
+import static com.mei.ergosurgeon.load.common.IlegalStateExceptionEnum.AVRO_INDEX_RECORD_GET;
+import static com.mei.ergosurgeon.load.common.IlegalStateExceptionEnum.AVRO_INDEX_RECORD_PUT;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "sensor")
@@ -34,8 +38,9 @@ public class Sensor implements KafkaTopic<Sensor> {
         this.label = value;
     }
 
-    public Sensor process() {
-        //send(this);
+    public Sensor process(KafkaLoadService proxy) throws Exception {
+
+        proxy.send(this);
         return this;
     }
 
@@ -47,11 +52,32 @@ public class Sensor implements KafkaTopic<Sensor> {
 
     @Override
     public KafkaTemplate<Object, Sensor> getKafkaTemplate() {
-        return KafkaTemplates.getKafkaSensorTemplate();
+        return KafkaTemplatesUtil.getKafkaSensorTemplate();
     }
 
     @Override
-    public File getAvroFile() {
-        return AvroFiles.getAvroSensorSchema();
+    public File getAvroSchemaFile() {
+        return AvroFilesUtil.getAvroSensorSchema();
+    }
+
+    @Override
+    public void put(int i, Object v) {
+        switch (i) {
+            case 0:
+                setLabel((String) v);
+                break;
+            default:
+                throw new IllegalStateException(AVRO_INDEX_RECORD_PUT.getValue());
+        }
+    }
+
+    @Override
+    public Object get(int i) {
+        switch (i) {
+            case 0:
+                return getLabel();
+            default:
+                throw new IllegalStateException(AVRO_INDEX_RECORD_GET.getValue());
+        }
     }
 }

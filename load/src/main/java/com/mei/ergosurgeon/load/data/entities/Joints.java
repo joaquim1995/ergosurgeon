@@ -8,23 +8,19 @@
 
 package com.mei.ergosurgeon.load.data.entities;
 
-import com.mei.ergosurgeon.load.business.AvroFiles;
-import com.mei.ergosurgeon.load.business.KafkaTemplates;
-import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
-import org.springframework.kafka.core.KafkaTemplate;
+import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "joints")
-public class Joints implements KafkaTopic<Joints> {
+public class Joints {
 
     @XmlElement(required = true)
     protected List<Joint> joint;
@@ -36,25 +32,11 @@ public class Joints implements KafkaTopic<Joints> {
         return this.joint;
     }
 
-    public Joints process() {
-        getJoint().stream().forEach(item -> item.process());
+    public Joints process(KafkaLoadService proxy) throws Exception {
+        for (Joint item : getJoint()) {
+            item.process(proxy);
+        }
         //send(this);
         return this;
-    }
-
-    @Override
-    public String getTopic() {
-        return "joints";
-    }
-
-
-    @Override
-    public KafkaTemplate<Object, Joints> getKafkaTemplate() {
-        return KafkaTemplates.getKafkaJointsTemplate();
-    }
-
-    @Override
-    public File getAvroFile() {
-        return AvroFiles.getAvroJointsSchema();
     }
 }

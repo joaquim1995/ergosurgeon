@@ -1,0 +1,63 @@
+{
+  "type" : "record",
+  "name" : "Frame",
+  "namespace" : "com.mei.ergosurgeon.load.data.entities",
+  "fields" : [ {
+    "name" : "orientation",
+    "type": "string"
+  }, {
+    "name" : "position",
+    "type": "string"
+  }, {
+    "name" : "velocity",
+    "type": ["null", "string"]
+  }, {
+    "name" : "acceleration",
+    "type": ["null", "string"]
+  }, {
+    "name" : "angularVelocity",
+    "type": ["null", "string"]
+  }, {
+    "name" : "angularAcceleration",
+    "type": ["null", "string"]
+  }, {
+    "name" : "sensorAcceleration",
+    "type": ["null", "string"]
+  }, {
+    "name" : "sensorAngularVelocity",
+    "type": ["null", "string"]
+  }, {
+    "name" : "sensorMagneticField",
+    "type": ["null", "string"]
+  }, {
+    "name" : "sensorOrientation",
+    "type": ["null", "string"]
+  }, {
+    "name" : "jointAngle",
+    "type": ["null", "string"]
+  }, {
+    "name" : "jointAngleXZY",
+    "type": ["null", "string"]
+  }, {
+    "name" : "centerOfMass",
+    "type": ["null", "string"]
+  }, {
+    "name" : "marker",
+    "type": ["null", "string"]
+  }, {
+    "name" : "time",
+    "type": ["null", "string"]
+  }, {
+    "name" : "index",
+    "type": ["null", "string"]
+  }, {
+    "name" : "tc",
+    "type": ["null", "string"]
+  }, {
+    "name" : "ms",
+    "type": ["null", "string"]
+  }, {
+    "name" : "type",
+    "type": ["null", "string"]
+  }]
+}

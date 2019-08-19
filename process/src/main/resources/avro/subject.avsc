@@ -1,0 +1,27 @@
+{
+  "type" : "record",
+  "name" : "Subject",
+  "namespace" : "com.mei.ergosurgeon.load.data.entities",
+  "fields" : [ {
+    "name" : "comment",
+    "type" : ["null", "string"]
+  }, {
+    "name" : "label",
+    "type" : ["null", "string"]
+  }, {
+    "name" : "torsoColor",
+    "type" : ["null", "string"]
+  }, {
+    "name" : "frameRate",
+    "type" : "long"
+  }, {
+    "name" : "segmentCount",
+    "type" : ["null", "string"]
+  }, {
+    "name" : "recDate",
+    "type" : ["null", "string"]
+  }, {
+    "name" : "originalFilename",
+    "type" : "string"
+  } ]
+}

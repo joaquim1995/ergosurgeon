@@ -1,0 +1,31 @@
+spring:
+  kafka:
+    bootstrap-servers: 34.65.62.56:9092,34.65.208.54:9092
+    producer:
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      acks: all
+      transaction-id-prefix: tx.
+      retries: 10
+    properties:
+      schema.registry.url: http://localhost:8081
+      security:
+        protocol: SASL_PLAINTEXT
+      sasl:
+        mechanism: PLAIN
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="user" password="NuhwSBK7d5t8";
+spring:
+  cloud:
+    stream:
+      bindings:
+        sample-source:
+          destination: testtock
+        input:
+          destination: testtock
+        output:
+          destination: xformed
+        sample-sink:
+          destination: xformed
+  logging:
+    level:
+      root: TRACE

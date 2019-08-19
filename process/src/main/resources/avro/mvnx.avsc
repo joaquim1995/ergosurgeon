@@ -1,0 +1,12 @@
+{
+  "type" : "record",
+  "name" : "Mvnx",
+  "namespace" : "com.mei.ergosurgeon.load.data.entities",
+  "fields" : [ {
+    "name" : "comment",
+    "type" : "string"
+  }, {
+    "name" : "version",
+    "type" : "string"
+  } ]
+}

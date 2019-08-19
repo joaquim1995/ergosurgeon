@@ -1,5 +1,5 @@
 
 ##Documentation
 
-http://localhost:8080/swagger-ui.html
 
+This project is for crud on postgres.

@@ -1,0 +1,9 @@
+{
+  "type" : "record",
+  "name" : "Sensor",
+  "namespace" : "com.mei.ergosurgeon.load.data.entities",
+  "fields" : [ {
+    "name" : "label",
+    "type" : "string"
+  } ]
+}

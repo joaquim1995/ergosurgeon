@@ -1,0 +1,68 @@
+spring:
+  kafka:
+    bootstrap-servers: 34.65.62.56:9092,34.65.208.54:9092
+    producer:
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      acks: all
+      transaction-id-prefix: tx.
+      retries: 10
+    properties:
+      schema.registry.url: http://localhost:8081
+      security:
+        protocol: SASL_PLAINTEXT
+      sasl:
+        mechanism: PLAIN
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="user" password="NuhwSBK7d5t8";
+
+  #    consumer:
+  #      bootstrap-servers: velomobile-01.srvs.cloudkafka.com:9094,velomobile-02.srvs.cloudkafka.com:9094,velomobile-03.srvs.cloudkafka.com:9094
+  #      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+  #      group-id: wf74rbt7-consumers
+  #      properties:
+  #        spring:
+  #          json:
+  #            trusted:
+  #              packages: com.mei.ergosurgeon.load.data.entities
+  #        isolation.level: read_committed
+  #      auto-offset-reset: latest
+
+  servlet:
+    multipart:
+      max-request-size: 2MB
+      max-file-size: 2MB
+  logging:
+    level:
+      root: TRACE
+
+
+#    properties:
+#      security:
+#        protocol: SASL_SSL
+#      sasl:
+#        mechanism: SCRAM-SHA-256
+#        jaas:
+#          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="user" password="e61fbPbduojc";
+
+
+
+
+#spring.kafka.properties.security.protocol=SASL_SSL
+#spring.kafka.properties.sasl.mechanism=SCRAM-SHA-256
+#spring.kafka.properties.sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required username="wf74rbt7" password="PNeldzoys1pOvFtBnrRHNKUBRkuo3Tns";
+
+
+
+
+
+## Because detection is disabled you have to set correct dialect by hand.
+#spring.jpa.database-platform=org.hibernate.dialect.PostgreSQL9Dialect
+#spring.data.cassandra.cluster-name=cassandra-cluster
+#spring.data.cassandra.=ergosurgeon
+#spring.data.cassandra.keyspace-name=ergosurgeon
+#spring.data.cassandra.port=9042
+#spring.data.cassandra.contact-points=localhost
+#spring.data.cassandra.schema-action=create_if_not_exists
+#spring.data.cassandra.password=cassandra
+#spring.data.cassandra.username=cassandra
+

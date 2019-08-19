@@ -1,0 +1,15 @@
+{
+  "type" : "record",
+  "name" : "Joint",
+  "namespace" : "com.mei.ergosurgeon.load.data.entities",
+  "fields" : [ {
+    "name" : "connector1",
+    "type" : "string"
+  }, {
+    "name" : "connector2",
+    "type" : "string"
+  }, {
+    "name" : "label",
+    "type" : "string"
+  } ]
+}

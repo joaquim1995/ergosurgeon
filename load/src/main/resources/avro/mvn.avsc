@@ -1,0 +1,12 @@
+{
+  "type" : "record",
+  "name" : "Mvn",
+  "namespace" : "com.mei.ergosurgeon.load.data.entities",
+  "fields" : [ {
+    "name" : "version",
+    "type" : "string"
+  }, {
+    "name" : "build",
+    "type" : "string"
+  } ]
+}

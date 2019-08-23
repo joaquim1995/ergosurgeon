@@ -7,10 +7,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
-import static org.apache.naming.ResourceRef.SINGLETON;
 
 @Service
-@Scope(SINGLETON)
+@Scope("singleton")
 public class AvroSchemaServiceImpl {
     public static Schema generateSchema(Class clazz) {
         return ReflectData.get().getSchema(clazz);

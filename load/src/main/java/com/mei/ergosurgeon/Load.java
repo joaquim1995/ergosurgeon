@@ -17,7 +17,6 @@ public class Load {
             SpringApplication.run(Load.class, args);
         } catch (Exception e) {
             e.printStackTrace();
-
         }
     }
 

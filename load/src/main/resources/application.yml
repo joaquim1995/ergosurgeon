@@ -7,7 +7,7 @@ spring:
       transaction-id-prefix: tx.
       retries: 10
     properties:
-      schema.registry.url: http://localhost:8081
+      schema.registry.url: http://35.193.178.156:8081
       security:
         protocol: SASL_PLAINTEXT
       sasl:

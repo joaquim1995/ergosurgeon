@@ -2,11 +2,14 @@ spring:
   cloud:
     gcp:
       credentials:
-        location: file:/Projects/ergosurgeon/crud/src/main/resources/postgresGcp.json
+        #Diferent environments 1- local 2- cloud
+        location: file:src/main/resources/postgresGcp.json
+        #location: file:WEB-INF/classes/postgresGcp.json
+      config:
+        project-id: ergosurgeon
       sql:
         database-name: ergosurgeon
-        instance-connection-name: tactile-atlas-218500:us-central1:postgres
-
+        instance-connection-name: ergosurgeon:europe-west3:ergosurgeon-postgres
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     hibernate:
@@ -23,3 +26,7 @@ spring:
     password: postgres
     continue-on-error: false
     initialization-mode: always
+
+logging:
+  level:
+    root: INFO

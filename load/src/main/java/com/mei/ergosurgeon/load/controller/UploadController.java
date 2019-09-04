@@ -26,7 +26,7 @@ public class UploadController {
     @RequestMapping(value = "/doUpload", method = RequestMethod.POST, consumes = "multipart/form-data")
     public String upload(@RequestParam MultipartFile file) {
         try {
-            unmarshal.unmarshal(file.getInputStream()).process(impl);
+            unmarshal.unmarshal(file.getInputStream()).send(impl);
         } catch (Exception e) {
             return "redirect:/failure.html";
         }

@@ -1,7 +1,7 @@
 {
   "type" : "record",
   "name" : "Sensor",
-  "namespace" : "com.mei.ergosurgeon.load.data.entities",
+  "namespace" : "com.mei.ergosurgeon.schema.entities",
   "fields" : [ {
     "name" : "label",
     "type" : "string"

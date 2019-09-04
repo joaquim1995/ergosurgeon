@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "ergosurgeon",
+  "private_key_id": "08fb5489b60108de715e9445f65e3e7eefa987fa",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEugIBADANBgkqhkiG9w0BAQEFAASCBKQwggSgAgEAAoIBAQCYMeKg7qOZJQv/\nO4ZpRb+WM9wIpeNeuXZBzg7n1pcdCoS4P5tKn0YW0V5ru9XhS+y3VhG70XmsrPxk\n0DzpGEZTp/J1apQqsk3m9zmW0/5hcmrxxJG7/dtQHDzvOzDGvza+LZfIY8ae0SSy\n+gJgxgFIVka49/ZgF3WmQn2qTe78L3O1v19ejNpHFcUVgqlDbKgkl5tAbwteTYOK\ne7XaCI9jSZUs0KjtN5opfIKEsI+prwd3wTl0kf4iHj3LYzSRGSTYnP8//23mLauX\nrJA/o2iDc5fE4qxcnTyaCNfjZdQX0cymtg2r5MC0FSk3hNHN68RpeVH17PJKA7GP\nQBqCnzd9AgMBAAECggEACgL/agpuF6UbaML/1g1WYOlGGF7f71DFnzw7Yx6M2pu2\nXFp5euCxtHmPEQjjtR+QpwTR7igwWAlvIatIfnrwJruoaaHvtO6oIkFGzWMNBlhd\nAaImhhaD0VLHjWM4Pl1rb/pBfwH/7whKC5NXtF8CIZc6AsaeXfbdGz6ffqRZdscH\nAG2RrDfYzzYGbHmR8TyyFFVjhuQ/iBAYKdtv5cFHGJ52EbWNCGEpleRN2y5e3/TY\nKmDMUTFqInUmBM3WcVVG/JQVgxj2GOEzkh8rrKbosi+zAPbUXojwAnvmXGz3A7e8\nqiEHVTsaiGPwWj1U9wLZLykllswpcxBmhj1roBwJ0QKBgQDPl1vXAIEUCLLJEaaF\nE5B2ZFan9xcoWWfuNz6tyOBhXF1bxoc1a2dslDi//lDEWQBTBWzupN+BrVui3xlv\nlmOu6U/mZ4gjlKJFusQF1pcKkuiUTqrbMf2lVrJyv8AlS46V+5xiFH64u8HeOnQB\n5dsCGI4W2xLa0/GMP6vtqvRqVQKBgQC7r4LPd/Rgc65FaNtf05WSaT48rJyJEZEu\nFbbL1/aERhIZEQnwaJgxrVcX5TirPXWzuxAXgcan+E0fNMfcDGk3eZCbhZJ3F1Lm\nbr4svOsnCVm+92QLtsh92k7upUQI6sJncBB9Avr2RmII24jJ3m/lJG7X3QB/DBrm\nLkyZiXkQiQJ/EQdZgUmJTRtpjxTjlAcG0q9obF7Yh3bOD7x4Z8kSnun0vpKKhNdK\npJ2ECjvSZEjovea0CN99diXCXpnufDjZ9H8vDrdvc3u90/p+GfyAZ12ltoS9fz2a\nkPWLrd4M5QJNr//z1BfaTU0ZmiExYvZ4ALQC890Eru6z4c1XTSe45QKBgBi8F7Q5\n7dXsSPJS0F5/pv2lqxMZ+IND8mstZ2rT6mQiS+5LxZCOaEhbvNekWOSQc/uc0pEW\nhFTMr3VGYnSImjE6bylf4B6bz0wZGi0RNLhvTgmR1viIPUIAzFg9JYs7TSWOqk2f\nX+2m9vKN5CgejYaYV5dRQ+h6cu0U+vldGbxpAoGAeJPirbL5kxXD0mwvUCWoeykf\nSuKsFR5CPCJY3IcbpKd/RwkeFP/5Fh0G5Oe+aNTVRE0ewh7n44EaUt29y33B5mEL\nxY+6+X4WoDzj73sWLdqsp93CZAjCSDXLTsnFxn7Oyc5CAGigRFL2HwHLrAm+nC8H\nCiKbFF06n3dsMqwjpKg=\n-----END PRIVATE KEY-----\n",
+  "client_email": "ergosurgeon@appspot.gserviceaccount.com",
+  "client_id": "104347910794691378108",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ergosurgeon%40appspot.gserviceaccount.com"
+}

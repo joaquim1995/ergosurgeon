@@ -1,15 +1,15 @@
-package com.mei.ergosurgeon;
+package com.mei.ergosurgeon.process;
+
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.cloud.stream.schema.client.EnableSchemaRegistryClient;
 
-import java.util.concurrent.Executor;
 
+@EnableSchemaRegistryClient
 @SpringBootApplication
 public class Process {
+
     public static void main(String[] args) {
 
         try {

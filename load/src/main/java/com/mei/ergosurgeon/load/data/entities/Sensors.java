@@ -33,7 +33,7 @@ public class Sensors {
     public Sensors process(KafkaLoadService proxy) throws Exception {
 
         for (Sensor item : getSensor()) {
-            item.process(proxy);
+            item.send(proxy);
         }
 
         //send(this);

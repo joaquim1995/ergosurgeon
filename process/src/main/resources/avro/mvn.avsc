@@ -1,7 +1,7 @@
 {
   "type" : "record",
   "name" : "Mvn",
-  "namespace" : "com.mei.ergosurgeon.load.data.entities",
+  "namespace" : "com.mei.ergosurgeon.schema.entities",
   "fields" : [ {
     "name" : "version",
     "type" : "string"

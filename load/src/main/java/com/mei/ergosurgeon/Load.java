@@ -1,5 +1,6 @@
 package com.mei.ergosurgeon;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -29,5 +30,10 @@ public class Load {
         executor.setThreadNamePrefix("Executor-");
         executor.initialize();
         return executor;
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 }

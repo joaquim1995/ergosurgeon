@@ -1,7 +1,7 @@
 {
   "type" : "record",
   "name" : "Point",
-  "namespace" : "com.mei.ergosurgeon.load.data.entities",
+  "namespace" : "com.mei.ergosurgeon.schema.entities",
   "fields" : [ {
     "name" : "posS",
     "type" : "string"

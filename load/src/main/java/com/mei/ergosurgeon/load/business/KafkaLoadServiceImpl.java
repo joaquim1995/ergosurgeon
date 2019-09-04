@@ -2,6 +2,8 @@ package com.mei.ergosurgeon.load.business;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaLoadServiceImpl implements KafkaLoadService {
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     //TODO if the writer's record contains a field with a name not present
     // in the reader's record, the writer's value for that field is ignored.
     // ou seja apagar tudo o que seja objectos dentro de objectos
@@ -17,17 +22,18 @@ public class KafkaLoadServiceImpl implements KafkaLoadService {
     // faço um flatMap(item-> item.getList().steam())
 
     @Override
-    public <T extends KafkaTopic<T>> void send(T item) throws Exception {
+    public <S extends KafkaTopic<S>> void send(S item, Class toClass) throws Exception {
         try {
             item.getKafkaTemplate().executeInTransaction(
                     (kafkaOperations) -> kafkaOperations.send(
                             MessageBuilder
-                                    .withPayload(item)
+                                    .withPayload(modelMapper.map(item, toClass))
                                     .setHeader(KafkaHeaders.TOPIC, item.getInternalTopic())
+                                    .setHeader("contentType", "application/*+avro")
                                     //.setHeader(KafkaHeaders.MESSAGE_KEY, item)
                                     .build()
                     )
-            ).get();
+            );
         } catch (Exception e) {
             e.printStackTrace();
             throw e;

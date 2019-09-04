@@ -9,34 +9,25 @@
 package com.mei.ergosurgeon.load.data.entities;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
-import com.mei.ergosurgeon.load.business.utils.AvroFilesUtil;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
-import org.apache.avro.reflect.AvroIgnore;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
-import java.io.File;
-
-import static com.mei.ergosurgeon.load.common.IlegalStateExceptionEnum.AVRO_INDEX_RECORD_GET;
-import static com.mei.ergosurgeon.load.common.IlegalStateExceptionEnum.AVRO_INDEX_RECORD_PUT;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "mvnx")
 public class Mvnx implements KafkaTopic<Mvnx> {
 
-    @AvroIgnore
     @XmlElement(required = true)
     protected Mvn mvn;
 
     @XmlElement(required = true)
     protected String comment;
 
-    @AvroIgnore
     @XmlElement(required = true)
     protected Subject subject;
 
-    @AvroIgnore
     @XmlElement(required = true)
     protected SecurityCode securityCode;
 
@@ -83,10 +74,10 @@ public class Mvnx implements KafkaTopic<Mvnx> {
         this.version = value;
     }
 
-    public Mvnx process(KafkaLoadService proxy) throws Exception {
+    public Mvnx send(KafkaLoadService proxy) throws Exception {
 
-        proxy.send(this);
-        getSubject().process(proxy);
+        proxy.send(this, com.mei.ergosurgeon.schema.entities.Mvnx.class);
+        getSubject().send(proxy);
         //send(this);
         return this;
     }
@@ -100,36 +91,5 @@ public class Mvnx implements KafkaTopic<Mvnx> {
     @Override
     public KafkaTemplate<Object, Mvnx> getKafkaTemplate() {
         return KafkaTemplatesUtil.getKafkaMvnxTemplate();
-    }
-
-    @Override
-    public File getAvroSchemaFile() {
-        return AvroFilesUtil.getAvroMvnxSchema();
-    }
-
-    @Override
-    public void put(int i, Object v) {
-        switch (i) {
-            case 0:
-                setComment((String) v);
-                break;
-            case 1:
-                setVersion((String) v);
-                break;
-            default:
-                throw new IllegalStateException(AVRO_INDEX_RECORD_PUT.getValue());
-        }
-    }
-
-    @Override
-    public Object get(int i) {
-        switch (i) {
-            case 0:
-                return getComment();
-            case 1:
-                return getVersion();
-            default:
-                throw new IllegalStateException(AVRO_INDEX_RECORD_GET.getValue());
-        }
     }
 }

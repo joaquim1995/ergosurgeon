@@ -9,22 +9,16 @@
 package com.mei.ergosurgeon.load.data.entities;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
-import com.mei.ergosurgeon.load.business.utils.AvroFilesUtil;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
 import com.mei.ergosurgeon.load.data.entities.custom.Vector;
-import org.apache.avro.generic.GenericContainer;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
-import java.io.File;
-
-import static com.mei.ergosurgeon.load.common.IlegalStateExceptionEnum.AVRO_INDEX_RECORD_GET;
-import static com.mei.ergosurgeon.load.common.IlegalStateExceptionEnum.AVRO_INDEX_RECORD_PUT;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "point")
-public class Point implements GenericContainer, KafkaTopic<Point> {
+public class Point implements KafkaTopic<Point> {
     @XmlElement(name = "pos_s", required = true)
     protected String posS;
 
@@ -58,9 +52,9 @@ public class Point implements GenericContainer, KafkaTopic<Point> {
     }
 
     @Override
-    public Point process(KafkaLoadService proxy) throws Exception {
+    public Point send(KafkaLoadService proxy) throws Exception {
 
-        proxy.send(this);
+        proxy.send(this, com.mei.ergosurgeon.schema.entities.Point.class);
         /*
         //reset position to 0 after reduce the position of all frames so can be normalized the movement, else the IA
         //need to understand that a movement the distances and normal positions
@@ -86,41 +80,5 @@ public class Point implements GenericContainer, KafkaTopic<Point> {
     @Override
     public KafkaTemplate<Object, Point> getKafkaTemplate() {
         return KafkaTemplatesUtil.getKafkaPointTemplate();
-    }
-
-    @Override
-    public File getAvroSchemaFile() {
-        return AvroFilesUtil.getAvroPointSchema();
-    }
-
-    @Override
-    public void put(int i, Object v) {
-        switch (i) {
-            case 0:
-                setPosS((String) v);
-                break;
-            case 1:
-                setLabel((String) v);
-                break;
-            case 2:
-                setPosition((Vector) v);
-                break;
-            default:
-                throw new IllegalStateException(AVRO_INDEX_RECORD_PUT.getValue());
-        }
-    }
-
-    @Override
-    public Object get(int i) {
-        switch (i) {
-            case 0:
-                return getPosS();
-            case 1:
-                return getLabel();
-            case 2:
-                return getPosition();
-            default:
-                throw new IllegalStateException(AVRO_INDEX_RECORD_GET.getValue());
-        }
     }
 }

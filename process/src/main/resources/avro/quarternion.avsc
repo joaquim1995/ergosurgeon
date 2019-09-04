@@ -1,7 +1,7 @@
 {
   "type" : "record",
   "name" : "Quaternion",
-  "namespace" : "com.mei.ergosurgeon.load.data.entities.custom",
+  "namespace" : "com.mei.ergosurgeon.schema.entities.custom",
   "fields" : [ {
     "name" : "time",
     "type" : "long"

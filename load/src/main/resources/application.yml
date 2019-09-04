@@ -14,44 +14,15 @@ spring:
         mechanism: PLAIN
         jaas:
           config: org.apache.kafka.common.security.plain.PlainLoginModule required username="user" password="NuhwSBK7d5t8";
-
-  #    consumer:
-  #      bootstrap-servers: velomobile-01.srvs.cloudkafka.com:9094,velomobile-02.srvs.cloudkafka.com:9094,velomobile-03.srvs.cloudkafka.com:9094
-  #      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-  #      group-id: wf74rbt7-consumers
-  #      properties:
-  #        spring:
-  #          json:
-  #            trusted:
-  #              packages: com.mei.ergosurgeon.load.data.entities
-  #        isolation.level: read_committed
-  #      auto-offset-reset: latest
-
   servlet:
     multipart:
       max-request-size: 2MB
       max-file-size: 2MB
-  logging:
-    level:
-      root: TRACE
 
 
-#    properties:
-#      security:
-#        protocol: SASL_SSL
-#      sasl:
-#        mechanism: SCRAM-SHA-256
-#        jaas:
-#          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="user" password="e61fbPbduojc";
-
-
-
-
-#spring.kafka.properties.security.protocol=SASL_SSL
-#spring.kafka.properties.sasl.mechanism=SCRAM-SHA-256
-#spring.kafka.properties.sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required username="wf74rbt7" password="PNeldzoys1pOvFtBnrRHNKUBRkuo3Tns";
-
-
+logging:
+  level:
+    root: INFO
 
 
 

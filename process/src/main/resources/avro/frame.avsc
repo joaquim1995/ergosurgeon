@@ -1,7 +1,7 @@
 {
   "type" : "record",
   "name" : "Frame",
-  "namespace" : "com.mei.ergosurgeon.load.data.entities",
+  "namespace" : "com.mei.ergosurgeon.schema.entities",
   "fields" : [ {
     "name" : "orientation",
     "type": "string"

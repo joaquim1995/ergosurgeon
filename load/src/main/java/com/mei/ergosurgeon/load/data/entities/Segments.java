@@ -34,7 +34,7 @@ public class Segments {
 
     public Segments process(KafkaLoadService proxy) throws Exception {
         for (Segment item : getSegment()) {
-            item.process(proxy);
+            item.send(proxy);
         }
         //send(this);
         return this;

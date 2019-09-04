@@ -9,17 +9,11 @@
 package com.mei.ergosurgeon.load.data.entities;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
-import com.mei.ergosurgeon.load.business.utils.AvroFilesUtil;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
-import org.apache.avro.reflect.AvroIgnore;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
-import java.io.File;
-
-import static com.mei.ergosurgeon.load.common.IlegalStateExceptionEnum.AVRO_INDEX_RECORD_GET;
-import static com.mei.ergosurgeon.load.common.IlegalStateExceptionEnum.AVRO_INDEX_RECORD_PUT;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "subject")
@@ -28,17 +22,13 @@ public class Subject implements KafkaTopic<Subject> {
     @XmlElement(required = true)
     protected String comment;
 
-    @AvroIgnore
     @XmlElement(required = true)
     protected Segments segments;
 
-    @AvroIgnore
     protected Sensors sensors;
 
-    @AvroIgnore
     protected Joints joints;
 
-    @AvroIgnore
     @XmlElement(required = true)
     protected Frames frames;
 
@@ -149,9 +139,9 @@ public class Subject implements KafkaTopic<Subject> {
         this.originalFilename = value;
     }
 
-    public Subject process(KafkaLoadService proxy) throws Exception {
+    public Subject send(KafkaLoadService proxy) throws Exception {
 
-        proxy.send(this);
+        proxy.send(this, com.mei.ergosurgeon.schema.entities.Subject.class);
 
         getSegments().process(proxy);
         getJoints().process(proxy);
@@ -169,61 +159,5 @@ public class Subject implements KafkaTopic<Subject> {
     @Override
     public KafkaTemplate<Object, Subject> getKafkaTemplate() {
         return KafkaTemplatesUtil.getKafkaSubjectTemplate();
-    }
-
-    @Override
-    public File getAvroSchemaFile() {
-        return AvroFilesUtil.getAvroSubjectSchema();
-    }
-
-    @Override
-    public void put(int i, Object v) {
-        switch (i) {
-            case 0:
-                setComment((String) v);
-                break;
-            case 1:
-                setLabel((String) v);
-                break;
-            case 2:
-                setTorsoColor((String) v);
-                break;
-            case 3:
-                setFrameRate((Long) v);
-                break;
-            case 4:
-                setSegmentCount((String) v);
-                break;
-            case 5:
-                setRecDate((String) v);
-                break;
-            case 6:
-                setOriginalFilename((String) v);
-                break;
-            default:
-                throw new IllegalStateException(AVRO_INDEX_RECORD_PUT.getValue());
-        }
-    }
-
-    @Override
-    public Object get(int i) {
-        switch (i) {
-            case 0:
-                return getComment();
-            case 1:
-                return getLabel();
-            case 2:
-                return getTorsoColor();
-            case 3:
-                return getFrameRate();
-            case 4:
-                return getSegmentCount();
-            case 5:
-                return getRecDate();
-            case 6:
-                return getOriginalFilename();
-            default:
-                throw new IllegalStateException(AVRO_INDEX_RECORD_GET.getValue());
-        }
     }
 }

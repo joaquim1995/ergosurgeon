@@ -34,7 +34,7 @@ public class Points {
 
     public Points process(KafkaLoadService proxy) throws Exception {
         for (Point item : getPoint()) {
-            item.process(proxy);
+            item.send(proxy);
         }
         //send(this);
         return this;

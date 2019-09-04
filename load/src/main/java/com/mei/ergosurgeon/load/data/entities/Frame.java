@@ -10,20 +10,14 @@ package com.mei.ergosurgeon.load.data.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
-import com.mei.ergosurgeon.load.business.utils.AvroFilesUtil;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
 import com.mei.ergosurgeon.load.data.entities.custom.Quaternion;
 import com.mei.ergosurgeon.load.data.entities.custom.Vector;
-import org.apache.avro.reflect.AvroIgnore;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
-import java.io.File;
 import java.util.List;
-
-import static com.mei.ergosurgeon.load.common.IlegalStateExceptionEnum.AVRO_INDEX_RECORD_GET;
-import static com.mei.ergosurgeon.load.common.IlegalStateExceptionEnum.AVRO_INDEX_RECORD_PUT;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "frame")
@@ -58,10 +52,8 @@ public class Frame implements KafkaTopic<Frame> {
     @XmlAttribute(name = "type", required = true)
     protected String type;
 
-    @AvroIgnore
     private List<Quaternion> orientations;
 
-    @AvroIgnore
     private List<Vector> positions;
 
     public List<Quaternion> getOrientations() {
@@ -232,9 +224,9 @@ public class Frame implements KafkaTopic<Frame> {
         this.type = value;
     }
 
-    public Frame process(KafkaLoadService proxy) throws Exception {
+    public Frame send(KafkaLoadService proxy) throws Exception {
 
-        proxy.send(this);
+        proxy.send(this, com.mei.ergosurgeon.schema.entities.Frame.class);
 
         /*//TODO Normalize the frames.
 
@@ -274,119 +266,4 @@ public class Frame implements KafkaTopic<Frame> {
         return KafkaTemplatesUtil.getKafkaFrameTemplate();
     }
 
-    @Override
-    public File getAvroSchemaFile() {
-        return AvroFilesUtil.getAvroFrameSchema();
-    }
-
-    @Override
-    public void put(int i, Object v) {
-        switch (i) {
-            case 0:
-                setOrientation((String) v);
-                break;
-            case 1:
-                setPosition((String) v);
-                break;
-            case 2:
-                setVelocity((String) v);
-                break;
-            case 3:
-                setAcceleration((String) v);
-                break;
-            case 4:
-                setAngularVelocity((String) v);
-                break;
-            case 5:
-                setAngularAcceleration((String) v);
-                break;
-            case 6:
-                setSensorAcceleration((String) v);
-                break;
-            case 7:
-                setSensorAngularVelocity((String) v);
-                break;
-            case 8:
-                setSensorMagneticField((String) v);
-                break;
-            case 9:
-                setSensorOrientation((String) v);
-                break;
-            case 10:
-                setJointAngle((String) v);
-                break;
-            case 11:
-                setJointAngleXZY((String) v);
-                break;
-            case 12:
-                setCenterOfMass((String) v);
-                break;
-            case 13:
-                setMarker((String) v);
-                break;
-            case 14:
-                setTime((String) v);
-                break;
-            case 15:
-                setIndex((String) v);
-                break;
-            case 16:
-                setTc((String) v);
-                break;
-            case 17:
-                setMs((String) v);
-                break;
-            case 18:
-                setType((String) v);
-                break;
-            default:
-                throw new IllegalStateException(AVRO_INDEX_RECORD_PUT.getValue());
-        }
-    }
-
-    @Override
-    public Object get(int i) {
-        switch (i) {
-            case 0:
-                return getOrientation();
-            case 1:
-                return getPosition();
-            case 2:
-                return getVelocity();
-            case 3:
-                return getAcceleration();
-            case 4:
-                return getAngularVelocity();
-            case 5:
-                return getAngularAcceleration();
-            case 6:
-                return getSensorAcceleration();
-            case 7:
-                return getSensorAngularVelocity();
-            case 8:
-                return getSensorMagneticField();
-            case 9:
-                return getSensorOrientation();
-            case 10:
-                return getJointAngle();
-            case 11:
-                return getJointAngleXZY();
-            case 12:
-                return getCenterOfMass();
-            case 13:
-                return getMarker();
-            case 14:
-                return getTime();
-            case 15:
-                return getIndex();
-            case 16:
-                return getTc();
-            case 17:
-                return getMs();
-            case 18:
-                return getType();
-            default:
-                throw new IllegalStateException(AVRO_INDEX_RECORD_GET.getValue());
-        }
-    }
 }

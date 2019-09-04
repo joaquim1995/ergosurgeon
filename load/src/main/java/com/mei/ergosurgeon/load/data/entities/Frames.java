@@ -67,7 +67,7 @@ public class Frames {
 
         for (Frame item : getFrame()) {
             if (StringUtils.equalsIgnoreCase(item.getType(), "normal")) {
-                item.process(proxy);
+                item.send(proxy);
             }
         }
 

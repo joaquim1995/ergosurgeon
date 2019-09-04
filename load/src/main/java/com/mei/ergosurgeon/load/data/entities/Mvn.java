@@ -8,8 +8,8 @@
 
 package com.mei.ergosurgeon.load.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
-import com.mei.ergosurgeon.load.business.utils.AvroFilesUtil;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -18,11 +18,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.File;
 
-import static com.mei.ergosurgeon.load.common.IlegalStateExceptionEnum.AVRO_INDEX_RECORD_GET;
-import static com.mei.ergosurgeon.load.common.IlegalStateExceptionEnum.AVRO_INDEX_RECORD_PUT;
-
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "mvn")
 public class Mvn implements KafkaTopic<Mvn> {
@@ -50,9 +47,9 @@ public class Mvn implements KafkaTopic<Mvn> {
     }
 
     @Override
-    public Mvn process(KafkaLoadService proxy) throws Exception {
+    public Mvn send(KafkaLoadService proxy) throws Exception {
 
-        proxy.send(this);
+        proxy.send(this, com.mei.ergosurgeon.schema.entities.Mvn.class);
         return this;
     }
 
@@ -65,37 +62,5 @@ public class Mvn implements KafkaTopic<Mvn> {
     @Override
     public KafkaTemplate<Object, Mvn> getKafkaTemplate() {
         return KafkaTemplatesUtil.getKafkaMvnTemplate();
-    }
-
-    @Override
-    public File getAvroSchemaFile() {
-        return AvroFilesUtil.getAvroMvnSchema();
-    }
-
-    @Override
-    public void put(int i, Object v) {
-        switch (i) {
-            case 0:
-                setVersion((String) v);
-                break;
-            case 1:
-                setBuild((String) v);
-                break;
-            default:
-                throw new IllegalStateException(AVRO_INDEX_RECORD_PUT.getValue());
-
-        }
-    }
-
-    @Override
-    public Object get(int i) {
-        switch (i) {
-            case 0:
-                return getVersion();
-            case 1:
-                return getBuild();
-            default:
-                throw new IllegalStateException(AVRO_INDEX_RECORD_GET.getValue());
-        }
     }
 }

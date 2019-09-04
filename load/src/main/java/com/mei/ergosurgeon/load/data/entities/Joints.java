@@ -34,7 +34,7 @@ public class Joints {
 
     public Joints process(KafkaLoadService proxy) throws Exception {
         for (Joint item : getJoint()) {
-            item.process(proxy);
+            item.send(proxy);
         }
         //send(this);
         return this;

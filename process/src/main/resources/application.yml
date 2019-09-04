@@ -1,31 +1,57 @@
 spring:
-  kafka:
-    bootstrap-servers: 34.65.62.56:9092,34.65.208.54:9092
-    producer:
-      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
-      acks: all
-      transaction-id-prefix: tx.
-      retries: 10
-    properties:
-      schema.registry.url: http://localhost:8081
-      security:
-        protocol: SASL_PLAINTEXT
-      sasl:
-        mechanism: PLAIN
-        jaas:
-          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="user" password="NuhwSBK7d5t8";
-spring:
+  main:
+    allow-bean-definition-overriding: true
   cloud:
     stream:
+      default:
+        producer:
+          useNativeEncoding: true
+        consumer:
+          useNativeEncoding: true
       bindings:
-        sample-source:
-          destination: testtock
         input:
-          destination: testtock
+          destination: raw_point
+          content-type: application/*+avro
+          group: process
         output:
-          destination: xformed
-        sample-sink:
-          destination: xformed
-  logging:
-    level:
-      root: TRACE
+          destination: threated_point
+          content-type: application/*+avro
+          group: process
+      #Config do stream do spring kafka   # Without !!! Cannot convert from [[B] to [com.mei.ergosurgeon.process.data.entities.Point]
+      kafka:
+        binder:
+          producer-properties:
+            key.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+            value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+            schema.registry.url: http://35.193.178.156:8081
+          consumer-properties:
+            key.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+            value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+            schema.registry.url: http://35.193.178.156:8081
+            specific.avro.reader: true
+          required-acks: all
+          transaction:
+            transaction-id-prefix: tx.
+  #Prperties of Kafka-clients
+  kafka:
+    properties:
+      sasl:
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="user" password="NuhwSBK7d5t8";
+        mechanism: PLAIN
+      security:
+        protocol: SASL_PLAINTEXT
+    producer:
+      transaction-id-prefix: tx.
+      acks: all
+      retries: 10
+
+    consumer:
+      group-id: process
+    bootstrap-servers: 34.65.62.56:9092,34.65.208.54:9092
+
+logging:
+  level:
+    root: INFO
+
+

@@ -1,0 +1,12 @@
+{
+  "type" : "record",
+  "name" : "Segment",
+  "namespace" : "com.mei.ergosurgeon.schema.entities",
+  "fields" : [ {
+    "name" : "label",
+    "type" : "string"
+  }, {
+    "name" : "segmentId",
+    "type" : "long"
+  } ]
+}

@@ -1,0 +1,21 @@
+{
+  "type" : "record",
+  "name" : "Vector",
+  "namespace" : "com.mei.ergosurgeon.schema.entities.custom",
+  "fields" : [ {
+    "name" : "time",
+    "type" : "long"
+  }, {
+    "name" : "q0",
+    "type" : "float"
+  }, {
+    "name" : "q1",
+    "type" : "float"
+  }, {
+    "name" : "q2",
+    "type" : "float"
+  }, {
+    "name" : "segmentLabel",
+    "type" : "string"
+  } ]
+}

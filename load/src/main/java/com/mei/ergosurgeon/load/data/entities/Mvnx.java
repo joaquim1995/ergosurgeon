@@ -78,7 +78,7 @@ public class Mvnx implements KafkaTopic<Mvnx> {
 
         proxy.send(this, com.mei.ergosurgeon.schema.entities.Mvnx.class);
         getSubject().send(proxy);
-        //send(this);
+        getMvn().send(proxy);
         return this;
     }
 

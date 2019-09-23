@@ -1,19 +1,19 @@
 spring:
   kafka:
-    bootstrap-servers: 34.65.62.56:9092,34.65.208.54:9092
+    bootstrap-servers: 34.90.183.51:9092,35.204.239.208:9092,35.204.122.190:9092
     producer:
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
       acks: all
       transaction-id-prefix: tx.
       retries: 10
     properties:
-      schema.registry.url: http://35.193.178.156:8081
+      schema.registry.url: http://34.77.193.220:8081
       security:
         protocol: SASL_PLAINTEXT
       sasl:
         mechanism: PLAIN
         jaas:
-          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="user" password="NuhwSBK7d5t8";
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="user" password="t3EhuxADmC2J";
   servlet:
     multipart:
       max-request-size: 2MB

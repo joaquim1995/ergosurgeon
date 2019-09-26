@@ -11,8 +11,8 @@ public interface StreamProcessorFrame {
     String OUTPUT = "threated_frame";
 
     @Input(INPUT)
-    SubscribableChannel processorInput();
+    SubscribableChannel processorInputFrame();
 
     @Output(OUTPUT)
-    MessageChannel processorOutput();
+    MessageChannel processorOutputFrame();
 }

@@ -1,19 +1,12 @@
 spring:
-  main:
-    allow-bean-definition-overriding: true
   cloud:
     stream:
-      #To register all Registering MessageChannel by monitor.IntegrationMBeanExporter
-      bindings:
-        default:
-          contentType: application/*+avro
-        input:
-          destination: raw_point
-          group: process
-        output:
-          destination: threated_point
-          group: process
-      #Config do stream do spring kafka   # Without !!! Cannot convert from [[B] to [com.mei.ergosurgeon.process.data.entities.Point]
+      default:
+        producer:
+          useNativeEncoding: true
+        consumer:
+          useNativeEncoding: true
+
       kafka:
         binder:
           producer-properties:
@@ -25,11 +18,7 @@ spring:
             value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
             schema.registry.url: http://34.77.193.220:8081
             specific.avro.reader: true
-          required-acks: all
-          transaction:
-            transaction-id-prefix: tx.
-          replication-factor: 1
-  #Prperties of Kafka-clients
+
   kafka:
     properties:
       sasl:
@@ -46,11 +35,168 @@ spring:
     consumer:
       group-id: process
     bootstrap-servers: 34.90.183.51:9092,35.204.239.208:9092,35.204.122.190:9092
-    streams:
-      replication-factor: 3
 
-logging:
-  level:
-    root: INFO
+#spring:
+#  cloud:
+#    stream:
+#      default:
+#        producer:
+#          useNativeEncoding: true
+#        consumer:
+#          useNativeEncoding: true
+#      #NOT NEEDED ALREADY TESTED !!! To register all bindings not just that, Registering MessageChannel by monitor.IntegrationMBeanExporter
+##      bindings:
+##        default:
+##          contentType: application/*+avro
+##        raw_frame:
+##          destination: raw_frame
+##          group: process
+##          content-type: application/*+avro
+##          producer:
+##            partitionCount: 3
+##        threated_frame:
+##          destination: threated_frame
+##          group: process
+##        raw_joint:
+##          destination: raw_joint
+##          group: process
+##          content-type: application/*+avro
+##          producer:
+##            partitionCount: 3
+##        threated_joint:
+##          destination: threated_joint
+##          group: process
+##        raw_mvn:
+##          destination: raw_mvn
+##          group: process
+##          content-type: application/*+avro
+##          producer:
+##            partitionCount: 3
+##        threated_mvn:
+##          destination: threated_mvn
+##          group: process
+##        raw_mvnx:
+##          destination: raw_mvnx
+##          group: process
+##          content-type: application/*+avro
+##          producer:
+##            partitionCount: 3
+##        threated_mvnx:
+##          destination: threated_mvnx
+##          group: process
+##          content-type: application/*+avro
+##          consumer:
+##            concurrency: 1
+##            partitioned: true
+##            startOffset: earliest
+##        raw_point:
+##          destination: raw_point
+##          group: process
+##          content-type: application/*+avro
+##          producer:
+##            partitionCount: 3
+##        threated_point:
+##          destination: threated_point
+##          group: process
+##          content-type: application/*+avro
+##          consumer:
+##            concurrency: 1
+##            partitioned: true
+##            startOffset: earliest
+##        raw_quarternion:
+##          destination: raw_quarternion
+##          group: process
+##          content-type: application/*+avro
+##          producer:
+##            partitionCount: 3
+##        threated_quarternion:
+##          destination: threated_quarternion
+##          group: process
+##        raw_segment:
+##          destination: raw_segment
+##          group: process
+##          content-type: application/*+avro
+##          producer:
+##            partitionCount: 3
+##        threated_segment:
+##          destination: threated_segment
+##          group: process
+##        raw_sensor:
+##          destination: raw_sensor
+##          group: process
+##          content-type: application/*+avro
+##          producer:
+##            partitionCount: 3
+##        threated_sensor:
+##          destination: threated_sensor
+##          group: process
+##        raw_subject:
+##          destination: raw_subject
+##          group: process
+##          content-type: application/*+avro
+##          producer:
+##            partitionCount: 3
+##        threated_subject:
+##          destination: threated_mvnx
+##          group: process
+##          content-type: application/*+avro
+##          consumer:
+##            concurrency: 1
+##            partitioned: true
+##            startOffset: earliest
+##        raw_vector:
+##          destination: raw_point
+##          group: process
+##          content-type: application/*+avro
+##          producer:
+##            partitionCount: 3
+##        threated_vector:
+##          destination: threated_point
+##          group: process
+##          content-type: application/*+avro
+##          consumer:
+##            concurrency: 1
+##            partitioned: true
+##            startOffset: earliest
+#      #Cfig do stream do spring kafka   # Without !!! Cannot convert from [[B] to [com.mei.ergosurgeon.process.data.entities.Point]
+#      kafka:
+#        binder:
+#          auto-add-partitions: true
+#          auto-create-topics: true
+#          min-partition-count: 2
+#          producer-properties:
+#            key.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+#            value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+#            schema.registry.url: http://34.77.193.220:8081
+#          consumer-properties:
+#            key.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+#            value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+#            schema.registry.url: http://34.77.193.220:8081
+#            specific.avro.reader: true
+#          required-acks: all
+#          transaction:
+#            transaction-id-prefix: tx.
+#          replication-factor: 3
+#  #Prperties of Kafka-clients
+#  kafka:
+#    properties:
+#      sasl:
+#        jaas:
+#          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="user" password="t3EhuxADmC2J";
+#        mechanism: PLAIN
+#      security:
+#        protocol: SASL_PLAINTEXT
+#    producer:
+#      transaction-id-prefix: tx.
+#      acks: all
+#      retries: 10
+#
+#    consumer:
+#      group-id: process
+#    bootstrap-servers: 34.90.183.51:9092,35.204.239.208:9092,35.204.122.190:9092
+#
+#logging:
+#  level:
+#    root: INFO
 
 

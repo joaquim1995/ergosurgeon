@@ -12,6 +12,7 @@
     <system-properties>
         <property name="java.util.logging.config.file" value="WEB-INF/classes/logging.properties"/>
     </system-properties>
+    <warmup-requests-enabled>false</warmup-requests-enabled>
     <automatic-scaling>
         <max-instances>1</max-instances>
     </automatic-scaling>

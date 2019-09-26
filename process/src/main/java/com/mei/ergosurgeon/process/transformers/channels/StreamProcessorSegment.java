@@ -11,8 +11,8 @@ public interface StreamProcessorSegment {
     String OUTPUT = "threated_segment";
 
     @Input(INPUT)
-    SubscribableChannel processorInput();
+    SubscribableChannel processorInputSegment();
 
     @Output(OUTPUT)
-    MessageChannel processorOutput();
+    MessageChannel processorOutputSegment();
 }

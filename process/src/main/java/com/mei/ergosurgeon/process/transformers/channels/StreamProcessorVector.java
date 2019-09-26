@@ -11,8 +11,8 @@ public interface StreamProcessorVector {
     String OUTPUT = "threated_vector";
 
     @Input(INPUT)
-    SubscribableChannel processorInput();
+    SubscribableChannel processorInputVector();
 
     @Output(OUTPUT)
-    MessageChannel processorOutput();
+    MessageChannel processorOutputVector();
 }

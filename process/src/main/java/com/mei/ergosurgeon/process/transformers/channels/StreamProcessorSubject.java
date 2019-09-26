@@ -11,8 +11,8 @@ public interface StreamProcessorSubject {
     String OUTPUT = "threated_subject";
 
     @Input(INPUT)
-    SubscribableChannel processorInput();
+    SubscribableChannel processorInputSubject();
 
     @Output(OUTPUT)
-    MessageChannel processorOutput();
+    MessageChannel processorOutputSubject();
 }

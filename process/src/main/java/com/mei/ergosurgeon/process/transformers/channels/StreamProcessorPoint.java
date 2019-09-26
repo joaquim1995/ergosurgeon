@@ -11,8 +11,8 @@ public interface StreamProcessorPoint {
     String OUTPUT = "threated_point";
 
     @Input(INPUT)
-    SubscribableChannel processorInput();
+    SubscribableChannel processorInputPoint();
 
     @Output(OUTPUT)
-    MessageChannel processorOutput();
+    MessageChannel processorOutputPoint();
 }

@@ -11,8 +11,8 @@ public interface StreamProcessorSensor {
     String OUTPUT = "threated_sensor";
 
     @Input(INPUT)
-    SubscribableChannel processorInput();
+    SubscribableChannel processorInputSensor();
 
     @Output(OUTPUT)
-    MessageChannel processorOutput();
+    MessageChannel processorOutputSensor();
 }

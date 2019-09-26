@@ -11,8 +11,8 @@ public interface StreamProcessorJoint {
     String OUTPUT = "threated_joint";
 
     @Input(INPUT)
-    SubscribableChannel processorInput();
+    SubscribableChannel processorInputJoint();
 
     @Output(OUTPUT)
-    MessageChannel processorOutput();
+    MessageChannel processorOutputJoint();
 }

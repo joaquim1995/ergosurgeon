@@ -11,8 +11,8 @@ public interface StreamProcessorMvn {
     String OUTPUT = "threated_mvn";
 
     @Input(INPUT)
-    SubscribableChannel processorInput();
+    SubscribableChannel processorInputMvn();
 
     @Output(OUTPUT)
-    MessageChannel processorOutput();
+    MessageChannel processorOutputMvn();
 }

@@ -11,8 +11,8 @@ public interface StreamProcessorQuaternion {
     String OUTPUT = "threated_quaternion";
 
     @Input(INPUT)
-    SubscribableChannel processorInput();
+    SubscribableChannel processorInputQuaternion();
 
     @Output(OUTPUT)
-    MessageChannel processorOutput();
+    MessageChannel processorOutputQuaternion();
 }

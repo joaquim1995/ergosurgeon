@@ -1,8 +1,12 @@
 package com.mei.ergosurgeon.load.data.entities.custom;
 
+import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
+import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
+import org.springframework.kafka.core.KafkaTemplate;
+
 import java.util.Objects;
 
-public class Quaternion {
+public class Quaternion implements KafkaTopic<Quaternion> {
 
     private Long time;
 
@@ -91,6 +95,22 @@ public class Quaternion {
     @Override
     public int hashCode() {
         return Objects.hash(time, q0, q1, q2, q3);
+    }
+
+    public Quaternion send(KafkaLoadService proxy) throws Exception {
+
+        proxy.send(this, com.mei.ergosurgeon.schema.entities.custom.Quaternion.class);
+        return this;
+    }
+
+    @Override
+    public String getTopic() {
+        return "quaternion";
+    }
+
+    @Override
+    public KafkaTemplate<Object, Quaternion> getKafkaTemplate() {
+        return KafkaTemplatesUtil.getKafkaQuaternionTemplate();
     }
 
 }

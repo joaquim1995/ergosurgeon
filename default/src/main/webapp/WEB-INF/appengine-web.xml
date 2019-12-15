@@ -6,7 +6,7 @@
     <env>standard</env>
     <instance-class>B1</instance-class>
     <threadsafe>true</threadsafe>
-    <application>ergosurgeon-253218</application>
+    <application>project-258120</application>
     <service>default</service>
     <version>1</version>
     <sessions-enabled>true</sessions-enabled>

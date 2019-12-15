@@ -16,7 +16,7 @@ public class Process {
     public static void main(String[] args) {
 
         try {
-            SpringApplication.run(Process.class, args);
+             SpringApplication.run(Process.class, args);
         } catch (Exception e) {
             e.printStackTrace();
 

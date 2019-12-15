@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.5.RELEASE</version>
+        <version>2.2.2.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -16,10 +16,12 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>crud</module>
+        <!--module>crud</module-->
         <module>load</module>
         <module>process</module>
         <module>default</module>
+        <module>schema</module>
+        <module>evaluate</module>
     </modules>
 
     <properties>
@@ -46,7 +48,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.google.appengine/appengine-java-sdk >
@@ -55,7 +56,7 @@
             <artifactId>appengine-api-1.0-sdk</artifactId>
         </dependency-->
 
-        <dependency>
+        <!--dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.9</version>
@@ -70,13 +71,7 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.9.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.avro</groupId>
-            <artifactId>avro</artifactId>
-            <version>${avro.version}</version>
-        </dependency>
+        </dependency-->
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -85,29 +80,29 @@
         </dependency>
     </dependencies>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.mei.ergosurgeon</groupId>
+                <artifactId>schema</artifactId>
+                <version>${project.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro</artifactId>
+                <version>${avro.version}</version>
+                <scope>compile</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <profiles>
-
-        <profile>
-            <id>Spring Boot</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
 
         <profile>
             <id>Google Cloud Platform</id>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                    </plugin>
                     <plugin>
                         <groupId>com.google.cloud.tools</groupId>
                         <artifactId>appengine-maven-plugin</artifactId>
@@ -116,43 +111,9 @@
                         <configuration>
                             <automaticRestart>true</automaticRestart>
                             <stopPreviousVersion>true</stopPreviousVersion>
-                            <projectId>ergosurgeon-253218</projectId>
+                            <projectId>project-258120</projectId>
                             <version>1</version>
                         </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>Avro</id>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources</directory>
-                        <filtering>true</filtering>
-                    </resource>
-                </resources>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.avro</groupId>
-                        <artifactId>avro-maven-plugin</artifactId>
-                        <version>${avro.version}</version>
-                        <executions>
-                            <execution>
-                                <id>schemas</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>schema</goal>
-                                    <goal>protocol</goal>
-                                    <goal>idl-protocol</goal>
-                                </goals>
-                                <configuration>
-                                    <sourceDirectory>${project.basedir}/src/main/resources/</sourceDirectory>
-                                    <outputDirectory>${project.basedir}/src/main/java/</outputDirectory>
-                                </configuration>
-                            </execution>
-                        </executions>
                     </plugin>
                 </plugins>
             </build>

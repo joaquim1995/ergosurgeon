@@ -1,9 +1,13 @@
 package com.mei.ergosurgeon.load.data.entities.custom;
 
 
+import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
+import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
+import org.springframework.kafka.core.KafkaTemplate;
+
 import java.util.Objects;
 
-public class Vector {
+public class Vector implements KafkaTopic<Vector> {
 
     private Long time;
 
@@ -83,5 +87,21 @@ public class Vector {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), getTime(), getQ0(), getQ1(), getQ2(), getSegmentLabel());
+    }
+
+    @Override
+    public Vector send(KafkaLoadService proxy) throws Exception {
+        proxy.send(this, com.mei.ergosurgeon.schema.entities.custom.Vector.class);
+        return this;
+    }
+
+    @Override
+    public String getTopic() {
+        return "vector";
+    }
+
+    @Override
+    public KafkaTemplate<Object, Vector> getKafkaTemplate() {
+        return KafkaTemplatesUtil.getKafkaVectorTemplate();
     }
 }

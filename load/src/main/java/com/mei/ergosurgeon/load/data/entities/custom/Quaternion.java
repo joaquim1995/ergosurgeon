@@ -8,6 +8,8 @@ import java.util.Objects;
 
 public class Quaternion implements KafkaTopic<Quaternion> {
 
+    private Integer id;
+
     private Long time;
 
     private Float q0;
@@ -101,6 +103,11 @@ public class Quaternion implements KafkaTopic<Quaternion> {
 
         proxy.send(this, com.mei.ergosurgeon.schema.entities.custom.Quaternion.class);
         return this;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

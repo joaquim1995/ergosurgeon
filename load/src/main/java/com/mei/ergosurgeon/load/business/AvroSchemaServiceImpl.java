@@ -5,19 +5,13 @@ import org.apache.avro.reflect.ReflectData;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 
-
+//Not used anymore, for debug proposes, or simply generate the avro schema from a Pojo, a java class.
 @Service
 @Scope("singleton")
 public class AvroSchemaServiceImpl {
     public static Schema generateSchema(Class clazz) {
         return ReflectData.get().getSchema(clazz);
-    }
-
-    @PostConstruct
-    private void init() {
-
     }
 
     public String generateSchemaString(Class clazz) {

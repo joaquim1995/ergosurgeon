@@ -2,7 +2,10 @@
   "type" : "record",
   "name" : "Subject",
   "namespace" : "com.mei.ergosurgeon.schema.entities",
-  "fields" : [ {
+  "fields" : [{
+    "name" : "id",
+    "type": "long"
+  }, {
     "name" : "comment",
     "type" : ["null", "string"]
   }, {

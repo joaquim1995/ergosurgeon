@@ -23,6 +23,8 @@ import java.util.List;
 @XmlRootElement(name = "frame")
 public class Frame implements KafkaTopic<Frame> {
 
+    private Integer id;
+
     @JsonProperty
     @XmlElement(required = true)
     protected String orientation;
@@ -222,6 +224,11 @@ public class Frame implements KafkaTopic<Frame> {
 
     public void setType(String value) {
         this.type = value;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Frame send(KafkaLoadService proxy) throws Exception {

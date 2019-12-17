@@ -1,6 +1,7 @@
 package com.mei.ergosurgeon.load.business.utils;
 
 import com.mei.ergosurgeon.load.data.entities.*;
+import com.mei.ergosurgeon.load.data.entities.custom.Client;
 import com.mei.ergosurgeon.load.data.entities.custom.Quaternion;
 import com.mei.ergosurgeon.load.data.entities.custom.Vector;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class KafkaTemplatesUtil {
     private static KafkaTemplate<Object, Frame> kafkaFrameTemplate;
     private static KafkaTemplate<Object, Vector> kafkaVectorTemplate;
     private static KafkaTemplate<Object, Quaternion> kafkaQuaternionTemplate;
+    private static KafkaTemplate<Object, Client> kafkaClientTemplate;
 
     @Autowired
     public KafkaTemplatesUtil(
@@ -27,7 +29,8 @@ public class KafkaTemplatesUtil {
             KafkaTemplate<Object, Segment> kafkaSegmentTemplate, KafkaTemplate<Object, Point> kafkaPointTemplate,
             KafkaTemplate<Object, Mvnx> kafkaMvnxTemplate, KafkaTemplate<Object, Mvn> kafkaMvnTemplate,
             KafkaTemplate<Object, Joint> kafkaJointTemplate, KafkaTemplate<Object, Frame> kafkaFrameTemplate,
-            KafkaTemplate<Object, Vector> kafkaVectorTemplate, KafkaTemplate<Object, Quaternion> kafkaQuaternionTemplate) {
+            KafkaTemplate<Object, Vector> kafkaVectorTemplate, KafkaTemplate<Object, Quaternion> kafkaQuaternionTemplate,
+            KafkaTemplate<Object, Client> kafkaClientTemplate) {
         this.kafkaSubjectTemplate = kafkaSubjectTemplate;
         this.kafkaSensorTemplate = kafkaSensorTemplate;
         this.kafkaSegmentTemplate = kafkaSegmentTemplate;
@@ -38,6 +41,7 @@ public class KafkaTemplatesUtil {
         this.kafkaFrameTemplate = kafkaFrameTemplate;
         this.kafkaVectorTemplate = kafkaVectorTemplate;
         this.kafkaQuaternionTemplate = kafkaQuaternionTemplate;
+        this.kafkaClientTemplate = kafkaClientTemplate;
     }
 
     public static KafkaTemplate<Object, Subject> getKafkaSubjectTemplate() {
@@ -78,5 +82,9 @@ public class KafkaTemplatesUtil {
 
     public static KafkaTemplate<Object, Quaternion> getKafkaQuaternionTemplate() {
         return kafkaQuaternionTemplate;
+    }
+
+    public static KafkaTemplate<Object, Client> getKafkaClientTemplate() {
+        return kafkaClientTemplate;
     }
 }

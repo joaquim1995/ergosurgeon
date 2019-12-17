@@ -8,7 +8,6 @@
 
 package com.mei.ergosurgeon.load.data.entities;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
@@ -19,10 +18,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "mvn")
 public class Mvn implements KafkaTopic<Mvn> {
+
+    private Integer id;
 
     @XmlAttribute(name = "version", required = true)
     protected String version;
@@ -51,6 +51,11 @@ public class Mvn implements KafkaTopic<Mvn> {
 
         proxy.send(this, com.mei.ergosurgeon.schema.entities.Mvn.class);
         return this;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

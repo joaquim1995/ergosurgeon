@@ -19,6 +19,9 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "point")
 public class Point implements KafkaTopic<Point> {
+
+    private Integer id;
+
     @XmlElement(name = "pos_s", required = true)
     protected String posS;
 
@@ -70,6 +73,11 @@ public class Point implements KafkaTopic<Point> {
         //send(this);
         */
         return this;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

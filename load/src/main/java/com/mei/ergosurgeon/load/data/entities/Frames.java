@@ -19,6 +19,9 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "frames")
 public class Frames {
+
+    private Integer id = 1;
+
     @XmlElement(required = true)
     protected List<Frame> frame;
 
@@ -65,8 +68,10 @@ public class Frames {
 
     public Frames process(KafkaLoadService proxy) throws Exception {
 
+        int i = 1;
         for (Frame item : getFrame()) {
             if (StringUtils.equalsIgnoreCase(item.getType(), "normal")) {
+                item.setId(i++);
                 item.send(proxy);
             }
         }

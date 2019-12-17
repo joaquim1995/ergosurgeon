@@ -19,6 +19,8 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "subject")
 public class Subject implements KafkaTopic<Subject> {
 
+    private Integer id;
+
     @XmlElement(required = true)
     protected String comment;
 
@@ -149,6 +151,11 @@ public class Subject implements KafkaTopic<Subject> {
         getSensors().process(proxy);
 
         return this;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

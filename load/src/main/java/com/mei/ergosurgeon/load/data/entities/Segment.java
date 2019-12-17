@@ -20,6 +20,8 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "segment")
 public class Segment implements KafkaTopic<Segment> {
 
+    private Integer id;
+
     @XmlElement(required = true)
     protected Points points;
 
@@ -59,6 +61,11 @@ public class Segment implements KafkaTopic<Segment> {
         proxy.send(this, com.mei.ergosurgeon.schema.entities.Segment.class);
         getPoints().process(proxy);
         return this;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

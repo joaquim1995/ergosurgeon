@@ -2,7 +2,10 @@
   "type" : "record",
   "name" : "Mvn",
   "namespace" : "com.mei.ergosurgeon.schema.entities",
-  "fields" : [ {
+  "fields" : [{
+    "name" : "id",
+    "type": "long"
+  },{
     "name" : "version",
     "type" : "string"
   }, {

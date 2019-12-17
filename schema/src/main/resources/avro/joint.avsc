@@ -2,7 +2,10 @@
   "type" : "record",
   "name" : "Joint",
   "namespace" : "com.mei.ergosurgeon.schema.entities",
-  "fields" : [ {
+  "fields" : [{
+    "name" : "id",
+    "type": "long"
+  },{
     "name" : "connector1",
     "type" : "string"
   }, {

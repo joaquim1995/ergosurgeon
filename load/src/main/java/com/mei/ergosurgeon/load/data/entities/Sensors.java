@@ -21,6 +21,8 @@ import java.util.List;
 @XmlRootElement(name = "sensors")
 public class Sensors {
 
+    private Integer id = 1;
+
     protected List<Sensor> sensor;
 
     public List<Sensor> getSensor() {
@@ -32,7 +34,9 @@ public class Sensors {
 
     public Sensors process(KafkaLoadService proxy) throws Exception {
 
+        int i = 1;
         for (Sensor item : getSensor()) {
+            item.setId(i++);
             item.send(proxy);
         }
 

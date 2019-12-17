@@ -22,6 +22,8 @@ import java.util.List;
 @XmlRootElement(name = "joints")
 public class Joints {
 
+    private Integer id = 1;
+
     @XmlElement(required = true)
     protected List<Joint> joint;
 
@@ -33,7 +35,9 @@ public class Joints {
     }
 
     public Joints process(KafkaLoadService proxy) throws Exception {
+        int i = 1;
         for (Joint item : getJoint()) {
+            item.setId(i++);
             item.send(proxy);
         }
         //send(this);

@@ -2,7 +2,10 @@
   "type" : "record",
   "name" : "Quaternion",
   "namespace" : "com.mei.ergosurgeon.schema.entities.custom",
-  "fields" : [ {
+  "fields" : [{
+    "name" : "id",
+    "type": "long"
+  },{
     "name" : "time",
     "type" : "long"
   }, {

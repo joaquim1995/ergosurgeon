@@ -8,7 +8,6 @@
 
 package com.mei.ergosurgeon.load.data.entities;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
@@ -17,10 +16,11 @@ import org.springframework.kafka.core.KafkaTemplate;
 import javax.xml.bind.annotation.*;
 
 
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "joint")
 public class Joint implements KafkaTopic<Joint> {
+
+    private Integer id;
 
     @XmlElement(required = true)
     protected String connector1;
@@ -65,6 +65,11 @@ public class Joint implements KafkaTopic<Joint> {
         //send(this);
         */
         return this;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

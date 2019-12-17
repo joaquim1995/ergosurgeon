@@ -22,6 +22,8 @@ import java.util.List;
 @XmlRootElement(name = "segments")
 public class Segments {
 
+    private Integer id = 1;
+
     @XmlElement(required = true)
     protected List<Segment> segment;
 
@@ -33,7 +35,9 @@ public class Segments {
     }
 
     public Segments process(KafkaLoadService proxy) throws Exception {
+        int i = 1;
         for (Segment item : getSegment()) {
+            item.setId(i++);
             item.send(proxy);
         }
         //send(this);

@@ -9,6 +9,9 @@ import java.util.Objects;
 
 public class Vector implements KafkaTopic<Vector> {
 
+
+    private Integer id;
+
     private Long time;
 
     private Float q0;
@@ -93,6 +96,11 @@ public class Vector implements KafkaTopic<Vector> {
     public Vector send(KafkaLoadService proxy) throws Exception {
         proxy.send(this, com.mei.ergosurgeon.schema.entities.custom.Vector.class);
         return this;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

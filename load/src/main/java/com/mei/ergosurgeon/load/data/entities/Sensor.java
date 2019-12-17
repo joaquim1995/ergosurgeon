@@ -22,6 +22,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "sensor")
 public class Sensor implements KafkaTopic<Sensor> {
 
+    private Integer id;
+
     @XmlAttribute(name = "label", required = true)
     protected String label;
 
@@ -40,10 +42,14 @@ public class Sensor implements KafkaTopic<Sensor> {
     }
 
     @Override
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @Override
     public String getTopic() {
         return "sensor";
     }
-
 
     @Override
     public KafkaTemplate<Object, Sensor> getKafkaTemplate() {

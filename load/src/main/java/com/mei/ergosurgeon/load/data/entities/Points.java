@@ -22,6 +22,8 @@ import java.util.List;
 @XmlRootElement(name = "points")
 public class Points {
 
+    private Integer id = 1;
+
     @XmlElement(required = true)
     protected List<Point> point;
 
@@ -33,7 +35,10 @@ public class Points {
     }
 
     public Points process(KafkaLoadService proxy) throws Exception {
+        int i = 1;
         for (Point item : getPoint()) {
+
+            item.setId(i++);
             item.send(proxy);
         }
         //send(this);

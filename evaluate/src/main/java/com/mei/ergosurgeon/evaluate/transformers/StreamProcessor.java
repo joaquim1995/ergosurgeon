@@ -11,6 +11,6 @@ public class StreamProcessor {
     @StreamListener(StreamProcessorClient.INPUT)
     @SendTo(StreamProcessorClient.OUTPUT)
     public Client processorClient(Client event) {
-        return StreamProcessorUtils.processPoint(event);
+        return StreamProcessorUtils.processClient(event);
     }
 }

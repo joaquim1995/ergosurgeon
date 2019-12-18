@@ -10,6 +10,7 @@ package com.mei.ergosurgeon.load.data.entities;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
+import com.mei.ergosurgeon.load.data.entities.custom.Client;
 import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
 import org.springframework.kafka.core.KafkaTemplate;
 
@@ -56,10 +57,10 @@ public class Segment implements KafkaTopic<Segment> {
         this.segmentId = segmentId;
     }
 
-    public Segment send(KafkaLoadService proxy) throws Exception {
+    public Segment send(KafkaLoadService proxy, Client client) throws Exception {
 
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.Segment.class);
-        getPoints().process(proxy);
+        proxy.send(this, com.mei.ergosurgeon.schema.entities.Segment.class, client);
+        getPoints().process(proxy, client);
         return this;
     }
 

@@ -15,15 +15,12 @@ import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
-import java.time.Instant;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "mvnx")
 public class Mvnx implements KafkaTopic<Mvnx> {
 
     private Integer id;
-
-    private Client client;
 
     @XmlElement(required = true)
     protected Mvn mvn;
@@ -80,21 +77,10 @@ public class Mvnx implements KafkaTopic<Mvnx> {
         this.version = value;
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public Mvnx setClient(String email) {
-        this.client = new Client().setEmail(email);
-        return this;
-    }
-
-    public Mvnx send(KafkaLoadService proxy) throws Exception {
-        getClient().setTimeStart(Instant.now().toEpochMilli());
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.Mvnx.class);
-        getSubject().send(proxy);
-        getMvn().send(proxy);
-        getClient().setTimeEnd(Instant.now().toEpochMilli()).send(proxy);
+    public Mvnx send(KafkaLoadService proxy, Client client) throws Exception {
+        proxy.send(this, com.mei.ergosurgeon.schema.entities.Mvnx.class, client);
+        getSubject().send(proxy, client);
+        getMvn().send(proxy, client);
         return this;
     }
 

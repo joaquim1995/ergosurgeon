@@ -10,6 +10,7 @@ package com.mei.ergosurgeon.load.data.entities;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
+import com.mei.ergosurgeon.load.data.entities.custom.Client;
 import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
 import org.springframework.kafka.core.KafkaTemplate;
 
@@ -55,9 +56,9 @@ public class Joint implements KafkaTopic<Joint> {
         this.label = value;
     }
 
-    public Joint send(KafkaLoadService proxy) throws Exception {
+    public Joint send(KafkaLoadService proxy, Client client) throws Exception {
 
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.Joint.class);
+        proxy.send(this, com.mei.ergosurgeon.schema.entities.Joint.class, client);
         /*
         connector1 = connector1.split("\\/")[0];
         connector2 = connector2.split("\\/")[0];

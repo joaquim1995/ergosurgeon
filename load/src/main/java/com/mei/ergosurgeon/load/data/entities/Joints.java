@@ -9,6 +9,7 @@
 package com.mei.ergosurgeon.load.data.entities;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
+import com.mei.ergosurgeon.load.data.entities.custom.Client;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -34,11 +35,11 @@ public class Joints {
         return this.joint;
     }
 
-    public Joints process(KafkaLoadService proxy) throws Exception {
+    public Joints process(KafkaLoadService proxy, Client client) throws Exception {
         int i = 1;
         for (Joint item : getJoint()) {
             item.setId(i++);
-            item.send(proxy);
+            item.send(proxy, client);
         }
         //send(this);
         return this;

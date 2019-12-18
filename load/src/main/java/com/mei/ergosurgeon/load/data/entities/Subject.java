@@ -10,6 +10,7 @@ package com.mei.ergosurgeon.load.data.entities;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
+import com.mei.ergosurgeon.load.data.entities.custom.Client;
 import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
 import org.springframework.kafka.core.KafkaTemplate;
 
@@ -141,14 +142,14 @@ public class Subject implements KafkaTopic<Subject> {
         this.originalFilename = value;
     }
 
-    public Subject send(KafkaLoadService proxy) throws Exception {
+    public Subject send(KafkaLoadService proxy, Client client) throws Exception {
 
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.Subject.class);
+        proxy.send(this, com.mei.ergosurgeon.schema.entities.Subject.class, client);
 
-        getSegments().process(proxy);
-        getJoints().process(proxy);
-        getFrames().process(proxy);
-        getSensors().process(proxy);
+        getSegments().process(proxy, client);
+        getJoints().process(proxy, client);
+        getFrames().process(proxy, client);
+        getSensors().process(proxy, client);
 
         return this;
     }

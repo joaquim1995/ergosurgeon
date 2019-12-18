@@ -1,6 +1,7 @@
 package com.mei.ergosurgeon.load.business;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
+import com.mei.ergosurgeon.load.data.entities.custom.Client;
 import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class KafkaLoadServiceImpl implements KafkaLoadService {
     // faço um flatMap(item-> item.getList().steam())
 
     @Override
-    public <S extends KafkaTopic<S>> void send(S item, Class toClass) throws Exception {
+    public <S extends KafkaTopic<S>> void send(S item, Class toClass, Client client) throws Exception {
         try {
             item.getKafkaTemplate().executeInTransaction(
                     (kafkaOperations) -> kafkaOperations.send(
@@ -30,7 +31,7 @@ public class KafkaLoadServiceImpl implements KafkaLoadService {
                                     .withPayload(modelMapper.map(item, toClass))
                                     .setHeader(KafkaHeaders.TOPIC, item.getInternalTopic())
                                     .setHeader("contentType", "application/*+avro")
-                                    //.setHeader(KafkaHeaders.MESSAGE_KEY, item)
+                                    .setHeader(KafkaHeaders.MESSAGE_KEY, client.getUuid())
                                     .build()
                     )
             );

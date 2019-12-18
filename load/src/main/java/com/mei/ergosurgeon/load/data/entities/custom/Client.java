@@ -16,6 +16,8 @@ public class Client implements KafkaTopic<Client> {
 
     private Integer id;
 
+    private String uuid;
+
     private String email;
 
     private Long timeStart;
@@ -25,6 +27,15 @@ public class Client implements KafkaTopic<Client> {
     @Override
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public Client setUuid(String uuid) {
+        this.uuid = uuid;
+        return this;
     }
 
     public Client setEmail(String email) {
@@ -42,9 +53,9 @@ public class Client implements KafkaTopic<Client> {
         return this;
     }
 
-    public Client send(KafkaLoadService proxy) throws Exception {
+    public Client send(KafkaLoadService proxy, Client client) throws Exception {
 
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.Client.class);
+        proxy.send(this, com.mei.ergosurgeon.schema.entities.Client.class, client);
         return this;
     }
 

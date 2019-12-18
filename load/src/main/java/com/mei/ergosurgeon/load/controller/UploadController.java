@@ -3,12 +3,17 @@ package com.mei.ergosurgeon.load.controller;
 
 import com.mei.ergosurgeon.load.business.JaxbUnmarshallerService;
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
+import com.mei.ergosurgeon.load.data.entities.Mvnx;
+import com.mei.ergosurgeon.load.data.entities.custom.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.time.Clock;
+import java.util.UUID;
 
 @Controller
 public class UploadController {
@@ -26,7 +31,21 @@ public class UploadController {
     @RequestMapping(value = "/doUpload", method = RequestMethod.POST, consumes = "multipart/form-data")
     public String upload(@RequestParam String email, @RequestParam MultipartFile file) {
         try {
-            unmarshal.unmarshal(file.getInputStream()).setClient(email).send(impl);
+            Client client = new Client()
+                    .setEmail(email)
+                    .setUuid(UUID.randomUUID().toString());
+
+            Mvnx object = unmarshal.unmarshal(
+                    file.getInputStream()
+            );
+
+            client.setTimeStart(
+                    Clock
+                            .systemUTC()
+                            .millis()
+            );
+
+            object.send(impl, client);
         } catch (Exception e) {
             return "redirect:/failure.html";
         }

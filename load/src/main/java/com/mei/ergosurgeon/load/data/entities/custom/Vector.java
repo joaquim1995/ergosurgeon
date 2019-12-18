@@ -93,8 +93,8 @@ public class Vector implements KafkaTopic<Vector> {
     }
 
     @Override
-    public Vector send(KafkaLoadService proxy) throws Exception {
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.custom.Vector.class);
+    public Vector send(KafkaLoadService proxy, Client client) throws Exception {
+        proxy.send(this, com.mei.ergosurgeon.schema.entities.custom.Vector.class, client);
         return this;
     }
 

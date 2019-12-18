@@ -10,6 +10,7 @@ package com.mei.ergosurgeon.load.data.entities;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
+import com.mei.ergosurgeon.load.data.entities.custom.Client;
 import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
 import com.mei.ergosurgeon.load.data.entities.custom.Vector;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -55,9 +56,9 @@ public class Point implements KafkaTopic<Point> {
     }
 
     @Override
-    public Point send(KafkaLoadService proxy) throws Exception {
+    public Point send(KafkaLoadService proxy, Client client) throws Exception {
 
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.Point.class);
+        proxy.send(this, com.mei.ergosurgeon.schema.entities.Point.class, client);
         /*
         //reset position to 0 after reduce the position of all frames so can be normalized the movement, else the IA
         //need to understand that a movement the distances and normal positions

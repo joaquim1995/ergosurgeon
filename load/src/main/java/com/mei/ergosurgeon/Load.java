@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import java.time.Clock;
 import java.util.concurrent.Executor;
 
 @EnableAsync
@@ -22,11 +23,14 @@ public class Load {
     }
 
     @Bean
+    public Clock time() {
+        return Clock.systemUTC();
+    }
+
+    @Bean
     public Executor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(8);
-        executor.setMaxPoolSize(64);
-        executor.setQueueCapacity(5000);
+        executor.setCorePoolSize(50);
         executor.setThreadNamePrefix("Executor-");
         executor.initialize();
         return executor;

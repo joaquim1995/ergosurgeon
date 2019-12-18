@@ -10,6 +10,7 @@ package com.mei.ergosurgeon.load.data.entities;
 
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
+import com.mei.ergosurgeon.load.data.entities.custom.Client;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.bind.annotation.*;
@@ -66,13 +67,13 @@ public class Frames {
         this.jointCount = value;
     }
 
-    public Frames process(KafkaLoadService proxy) throws Exception {
+    public Frames process(KafkaLoadService proxy, Client client) throws Exception {
 
         int i = 1;
         for (Frame item : getFrame()) {
             if (StringUtils.equalsIgnoreCase(item.getType(), "normal")) {
                 item.setId(i++);
-                item.send(proxy);
+                item.send(proxy, client);
             }
         }
 

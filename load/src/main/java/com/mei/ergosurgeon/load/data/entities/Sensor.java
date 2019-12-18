@@ -10,6 +10,7 @@ package com.mei.ergosurgeon.load.data.entities;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
+import com.mei.ergosurgeon.load.data.entities.custom.Client;
 import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
 import org.springframework.kafka.core.KafkaTemplate;
 
@@ -35,9 +36,9 @@ public class Sensor implements KafkaTopic<Sensor> {
         this.label = value;
     }
 
-    public Sensor send(KafkaLoadService proxy) throws Exception {
+    public Sensor send(KafkaLoadService proxy, Client client) throws Exception {
 
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.Sensor.class);
+        proxy.send(this, com.mei.ergosurgeon.schema.entities.Sensor.class, client);
         return this;
     }
 

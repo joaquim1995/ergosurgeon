@@ -11,6 +11,7 @@ package com.mei.ergosurgeon.load.data.entities;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
+import com.mei.ergosurgeon.load.data.entities.custom.Client;
 import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
 import com.mei.ergosurgeon.load.data.entities.custom.Quaternion;
 import com.mei.ergosurgeon.load.data.entities.custom.Vector;
@@ -231,9 +232,9 @@ public class Frame implements KafkaTopic<Frame> {
         this.id = id;
     }
 
-    public Frame send(KafkaLoadService proxy) throws Exception {
+    public Frame send(KafkaLoadService proxy, Client client) throws Exception {
 
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.Frame.class);
+        proxy.send(this, com.mei.ergosurgeon.schema.entities.Frame.class, client);
 
         /*//TODO Normalize the frames.
 

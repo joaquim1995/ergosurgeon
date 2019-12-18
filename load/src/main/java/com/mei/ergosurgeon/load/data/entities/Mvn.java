@@ -10,6 +10,7 @@ package com.mei.ergosurgeon.load.data.entities;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
+import com.mei.ergosurgeon.load.data.entities.custom.Client;
 import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
 import org.springframework.kafka.core.KafkaTemplate;
 
@@ -47,9 +48,9 @@ public class Mvn implements KafkaTopic<Mvn> {
     }
 
     @Override
-    public Mvn send(KafkaLoadService proxy) throws Exception {
+    public Mvn send(KafkaLoadService proxy, Client client) throws Exception {
 
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.Mvn.class);
+        proxy.send(this, com.mei.ergosurgeon.schema.entities.Mvn.class, client);
         return this;
     }
 

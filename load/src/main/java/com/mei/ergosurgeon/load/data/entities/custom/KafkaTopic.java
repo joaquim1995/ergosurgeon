@@ -13,7 +13,7 @@ public interface KafkaTopic<T> {
      */
     void setId(Integer id);
 
-    T send(KafkaLoadService proxy) throws Exception;
+    T send(KafkaLoadService proxy, Client client) throws Exception;
 
     default String getInternalTopic() {
         return "raw_" + getTopic();

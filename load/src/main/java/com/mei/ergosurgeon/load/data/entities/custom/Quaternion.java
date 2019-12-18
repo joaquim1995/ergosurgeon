@@ -99,9 +99,9 @@ public class Quaternion implements KafkaTopic<Quaternion> {
         return Objects.hash(time, q0, q1, q2, q3);
     }
 
-    public Quaternion send(KafkaLoadService proxy) throws Exception {
+    public Quaternion send(KafkaLoadService proxy, Client client) throws Exception {
 
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.custom.Quaternion.class);
+        proxy.send(this, com.mei.ergosurgeon.schema.entities.custom.Quaternion.class, client);
         return this;
     }
 

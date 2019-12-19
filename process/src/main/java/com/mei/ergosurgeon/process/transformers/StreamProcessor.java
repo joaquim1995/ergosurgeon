@@ -10,6 +10,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class StreamProcessor {
+    @StreamListener(StreamProcessorClient.INPUT)
+    @SendTo(StreamProcessorClient.OUTPUT)
+    public Client processorClient(Client event) {
+        return StreamProcessorUtils.processClient(event);
+    }
+
     @StreamListener(StreamProcessorPoint.INPUT)
     @SendTo(StreamProcessorPoint.OUTPUT)
     public Point processorPoint(Point event) {

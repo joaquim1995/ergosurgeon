@@ -2,15 +2,15 @@ package com.mei.ergosurgeon.load.business;
 
 import com.mei.ergosurgeon.load.data.entities.Mvnx;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.RequestScope;
 
 import javax.xml.bind.JAXBException;
 import java.io.InputStream;
 
 
 @Service
-@Scope("request")
+@RequestScope
 public class JaxbUnmarshallerService {
 
     @Autowired

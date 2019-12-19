@@ -1,4 +1,4 @@
-package com.mei.ergosurgeon.evaluate.transformers.channels;
+package com.mei.ergosurgeon.process.transformers.channels;
 
 
 import org.springframework.cloud.stream.annotation.Input;

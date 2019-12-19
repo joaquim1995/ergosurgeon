@@ -7,6 +7,13 @@ import com.mei.ergosurgeon.schema.entities.custom.Vector;
 import java.util.stream.Stream;
 
 public class StreamProcessorUtils {
+    public static Client processClient(Client item) {
+
+        //To 0 is given the meaning of start. The first position.
+        //item.setPosition(new Vector(0L, aux[0], aux[1], aux[2], item.getLabel()));
+        return item;
+    }
+
     public static Point processPoint(Point item) {
         Float[] aux = Stream.of(item.getPosS().toString().split(" ")).map(Float::new).toArray(Float[]::new);
 

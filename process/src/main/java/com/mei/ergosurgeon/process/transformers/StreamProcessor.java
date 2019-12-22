@@ -4,16 +4,21 @@ import com.mei.ergosurgeon.process.transformers.channels.*;
 import com.mei.ergosurgeon.schema.entities.*;
 import com.mei.ergosurgeon.schema.entities.custom.Quaternion;
 import com.mei.ergosurgeon.schema.entities.custom.Vector;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StreamProcessor {
+    @Autowired
+    JavaMailSender javaMailSender;
+
     @StreamListener(StreamProcessorClient.INPUT)
     @SendTo(StreamProcessorClient.OUTPUT)
     public Client processorClient(Client event) {
-        return StreamProcessorUtils.processClient(event);
+        return StreamProcessorUtils.processClient(javaMailSender,event);
     }
 
     @StreamListener(StreamProcessorPoint.INPUT)

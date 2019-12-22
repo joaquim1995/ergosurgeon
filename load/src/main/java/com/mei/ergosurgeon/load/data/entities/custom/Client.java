@@ -10,38 +10,14 @@ package com.mei.ergosurgeon.load.data.entities.custom;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
+import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
 import org.springframework.kafka.core.KafkaTemplate;
 
-public class Client implements KafkaTopic<Client> {
-
-    private Integer id;
-
-    private String uuid;
-
-    private String email;
+public class Client extends AbstractKafkaTopic<Client> {
 
     private Long timeStart;
 
     private Long timeEnd;
-
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public Client setUuid(String uuid) {
-        this.uuid = uuid;
-        return this;
-    }
-
-    public Client setEmail(String email) {
-        this.email = email;
-        return this;
-    }
 
     public Client setTimeStart(Long timeStart) {
         this.timeStart = timeStart;

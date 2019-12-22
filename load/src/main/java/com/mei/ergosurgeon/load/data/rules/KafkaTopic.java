@@ -1,17 +1,10 @@
-package com.mei.ergosurgeon.load.data.entities.custom;
+package com.mei.ergosurgeon.load.data.rules;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
+import com.mei.ergosurgeon.load.data.entities.custom.Client;
 import org.springframework.kafka.core.KafkaTemplate;
 
 public interface KafkaTopic<T> {
-
-    /***
-     * Set a incremental id. Upper hierarchy objects need to send,
-     * while what we send needs a key so we can create a ML model based on SQL query.
-     * Use it with send, or on process of other objects.
-     * @param id
-     */
-    void setId(Integer id);
 
     T send(KafkaLoadService proxy, Client client) throws Exception;
 

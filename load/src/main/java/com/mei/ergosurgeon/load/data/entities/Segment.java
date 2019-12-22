@@ -11,7 +11,8 @@ package com.mei.ergosurgeon.load.data.entities;
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.entities.custom.Client;
-import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
+import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
+import com.mei.ergosurgeon.load.data.rules.KafkaTopic;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
@@ -19,9 +20,7 @@ import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "segment")
-public class Segment implements KafkaTopic<Segment> {
-
-    private Integer id;
+public class Segment extends AbstractKafkaTopic<Segment> {
 
     @XmlElement(required = true)
     protected Points points;
@@ -62,11 +61,6 @@ public class Segment implements KafkaTopic<Segment> {
         proxy.send(this, com.mei.ergosurgeon.schema.entities.Segment.class, client);
         getPoints().process(proxy, client);
         return this;
-    }
-
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     @Override

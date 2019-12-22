@@ -31,7 +31,7 @@ public class UploadController {
     @RequestMapping(value = "/doUpload", method = RequestMethod.POST, consumes = "multipart/form-data")
     public String upload(@RequestParam String email, @RequestParam MultipartFile file) {
         try {
-            Client client = new Client()
+            Client client = (Client) new Client()
                     .setEmail(email)
                     .setUuid(UUID.randomUUID().toString());
 

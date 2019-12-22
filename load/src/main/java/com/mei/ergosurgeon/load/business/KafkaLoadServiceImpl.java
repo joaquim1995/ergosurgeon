@@ -2,7 +2,7 @@ package com.mei.ergosurgeon.load.business;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.data.entities.custom.Client;
-import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
+import com.mei.ergosurgeon.load.data.rules.KafkaTopic;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.support.KafkaHeaders;
@@ -31,7 +31,7 @@ public class KafkaLoadServiceImpl implements KafkaLoadService {
                                     .withPayload(modelMapper.map(item, toClass))
                                     .setHeader(KafkaHeaders.TOPIC, item.getInternalTopic())
                                     .setHeader("contentType", "application/*+avro")
-                                    .setHeader(KafkaHeaders.MESSAGE_KEY, client.getUuid())
+                                    //.setHeader(KafkaHeaders.MESSAGE_KEY, client.getUuid())
                                     .build()
                     )
             );

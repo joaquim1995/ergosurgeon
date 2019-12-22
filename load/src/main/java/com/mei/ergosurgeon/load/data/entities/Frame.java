@@ -12,7 +12,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.entities.custom.Client;
-import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
+import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
+import com.mei.ergosurgeon.load.data.rules.KafkaTopic;
 import com.mei.ergosurgeon.load.data.entities.custom.Quaternion;
 import com.mei.ergosurgeon.load.data.entities.custom.Vector;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -22,9 +23,7 @@ import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "frame")
-public class Frame implements KafkaTopic<Frame> {
-
-    private Integer id;
+public class Frame extends AbstractKafkaTopic<Frame> {
 
     @JsonProperty
     @XmlElement(required = true)
@@ -228,9 +227,6 @@ public class Frame implements KafkaTopic<Frame> {
     }
 
     @Override
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Frame send(KafkaLoadService proxy, Client client) throws Exception {
 

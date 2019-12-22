@@ -31,6 +31,28 @@ spring:
     consumer:
       group-id: process
     bootstrap-servers: 104.197.144.191:9093,35.192.93.32:9093,35.222.56.168:9093
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: joaquimcardoso1995@gmail.com
+    password: July_pink*1995
+    properties:
+      mail:
+        smtp:
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+          starttls:
+            enable: true
+
+# TLS , port 587
+#spring.mail.properties.mail.smtp.starttls.enable=true
+# SSL, post 465
+#spring.mail.properties.mail.smtp.socketFactory.port = 465
+#spring.mail.properties.mail.smtp.socketFactory.class = javax.net.ssl.SSLSocketFactory
+
+
 
 #spring:
 #  cloud:

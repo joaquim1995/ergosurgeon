@@ -1,8 +1,11 @@
+
 {
   "type" : "record",
   "name" : "Quaternion",
   "namespace" : "com.mei.ergosurgeon.schema.entities.custom",
-  "fields" : [{
+  "fields" : [
+         {"name" : "email","type": "string"},
+         {"name" : "uuid", "type": "string"},{
     "name" : "id",
     "type": "long"
   },{

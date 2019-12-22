@@ -3,11 +3,30 @@ package com.mei.ergosurgeon.process.transformers;
 import com.mei.ergosurgeon.schema.entities.*;
 import com.mei.ergosurgeon.schema.entities.custom.Quaternion;
 import com.mei.ergosurgeon.schema.entities.custom.Vector;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
 import java.util.stream.Stream;
 
 public class StreamProcessorUtils {
-    public static Client processClient(Client item) {
+
+    public static Client processClient(JavaMailSender javaMailSender, Client item) {
+
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo(item.getEmail().toString());
+
+        msg.setSubject("Ergosurgeon");
+        msg.setText("Request data on:\n"+
+                "\n"+
+                item.getEmail().toString()+"/"+
+                item.getUuid().toString()+"/"+
+                item.getDateStart()+"/"+
+                item.getDateEnd()+"\n"+
+                "Give it some time to process data.\n"
+        );
+
+        javaMailSender.send(msg);
 
         //To 0 is given the meaning of start. The first position.
         //item.setPosition(new Vector(0L, aux[0], aux[1], aux[2], item.getLabel()));

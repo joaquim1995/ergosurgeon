@@ -2,13 +2,13 @@ package com.mei.ergosurgeon.load.data.entities.custom;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
+import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
+import com.mei.ergosurgeon.load.data.rules.KafkaTopic;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import java.util.Objects;
 
-public class Quaternion implements KafkaTopic<Quaternion> {
-
-    private Integer id;
+public class Quaternion extends AbstractKafkaTopic<Quaternion> {
 
     private Long time;
 
@@ -103,11 +103,6 @@ public class Quaternion implements KafkaTopic<Quaternion> {
 
         proxy.send(this, com.mei.ergosurgeon.schema.entities.custom.Quaternion.class, client);
         return this;
-    }
-
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     @Override

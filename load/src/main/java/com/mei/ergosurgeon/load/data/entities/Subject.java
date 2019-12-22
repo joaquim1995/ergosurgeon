@@ -11,16 +11,15 @@ package com.mei.ergosurgeon.load.data.entities;
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.entities.custom.Client;
-import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
+import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
+import com.mei.ergosurgeon.load.data.rules.KafkaTopic;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "subject")
-public class Subject implements KafkaTopic<Subject> {
-
-    private Integer id;
+public class Subject extends AbstractKafkaTopic<Subject> {
 
     @XmlElement(required = true)
     protected String comment;
@@ -152,11 +151,6 @@ public class Subject implements KafkaTopic<Subject> {
         getSensors().process(proxy, client);
 
         return this;
-    }
-
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     @Override

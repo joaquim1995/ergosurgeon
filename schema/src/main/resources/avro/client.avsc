@@ -2,14 +2,16 @@
   "type" : "record",
   "name" : "Client",
   "namespace" : "com.mei.ergosurgeon.schema.entities",
-  "fields" : [ {
-    "name" : "email",
-    "type": "string"
-  }, {
-    "name" : "key",
-    "type": "string"
-  }, {
-       "name" : "eventCount",
+  "fields" : [
+         {"name" : "email","type": "string"},
+         {"name" : "uuid", "type": "string"},
+    {
+       "name" : "dateStart",
+       "type": "long"
+     },
+     {
+       "name" : "dateEnd",
        "type": "long"
      }]
 }
+

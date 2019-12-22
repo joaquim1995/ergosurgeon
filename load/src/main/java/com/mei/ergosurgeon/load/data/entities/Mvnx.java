@@ -11,16 +11,15 @@ package com.mei.ergosurgeon.load.data.entities;
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.entities.custom.Client;
-import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
+import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
+import com.mei.ergosurgeon.load.data.rules.KafkaTopic;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "mvnx")
-public class Mvnx implements KafkaTopic<Mvnx> {
-
-    private Integer id;
+public class Mvnx extends AbstractKafkaTopic<Mvnx> {
 
     @XmlElement(required = true)
     protected Mvn mvn;
@@ -82,11 +81,6 @@ public class Mvnx implements KafkaTopic<Mvnx> {
         getSubject().send(proxy, client);
         getMvn().send(proxy, client);
         return this;
-    }
-
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     @Override

@@ -11,7 +11,8 @@ package com.mei.ergosurgeon.load.data.entities;
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.entities.custom.Client;
-import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
+import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
+import com.mei.ergosurgeon.load.data.rules.KafkaTopic;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -21,9 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "sensor")
-public class Sensor implements KafkaTopic<Sensor> {
-
-    private Integer id;
+public class Sensor extends AbstractKafkaTopic<Sensor> {
 
     @XmlAttribute(name = "label", required = true)
     protected String label;
@@ -40,11 +39,6 @@ public class Sensor implements KafkaTopic<Sensor> {
 
         proxy.send(this, com.mei.ergosurgeon.schema.entities.Sensor.class, client);
         return this;
-    }
-
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     @Override

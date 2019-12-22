@@ -3,14 +3,13 @@ package com.mei.ergosurgeon.load.data.entities.custom;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
+import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
+import com.mei.ergosurgeon.load.data.rules.KafkaTopic;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import java.util.Objects;
 
-public class Vector implements KafkaTopic<Vector> {
-
-
-    private Integer id;
+public class Vector extends AbstractKafkaTopic<Vector> {
 
     private Long time;
 
@@ -96,11 +95,6 @@ public class Vector implements KafkaTopic<Vector> {
     public Vector send(KafkaLoadService proxy, Client client) throws Exception {
         proxy.send(this, com.mei.ergosurgeon.schema.entities.custom.Vector.class, client);
         return this;
-    }
-
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     @Override

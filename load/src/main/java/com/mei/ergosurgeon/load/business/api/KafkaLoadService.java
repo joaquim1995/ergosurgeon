@@ -1,7 +1,7 @@
 package com.mei.ergosurgeon.load.business.api;
 
 import com.mei.ergosurgeon.load.data.entities.custom.Client;
-import com.mei.ergosurgeon.load.data.entities.custom.KafkaTopic;
+import com.mei.ergosurgeon.load.data.rules.KafkaTopic;
 import org.springframework.scheduling.annotation.Async;
 
 public interface KafkaLoadService {

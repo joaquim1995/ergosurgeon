@@ -18,11 +18,11 @@ public class StreamProcessorUtils {
 
         msg.setSubject("Ergosurgeon");
         msg.setText("Request data on:\n"+
-                "\n"+
+                "\nlocalhost:8080/"+
                 item.getEmail().toString()+"/"+
                 item.getUuid().toString()+"/"+
                 item.getDateStart()+"/"+
-                item.getDateEnd()+"\n"+
+                item.getDateEnd()+"\n\n"+
                 "Give it some time to process data.\n"
         );
 

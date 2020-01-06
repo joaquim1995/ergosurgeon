@@ -29,12 +29,12 @@ public class BigQueryUtils {
                     QueryJobConfiguration.newBuilder(
                             "SELECT\n" +
                                     "*\n" +
-                                    "FROM `project-258120.ErgoSurgeonDataSet.threated_point`\n" +
-                                    "WHERE DATE(_PARTITIONTIME) BETWEEN :dateStart AND :dateEnd AND\n" +
-                                    "UUID = :uuid AND Email = :email"
+                                    "FROM 'project-258120.ErgoSurgeonDataSet.threated_point'\n" +
+                                    //"WHERE DATE(_PARTITIONTIME) BETWEEN :dateStart AND :dateEnd AND\n" +
+                                    "WHERE UUID = :uuid AND Email = :email"
                     )
-                            .addNamedParameter("dateStart", QueryParameterValue.int64(dateStart))
-                            .addNamedParameter("dateEnd", QueryParameterValue.int64(dateEnd))
+                            //.addNamedParameter("dateStart", QueryParameterValue.int64(dateStart))
+                            //.addNamedParameter("dateEnd", QueryParameterValue.int64(dateEnd))
                             .addNamedParameter("uuid", QueryParameterValue.string(uuid))
                             .addNamedParameter("email", QueryParameterValue.string(email))
                             // Use standard SQL syntax for queries.

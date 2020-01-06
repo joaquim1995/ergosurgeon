@@ -50,12 +50,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.google.appengine/appengine-java-sdk >
-        <dependency>
-            <groupId>com.google.appengine</groupId>
-            <artifactId>appengine-api-1.0-sdk</artifactId>
-        </dependency-->
-
         <!--dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>

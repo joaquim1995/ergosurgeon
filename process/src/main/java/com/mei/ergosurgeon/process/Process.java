@@ -20,42 +20,16 @@ import java.time.LocalDateTime;
 @EnableSchemaRegistryClient
 @SpringBootApplication
 public class Process {
-    @Autowired
-    JavaMailSender javaMailSender;
+
     public static void main(String[] args) {
 
         try {
-            new Process().sa();
 
             SpringApplication.run(Process.class, args);
+
         } catch (Exception e) {
             e.printStackTrace();
 
         }
-    }
-
-    public void sa()
-    {
-        Client item = new Client(
-                "joaquimcardoso12@hotmail.com",
-                "01234567-ABCD-abcd-3210-0123456789AB",
-                Clock.systemUTC().millis(),
-                Clock.systemUTC().millis()
-        );
-        SimpleMailMessage msg = new SimpleMailMessage();
-
-        msg.setTo(item.getEmail().toString());
-
-        msg.setSubject("Ergosurgeon");
-        msg.setText("Request data on:\n"+
-                "\nlocalhost:8080/"+
-                item.getEmail().toString()+"/"+
-                item.getUuid().toString()+"/"+
-                item.getDateStart()+"/"+
-                item.getDateEnd()+"\n\n"+
-                "Give it some time to process data.\n"
-        );
-
-        javaMailSender.send(msg);
     }
 }

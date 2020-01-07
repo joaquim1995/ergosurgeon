@@ -1,5 +1,6 @@
 package com.mei.ergosurgeon.process.transformers;
 
+import com.mei.ergosurgeon.process.config.JavaMailSenderConfig;
 import com.mei.ergosurgeon.process.transformers.channels.*;
 import com.mei.ergosurgeon.schema.entities.*;
 import com.mei.ergosurgeon.schema.entities.custom.Quaternion;
@@ -12,13 +13,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class StreamProcessor {
-    @Autowired
-    JavaMailSender javaMailSender;
 
     @StreamListener(StreamProcessorClient.INPUT)
     @SendTo(StreamProcessorClient.OUTPUT)
     public Client processorClient(Client event) {
-        return StreamProcessorUtils.processClient(javaMailSender,event);
+        return StreamProcessorUtils.processClient(JavaMailSenderConfig.getJavaMailSender(),event);
     }
 
     @StreamListener(StreamProcessorPoint.INPUT)

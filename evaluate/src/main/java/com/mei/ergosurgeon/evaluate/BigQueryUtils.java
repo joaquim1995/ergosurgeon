@@ -29,7 +29,7 @@ public class BigQueryUtils {
                     QueryJobConfiguration.newBuilder(
                             "SELECT\n" +
                                     "*\n" +
-                                    "FROM 'project-258120.ErgoSurgeonDataSet.threated_point'\n" +
+                                    "FROM 'investigation-265721.ErgoSurgeonDataSet.threated_point'\n" +
                                     //"WHERE DATE(_PARTITIONTIME) BETWEEN :dateStart AND :dateEnd AND\n" +
                                     "WHERE UUID = :uuid AND Email = :email"
                     )

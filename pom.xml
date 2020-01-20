@@ -111,7 +111,7 @@
                         <configuration>
                             <automaticRestart>true</automaticRestart>
                             <stopPreviousVersion>true</stopPreviousVersion>
-                            <projectId>project-258120</projectId>
+                            <projectId>investigation-265721</projectId>
                             <version>1</version>
                         </configuration>
                     </plugin>

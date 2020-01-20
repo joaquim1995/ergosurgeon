@@ -4,7 +4,7 @@ spring:
       bigquery:
         credentials:
           location: file:C:\Projects\ergosurgeon\evaluate\src\main\resources\BigQuery.json
-        project-id: project-258120
+        project-id: investigation-265721
         enabled: true
         datasetName: ErgoSurgeonDataSet
     stream:

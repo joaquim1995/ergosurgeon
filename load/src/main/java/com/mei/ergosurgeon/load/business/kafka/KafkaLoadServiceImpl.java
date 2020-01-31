@@ -1,15 +1,18 @@
-package com.mei.ergosurgeon.load.business;
+package com.mei.ergosurgeon.load.business.kafka;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
-import com.mei.ergosurgeon.load.data.entities.custom.Client;
-import com.mei.ergosurgeon.load.data.rules.KafkaTopic;
+import com.mei.ergosurgeon.load.data.entities.id.Client;
+import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
 
+@Slf4j
 @Service
 public class KafkaLoadServiceImpl implements KafkaLoadService {
 
@@ -23,8 +26,16 @@ public class KafkaLoadServiceImpl implements KafkaLoadService {
     // faço um flatMap(item-> item.getList().steam())
 
     @Override
-    public <S extends KafkaTopic<S>> void send(S item, Class toClass, Client client) throws Exception {
+    public <S extends AbstractKafkaTopic> void send(S item, Class toClass, Client client) throws Exception {
         try {
+            if (item instanceof Client)
+                ((Client) item).setTimeEnd(Clock.systemUTC().millis());
+
+            else {
+                item.setEmail(client.getEmail());
+                item.setUuid(client.getUuid());
+            }
+
             item.getKafkaTemplate().executeInTransaction(
                     (kafkaOperations) -> kafkaOperations.send(
                             MessageBuilder
@@ -35,9 +46,9 @@ public class KafkaLoadServiceImpl implements KafkaLoadService {
                                     .build()
                     )
             );
+
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            log.error(item.toString());
         }
     }
 }

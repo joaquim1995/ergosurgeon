@@ -10,8 +10,11 @@ package com.mei.ergosurgeon.load.data.entities;
 
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
-import com.mei.ergosurgeon.load.data.entities.custom.Client;
-import org.apache.commons.lang3.StringUtils;
+import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
+import com.mei.ergosurgeon.load.data.entities.id.Client;
+import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
+import com.mei.ergosurgeon.load.data.rules.TopicFather;
+import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
@@ -19,10 +22,10 @@ import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "frames")
-public class Frames {
-
-    private Integer id = 1;
-
+public class Frames extends AbstractKafkaTopic implements TopicFather
+// By itself this configuration represent 1 -> 1 || N
+// (By the current solution, another approaches change automatically that.)
+{
     @XmlElement(required = true)
     protected List<Frame> frame;
 
@@ -41,7 +44,6 @@ public class Frames {
         }
         return this.frame;
     }
-
 
     public String getSegmentCount() {
         return segmentCount;
@@ -67,17 +69,23 @@ public class Frames {
         this.jointCount = value;
     }
 
-    public Frames process(KafkaLoadService proxy, Client client) throws Exception {
+    @Override
+    public void send(KafkaLoadService proxy, Client client) throws Exception {
+        proxy.send(this, com.mei.ergosurgeon.schema.entities.Frames.class, client);
+    }
 
-        int i = 1;
-        for (Frame item : getFrame()) {
-            if (StringUtils.equalsIgnoreCase(item.getType(), "normal")) {
-                item.setId(i++);
-                item.send(proxy, client);
-            }
-        }
+    @Override
+    public String getTopic() {
+        return "frames";
+    }
 
-        //send(this);
-        return this;
+    @Override
+    public KafkaTemplate<Object, Frames> getKafkaTemplate() {
+        return KafkaTemplatesUtil.getKafkaFramesTemplate();
+    }
+
+    @Override
+    public void process(KafkaLoadService proxy, Client client) throws Exception {
+        process(proxy, client, getFrame());
     }
 }

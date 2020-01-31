@@ -10,17 +10,15 @@ package com.mei.ergosurgeon.load.data.entities;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
-import com.mei.ergosurgeon.load.data.entities.custom.Client;
+import com.mei.ergosurgeon.load.data.entities.id.Client;
 import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
-import com.mei.ergosurgeon.load.data.rules.KafkaTopic;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "subject")
-public class Subject extends AbstractKafkaTopic<Subject> {
-
+public class Subject extends AbstractKafkaTopic {
     @XmlElement(required = true)
     protected String comment;
 
@@ -141,16 +139,16 @@ public class Subject extends AbstractKafkaTopic<Subject> {
         this.originalFilename = value;
     }
 
-    public Subject send(KafkaLoadService proxy, Client client) throws Exception {
+    @Override
+    public void send(KafkaLoadService proxy, Client client) throws Exception {
 
         proxy.send(this, com.mei.ergosurgeon.schema.entities.Subject.class, client);
+        getFrames().send(proxy, client);
 
         getSegments().process(proxy, client);
         getJoints().process(proxy, client);
         getFrames().process(proxy, client);
         getSensors().process(proxy, client);
-
-        return this;
     }
 
     @Override

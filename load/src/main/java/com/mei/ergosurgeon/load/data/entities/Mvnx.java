@@ -10,17 +10,17 @@ package com.mei.ergosurgeon.load.data.entities;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
-import com.mei.ergosurgeon.load.data.entities.custom.Client;
+import com.mei.ergosurgeon.load.data.entities.id.Client;
 import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
-import com.mei.ergosurgeon.load.data.rules.KafkaTopic;
+import lombok.ToString;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
 
+@ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "mvnx")
-public class Mvnx extends AbstractKafkaTopic<Mvnx> {
-
+public class Mvnx extends AbstractKafkaTopic {
     @XmlElement(required = true)
     protected Mvn mvn;
 
@@ -76,11 +76,11 @@ public class Mvnx extends AbstractKafkaTopic<Mvnx> {
         this.version = value;
     }
 
-    public Mvnx send(KafkaLoadService proxy, Client client) throws Exception {
+    @Override
+    public void send(KafkaLoadService proxy, Client client) throws Exception {
         proxy.send(this, com.mei.ergosurgeon.schema.entities.Mvnx.class, client);
         getSubject().send(proxy, client);
         getMvn().send(proxy, client);
-        return this;
     }
 
     @Override

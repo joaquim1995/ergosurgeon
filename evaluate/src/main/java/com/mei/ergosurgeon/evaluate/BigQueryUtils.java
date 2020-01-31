@@ -19,17 +19,17 @@ public class BigQueryUtils {
     BigQuery bigquery;
 
     @GetMapping("/{email}/{uuid}/{dateStart}/{dateEnd}")
-    public void runQuery(@PathVariable @Email String email,
-                         @PathVariable @Pattern(regexp = "^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$", message = "UUID format error") String uuid,
-                         @PathVariable @Past Long dateStart,
-                         @PathVariable @Past Long dateEnd) {
+    public TableResult runQuery(@PathVariable @Email String email,
+                                @PathVariable @Pattern(regexp = "^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$", message = "UUID format error") String uuid,
+                                @PathVariable @Past Long dateStart,
+                                @PathVariable @Past Long dateEnd) throws InterruptedException {
         try {
-            BigQuery bq = BigQueryOptions.getDefaultInstance().getService();
+            BigQuery bq = BigQueryOptions.newBuilder().setProjectId("investigation-265721").build().getService();
             QueryJobConfiguration queryConfig =
                     QueryJobConfiguration.newBuilder(
                             "SELECT\n" +
                                     "*\n" +
-                                    "FROM 'investigation-265721.ErgoSurgeonDataSet.threated_point'\n" +
+                                    "FROM 'Investigation.threated_point'\n" +
                                     //"WHERE DATE(_PARTITIONTIME) BETWEEN :dateStart AND :dateEnd AND\n" +
                                     "WHERE UUID = :uuid AND Email = :email"
                     )
@@ -59,15 +59,18 @@ public class BigQueryUtils {
             }
 
             TableResult result = bigquery.query(queryConfig);
+
+            return result;
             // Run the query using the BigQuery object
-            for (FieldValueList row : result.iterateAll()) {
+            /*for (FieldValueList row : result.iterateAll()) {
                 System.out.println();
                 for (FieldValue val : row) {
                     System.out.print(val + "  ");
                 }
-            }
+            }*/
         } catch (Exception e) {
             e.printStackTrace();
+            throw e;
         }
     }
 }

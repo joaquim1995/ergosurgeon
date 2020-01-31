@@ -10,25 +10,20 @@ package com.mei.ergosurgeon.load.data.entities;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
-import com.mei.ergosurgeon.load.data.entities.custom.Client;
+import com.mei.ergosurgeon.load.data.entities.id.Client;
 import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
-import com.mei.ergosurgeon.load.data.rules.KafkaTopic;
-import com.mei.ergosurgeon.load.data.entities.custom.Vector;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "point")
-public class Point extends AbstractKafkaTopic<Point> {
-
+public class Point extends AbstractKafkaTopic {
     @XmlElement(name = "pos_s", required = true)
     protected String posS;
 
     @XmlAttribute(name = "label", required = true)
     protected String label;
-
-    private Vector position;
 
     public String getPosS() {
         return posS;
@@ -46,16 +41,8 @@ public class Point extends AbstractKafkaTopic<Point> {
         this.label = value;
     }
 
-    public Vector getPosition() {
-        return position;
-    }
-
-    public void setPosition(Vector position) {
-        this.position = position;
-    }
-
     @Override
-    public Point send(KafkaLoadService proxy, Client client) throws Exception {
+    public void send(KafkaLoadService proxy, Client client) throws Exception {
 
         proxy.send(this, com.mei.ergosurgeon.schema.entities.Point.class, client);
         /*
@@ -64,6 +51,7 @@ public class Point extends AbstractKafkaTopic<Point> {
         //If we dont reset this value we will have a lot of diferent points of "earth" of a signal.
         //Then so we will reset all frames to focus on the movement. After we will normalize the frames.
 
+        //Why would i think that? That is a good question
 
         Float[] aux = Stream.of(getPosS().split(" ")).map(Float::new).toArray(Float[]::new);
 
@@ -72,7 +60,6 @@ public class Point extends AbstractKafkaTopic<Point> {
 
         //send(this);
         */
-        return this;
     }
 
     @Override
@@ -84,4 +71,5 @@ public class Point extends AbstractKafkaTopic<Point> {
     public KafkaTemplate<Object, Point> getKafkaTemplate() {
         return KafkaTemplatesUtil.getKafkaPointTemplate();
     }
+
 }

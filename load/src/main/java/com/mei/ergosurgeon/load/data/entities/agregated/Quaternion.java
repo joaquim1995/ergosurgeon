@@ -1,15 +1,15 @@
-package com.mei.ergosurgeon.load.data.entities.custom;
+package com.mei.ergosurgeon.load.data.entities.agregated;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
+import com.mei.ergosurgeon.load.data.entities.id.Client;
 import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
 import com.mei.ergosurgeon.load.data.rules.KafkaTopic;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import java.util.Objects;
 
-public class Quaternion extends AbstractKafkaTopic<Quaternion> {
-
+public class Quaternion extends AbstractKafkaTopic implements KafkaTopic {
     private Long time;
 
     private Float q0;
@@ -99,10 +99,9 @@ public class Quaternion extends AbstractKafkaTopic<Quaternion> {
         return Objects.hash(time, q0, q1, q2, q3);
     }
 
-    public Quaternion send(KafkaLoadService proxy, Client client) throws Exception {
-
+    @Override
+    public void send(KafkaLoadService proxy, Client client) throws Exception {
         proxy.send(this, com.mei.ergosurgeon.schema.entities.custom.Quaternion.class, client);
-        return this;
     }
 
     @Override
@@ -114,5 +113,4 @@ public class Quaternion extends AbstractKafkaTopic<Quaternion> {
     public KafkaTemplate<Object, Quaternion> getKafkaTemplate() {
         return KafkaTemplatesUtil.getKafkaQuaternionTemplate();
     }
-
 }

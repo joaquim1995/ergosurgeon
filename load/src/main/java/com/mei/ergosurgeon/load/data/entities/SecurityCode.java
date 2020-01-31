@@ -18,8 +18,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "securityCode")
 public class SecurityCode {
 
-    private Integer id = 1;
-
     @XmlAttribute(name = "code", required = true)
     protected String code;
 

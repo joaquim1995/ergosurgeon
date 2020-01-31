@@ -1,18 +1,32 @@
 package com.mei.ergosurgeon.load.data.rules;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
-import com.mei.ergosurgeon.load.data.entities.custom.Client;
+import com.mei.ergosurgeon.load.data.entities.id.Client;
 import org.springframework.kafka.core.KafkaTemplate;
 
-public interface KafkaTopic<T> {
+/***
+ * Kafka topic is the imaginative behaviour of a path on a good environment.
+ * Is like be a sea in the world, you have multiple ramifications, you hold it together, by force.
+ *
+ */
+public interface KafkaTopic extends Topic {
+    /**
+     * To Set up identification for BigQuery and sendding emails
+     *
+     * @param uuid
+     * @return
+     */
+    <T extends AbstractKafkaTopic> T setUuid(String uuid);
 
-    T send(KafkaLoadService proxy, Client client) throws Exception;
+    /**
+     * To Set up identification for BigQuery and sendding emails
+     *
+     * @param uuid
+     * @return
+     */
+    <T extends AbstractKafkaTopic> T setEmail(String email);
 
-    default String getInternalTopic() {
-        return "raw_" + getTopic();
-    }
+    void send(KafkaLoadService proxy, Client client) throws Exception;
 
-    String getTopic();
-
-    KafkaTemplate<Object, T> getKafkaTemplate();
+    <T extends AbstractKafkaTopic> KafkaTemplate<Object, T> getKafkaTemplate();
 }

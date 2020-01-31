@@ -10,17 +10,17 @@ package com.mei.ergosurgeon.load.data.entities;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
-import com.mei.ergosurgeon.load.data.entities.custom.Client;
+import com.mei.ergosurgeon.load.data.entities.id.Client;
 import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
-import com.mei.ergosurgeon.load.data.rules.KafkaTopic;
+import lombok.ToString;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
 
-
+@ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "segment")
-public class Segment extends AbstractKafkaTopic<Segment> {
+public class Segment extends AbstractKafkaTopic {
 
     @XmlElement(required = true)
     protected Points points;
@@ -56,11 +56,11 @@ public class Segment extends AbstractKafkaTopic<Segment> {
         this.segmentId = segmentId;
     }
 
-    public Segment send(KafkaLoadService proxy, Client client) throws Exception {
+    @Override
+    public void send(KafkaLoadService proxy, Client client) throws Exception {
 
         proxy.send(this, com.mei.ergosurgeon.schema.entities.Segment.class, client);
         getPoints().process(proxy, client);
-        return this;
     }
 
     @Override

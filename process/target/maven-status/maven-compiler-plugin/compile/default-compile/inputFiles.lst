@@ -1,4 +1,5 @@
 C:\Projects\ergosurgeon\process\src\main\java\com\mei\ergosurgeon\process\transformers\channels\StreamProcessorSegment.java
+C:\Projects\ergosurgeon\process\src\main\java\com\mei\ergosurgeon\process\config\JavaMailSenderConfig.java
 C:\Projects\ergosurgeon\process\src\main\java\com\mei\ergosurgeon\process\transformers\channels\StreamProcessorMvnx.java
 C:\Projects\ergosurgeon\process\src\main\java\com\mei\ergosurgeon\process\transformers\channels\StreamProcessorVector.java
 C:\Projects\ergosurgeon\process\src\main\java\com\mei\ergosurgeon\process\common\JointEnum.java
@@ -15,5 +16,7 @@ C:\Projects\ergosurgeon\process\src\main\java\com\mei\ergosurgeon\process\transf
 C:\Projects\ergosurgeon\process\src\main\java\com\mei\ergosurgeon\process\transformers\channels\StreamProcessorQuaternion.java
 C:\Projects\ergosurgeon\process\src\main\java\com\mei\ergosurgeon\process\transformers\channels\StreamProcessorSensor.java
 C:\Projects\ergosurgeon\process\src\main\java\com\mei\ergosurgeon\process\config\SchemRegistryConfig.java
+C:\Projects\ergosurgeon\process\src\main\java\com\mei\ergosurgeon\process\transformers\channels\StreamProcessorFrames.java
+C:\Projects\ergosurgeon\process\src\main\java\com\mei\ergosurgeon\process\transformers\channels\StreamProcessorClient.java
 C:\Projects\ergosurgeon\process\src\main\java\com\mei\ergosurgeon\process\transformers\channels\StreamProcessorFrame.java
 C:\Projects\ergosurgeon\process\src\main\java\com\mei\ergosurgeon\process\ServletInitializer.java

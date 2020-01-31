@@ -1,9 +1,9 @@
 package com.mei.ergosurgeon.load.business.utils;
 
 import com.mei.ergosurgeon.load.data.entities.*;
-import com.mei.ergosurgeon.load.data.entities.custom.Client;
-import com.mei.ergosurgeon.load.data.entities.custom.Quaternion;
-import com.mei.ergosurgeon.load.data.entities.custom.Vector;
+import com.mei.ergosurgeon.load.data.entities.agregated.Quaternion;
+import com.mei.ergosurgeon.load.data.entities.agregated.Vector;
+import com.mei.ergosurgeon.load.data.entities.id.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -19,6 +19,7 @@ public class KafkaTemplatesUtil {
     private static KafkaTemplate<Object, Mvn> kafkaMvnTemplate;
     private static KafkaTemplate<Object, Joint> kafkaJointTemplate;
     private static KafkaTemplate<Object, Frame> kafkaFrameTemplate;
+    private static KafkaTemplate<Object, Frames> kafkaFramesTemplate;
     private static KafkaTemplate<Object, Vector> kafkaVectorTemplate;
     private static KafkaTemplate<Object, Quaternion> kafkaQuaternionTemplate;
     private static KafkaTemplate<Object, Client> kafkaClientTemplate;
@@ -29,8 +30,8 @@ public class KafkaTemplatesUtil {
             KafkaTemplate<Object, Segment> kafkaSegmentTemplate, KafkaTemplate<Object, Point> kafkaPointTemplate,
             KafkaTemplate<Object, Mvnx> kafkaMvnxTemplate, KafkaTemplate<Object, Mvn> kafkaMvnTemplate,
             KafkaTemplate<Object, Joint> kafkaJointTemplate, KafkaTemplate<Object, Frame> kafkaFrameTemplate,
-            KafkaTemplate<Object, Vector> kafkaVectorTemplate, KafkaTemplate<Object, Quaternion> kafkaQuaternionTemplate,
-            KafkaTemplate<Object, Client> kafkaClientTemplate) {
+            KafkaTemplate<Object, Frames> kafkaFramesTemplate, KafkaTemplate<Object, Vector> kafkaVectorTemplate,
+            KafkaTemplate<Object, Quaternion> kafkaQuaternionTemplate, KafkaTemplate<Object, Client> kafkaClientTemplate) {
         this.kafkaSubjectTemplate = kafkaSubjectTemplate;
         this.kafkaSensorTemplate = kafkaSensorTemplate;
         this.kafkaSegmentTemplate = kafkaSegmentTemplate;
@@ -39,6 +40,7 @@ public class KafkaTemplatesUtil {
         this.kafkaMvnTemplate = kafkaMvnTemplate;
         this.kafkaJointTemplate = kafkaJointTemplate;
         this.kafkaFrameTemplate = kafkaFrameTemplate;
+        this.kafkaFramesTemplate = kafkaFramesTemplate;
         this.kafkaVectorTemplate = kafkaVectorTemplate;
         this.kafkaQuaternionTemplate = kafkaQuaternionTemplate;
         this.kafkaClientTemplate = kafkaClientTemplate;
@@ -74,6 +76,10 @@ public class KafkaTemplatesUtil {
 
     public static KafkaTemplate<Object, Frame> getKafkaFrameTemplate() {
         return kafkaFrameTemplate;
+    }
+
+    public static KafkaTemplate<Object, Frames> getKafkaFramesTemplate() {
+        return kafkaFramesTemplate;
     }
 
     public static KafkaTemplate<Object, Vector> getKafkaVectorTemplate() {

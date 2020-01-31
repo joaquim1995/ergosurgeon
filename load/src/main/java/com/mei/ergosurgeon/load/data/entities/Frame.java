@@ -8,29 +8,34 @@
 
 package com.mei.ergosurgeon.load.data.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
-import com.mei.ergosurgeon.load.data.entities.custom.Client;
+import com.mei.ergosurgeon.load.common.SegmentEnum;
+import com.mei.ergosurgeon.load.data.entities.agregated.Quaternion;
+import com.mei.ergosurgeon.load.data.entities.agregated.Vector;
+import com.mei.ergosurgeon.load.data.entities.id.Client;
 import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
-import com.mei.ergosurgeon.load.data.rules.KafkaTopic;
-import com.mei.ergosurgeon.load.data.entities.custom.Quaternion;
-import com.mei.ergosurgeon.load.data.entities.custom.Vector;
+import com.mei.ergosurgeon.load.data.rules.TopicFather;
+import lombok.ToString;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
+@ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "frame")
-public class Frame extends AbstractKafkaTopic<Frame> {
-
-    @JsonProperty
+public class Frame extends AbstractKafkaTopic implements TopicFather
+// By itself this configuration represent 1 -> N
+{
     @XmlElement(required = true)
     protected String orientation;
 
     @XmlElement(required = true)
     protected String position;
+
     protected String velocity;
     protected String acceleration;
     protected String angularVelocity;
@@ -227,19 +232,18 @@ public class Frame extends AbstractKafkaTopic<Frame> {
     }
 
     @Override
-
-    public Frame send(KafkaLoadService proxy, Client client) throws Exception {
+    public void send(KafkaLoadService proxy, Client client) throws Exception {
 
         proxy.send(this, com.mei.ergosurgeon.schema.entities.Frame.class, client);
-
-        /*//TODO Normalize the frames.
 
         //TODO Fazer as ligações entre os rotulos, e classificar as posições em cada instante, passar para objectos dto,
         //não quero trabalhar com tanto lixo
 
+        //How is form quarternions
         Float[] orientations = Stream.of(getOrientation().split(" ")).map(Float::new).toArray(Float[]::new);
         int i = 0;
         int x = 0;
+
         List<Quaternion> auxOrientations = new ArrayList<>(orientations.length / 4);
 
         for (; i < orientations.length; i += 4)
@@ -247,6 +251,7 @@ public class Frame extends AbstractKafkaTopic<Frame> {
 
         setOrientations(auxOrientations);
 
+        //How is form vectors
         Float[] positions = Stream.of(getPosition().split(" ")).map(Float::new).toArray(Float[]::new);
         i = 0;
         x = 0;
@@ -256,8 +261,8 @@ public class Frame extends AbstractKafkaTopic<Frame> {
             auxPositions.add(new Vector(Long.parseLong(time), positions[i], positions[i + 1], positions[i + 2], SegmentEnum.obtain(x++)));
 
         setPositions(auxPositions);
-*/
-        return this;
+
+        this.process(proxy, client);
     }
 
     @Override
@@ -270,4 +275,8 @@ public class Frame extends AbstractKafkaTopic<Frame> {
         return KafkaTemplatesUtil.getKafkaFrameTemplate();
     }
 
+    @Override
+    public void process(KafkaLoadService proxy, Client client) throws Exception {
+        process(proxy, client, getOrientations(), getPositions());
+    }
 }

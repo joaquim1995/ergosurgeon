@@ -9,7 +9,9 @@
 package com.mei.ergosurgeon.load.data.entities;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
-import com.mei.ergosurgeon.load.data.entities.custom.Client;
+import com.mei.ergosurgeon.load.data.entities.id.Client;
+import com.mei.ergosurgeon.load.data.rules.AbstractTopicFather;
+import com.mei.ergosurgeon.load.data.rules.TopicFather;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -21,10 +23,7 @@ import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "segments")
-public class Segments {
-
-    private Integer id = 1;
-
+public class Segments extends AbstractTopicFather implements TopicFather {
     @XmlElement(required = true)
     protected List<Segment> segment;
 
@@ -35,13 +34,8 @@ public class Segments {
         return this.segment;
     }
 
-    public Segments process(KafkaLoadService proxy, Client client) throws Exception {
-        int i = 1;
-        for (Segment item : getSegment()) {
-            item.setId(i++);
-            item.send(proxy, client);
-        }
-        //send(this);
-        return this;
+    @Override
+    public void process(KafkaLoadService proxy, Client client) throws Exception {
+        process(proxy, client, getSegment());
     }
 }

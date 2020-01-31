@@ -6,14 +6,14 @@
 //
 
 
-package com.mei.ergosurgeon.load.data.entities.custom;
+package com.mei.ergosurgeon.load.data.entities.id;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
 import org.springframework.kafka.core.KafkaTemplate;
 
-public class Client extends AbstractKafkaTopic<Client> {
+public class Client extends AbstractKafkaTopic {
 
     private Long timeStart;
 
@@ -29,10 +29,9 @@ public class Client extends AbstractKafkaTopic<Client> {
         return this;
     }
 
-    public Client send(KafkaLoadService proxy, Client client) throws Exception {
-
+    @Override
+    public void send(KafkaLoadService proxy, Client client) throws Exception {
         proxy.send(this, com.mei.ergosurgeon.schema.entities.Client.class, client);
-        return this;
     }
 
     @Override

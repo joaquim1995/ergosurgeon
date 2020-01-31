@@ -1,0 +1,20 @@
+
+{
+  "type" : "record",
+  "name" : "Frames",
+  "namespace" : "com.mei.ergosurgeon.schema.entities",
+  "fields" : [
+         {"name" : "email","type": "string"},
+         {"name" : "uuid", "type": "string"},
+         {"name" : "id","type": "long"},
+  {
+    "name" : "segmentCount",
+    "type": "string"
+  }, {
+    "name" : "sensorCount",
+    "type": ["null", "string"]
+  }, {
+    "name" : "jointCount",
+    "type": ["null", "string"]
+  }]
+}

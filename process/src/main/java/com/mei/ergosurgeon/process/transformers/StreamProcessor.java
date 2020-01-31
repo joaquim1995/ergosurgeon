@@ -5,9 +5,7 @@ import com.mei.ergosurgeon.process.transformers.channels.*;
 import com.mei.ergosurgeon.schema.entities.*;
 import com.mei.ergosurgeon.schema.entities.custom.Quaternion;
 import com.mei.ergosurgeon.schema.entities.custom.Vector;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +30,12 @@ public class StreamProcessor {
         return StreamProcessorUtils.processFrame(event);
     }
 
+
+    @StreamListener(StreamProcessorFrames.INPUT)
+    @SendTo(StreamProcessorFrames.OUTPUT)
+    public Frames processorFrames(Frames event) {
+        return StreamProcessorUtils.processFrames(event);
+    }
 
     @StreamListener(StreamProcessorJoint.INPUT)
     @SendTo(StreamProcessorJoint.OUTPUT)

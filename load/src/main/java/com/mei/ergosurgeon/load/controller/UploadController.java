@@ -1,10 +1,10 @@
 package com.mei.ergosurgeon.load.controller;
 
 
-import com.mei.ergosurgeon.load.business.JaxbUnmarshallerService;
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
+import com.mei.ergosurgeon.load.business.transform.JaxbUnmarshallerService;
 import com.mei.ergosurgeon.load.data.entities.Mvnx;
-import com.mei.ergosurgeon.load.data.entities.custom.Client;
+import com.mei.ergosurgeon.load.data.entities.id.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +46,7 @@ public class UploadController {
             );
 
             object.send(impl, client);
+            client.send(impl, null);
         } catch (Exception e) {
             return "redirect:/failure.html";
         }

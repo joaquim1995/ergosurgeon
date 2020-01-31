@@ -1,13 +1,9 @@
 package com.mei.ergosurgeon.process;
 
 
-import com.mei.ergosurgeon.process.config.JavaMailSenderConfig;
 import com.mei.ergosurgeon.schema.entities.Client;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -22,11 +18,10 @@ public class ProcessTest {
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl
                 mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.gmail.com");
+        mailSender.setHost("smtp.office365.com");
         mailSender.setPort(587);
-
-        mailSender.setUsername("joaquimcardoso1995@gmail.com");
-        mailSender.setPassword("yellow555");
+        mailSender.setUsername("a10201@alunos.ipca.pt");
+        mailSender.setPassword("cavufA6ec");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
@@ -51,15 +46,16 @@ public class ProcessTest {
             );
             SimpleMailMessage msg = new SimpleMailMessage();
 
+            msg.setFrom("a10201@alunos.ipca.pt");
             msg.setTo(item.getEmail().toString());
 
             msg.setSubject("Ergosurgeon");
-            msg.setText("Request data on:\n"+
-                    "\nlocalhost:8080/"+
-                    item.getEmail().toString()+"/"+
-                    item.getUuid().toString()+"/"+
-                    item.getDateStart()+"/"+
-                    item.getDateEnd()+"\n\n"+
+            msg.setText("Request data on:\n" +
+                    "\nhttps://ergosurgeon-evaluate-dot-investigation-265721.appspot.com:8080/" +
+                    item.getEmail().toString() + "/" +
+                    item.getUuid().toString() + "/" +
+                    item.getDateStart() + "/" +
+                    item.getDateEnd() + "\n\n" +
                     "Give it some time to process data.\n"
             );
 

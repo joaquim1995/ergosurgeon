@@ -10,16 +10,16 @@ spring:
         binder:
           producer-properties:
             value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
-            schema.registry.url: http://34.77.146.12:8081
+            schema.registry.url: http://34.70.1.18:8081
           consumer-properties:
             value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
-            schema.registry.url: http://34.77.146.12:8081
+            schema.registry.url: http://34.70.1.18:8081
             specific.avro.reader: true
   kafka:
     properties:
       sasl:
         jaas:
-          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="user" password="pKCfAko5ySL3";
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="user" password="puFoL6iRENSS";
         mechanism: PLAIN
       security:
         protocol: SASL_PLAINTEXT
@@ -30,7 +30,15 @@ spring:
 
     consumer:
       group-id: process
-    bootstrap-servers: 104.197.144.191:9093,35.192.93.32:9093,35.222.56.168:9093
+    bootstrap-servers: 35.239.50.117:9093,35.224.106.50:9093,34.66.142.32:9093
+
+# TLS , port 587
+#spring.mail.properties.mail.smtp.starttls.enable=true
+# SSL, post 465
+#spring.mail.properties.mail.smtp.socketFactory.port = 465
+#spring.mail.properties.mail.smtp.socketFactory.class = javax.net.ssl.SSLSocketFactory
+
+
 
 #spring:
 #  cloud:

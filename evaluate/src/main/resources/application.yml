@@ -3,7 +3,8 @@ spring:
     gcp:
       bigquery:
         credentials:
-          location: file:C:\Projects\ergosurgeon\evaluate\src\main\resources\BigQuery.json
+          location: file:C:\Projects\ergosurgeon\evaluate\src\main\resources\bigquery.json
+          #location: file:WEB-INF/classes/bigquery.json
         project-id: investigation-265721
         enabled: true
         datasetName: ErgoSurgeonDataSet
@@ -15,19 +16,19 @@ spring:
         binder:
           consumer-properties:
             value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
-            schema.registry.url: http://34.77.146.12:8081
+            schema.registry.url: http://34.70.1.18:8081
             specific.avro.reader: true
   kafka:
     properties:
       sasl:
         jaas:
-          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="user" password="pKCfAko5ySL3";
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="user" password="uuAA6bCFY7D1";
         mechanism: PLAIN
       security:
         protocol: SASL_PLAINTEXT
     consumer:
       group-id: process
-    bootstrap-servers: 104.197.144.191:9093,35.192.93.32:9093,35.222.56.168:9093
+    bootstrap-servers: 35.239.50.117:9093,35.224.106.50:9093,34.66.142.32:9093
 
 #spring:
 #  cloud:

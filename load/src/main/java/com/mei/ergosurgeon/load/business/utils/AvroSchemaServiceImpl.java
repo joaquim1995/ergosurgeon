@@ -1,4 +1,4 @@
-package com.mei.ergosurgeon.load.business;
+package com.mei.ergosurgeon.load.business.utils;
 
 import org.apache.avro.Schema;
 import org.apache.avro.reflect.ReflectData;

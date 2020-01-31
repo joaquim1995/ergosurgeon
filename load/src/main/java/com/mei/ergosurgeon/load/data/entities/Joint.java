@@ -10,18 +10,18 @@ package com.mei.ergosurgeon.load.data.entities;
 
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
-import com.mei.ergosurgeon.load.data.entities.custom.Client;
+import com.mei.ergosurgeon.load.data.entities.id.Client;
 import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
-import com.mei.ergosurgeon.load.data.rules.KafkaTopic;
+import lombok.ToString;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
 
 
+@ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "joint")
-public class Joint extends AbstractKafkaTopic<Joint> {
-
+public class Joint extends AbstractKafkaTopic {
     @XmlElement(required = true)
     protected String connector1;
 
@@ -55,7 +55,8 @@ public class Joint extends AbstractKafkaTopic<Joint> {
         this.label = value;
     }
 
-    public Joint send(KafkaLoadService proxy, Client client) throws Exception {
+    @Override
+    public void send(KafkaLoadService proxy, Client client) throws Exception {
 
         proxy.send(this, com.mei.ergosurgeon.schema.entities.Joint.class, client);
         /*
@@ -64,7 +65,6 @@ public class Joint extends AbstractKafkaTopic<Joint> {
 
         //send(this);
         */
-        return this;
     }
 
     @Override

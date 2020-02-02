@@ -13,6 +13,7 @@ import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.entities.id.Client;
 import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
 import lombok.ToString;
+import org.apache.avro.specific.SpecificRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
@@ -21,7 +22,6 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "segment")
 public class Segment extends AbstractKafkaTopic {
-
     @XmlElement(required = true)
     protected Points points;
 
@@ -57,9 +57,8 @@ public class Segment extends AbstractKafkaTopic {
     }
 
     @Override
-    public void send(KafkaLoadService proxy, Client client) throws Exception {
-
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.Segment.class, client);
+    public void send(KafkaLoadService proxy, Client client, Object... args) throws Exception {
+        super.send(proxy, client, args);
         getPoints().process(proxy, client);
     }
 
@@ -71,5 +70,10 @@ public class Segment extends AbstractKafkaTopic {
     @Override
     public KafkaTemplate<Object, Segment> getKafkaTemplate() {
         return KafkaTemplatesUtil.getKafkaSegmentTemplate();
+    }
+
+    @Override
+    public <T extends SpecificRecord> Class<T> mappingClass() {
+        return (Class<T>) com.mei.ergosurgeon.schema.entities.Segment.class;
     }
 }

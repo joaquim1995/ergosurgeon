@@ -8,11 +8,10 @@
 
 package com.mei.ergosurgeon.load.data.entities;
 
-import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
-import com.mei.ergosurgeon.load.data.entities.id.Client;
 import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
 import lombok.ToString;
+import org.apache.avro.specific.SpecificRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
@@ -55,26 +54,30 @@ public class Joint extends AbstractKafkaTopic {
         this.label = value;
     }
 
-    @Override
+       /* @Override
     public void send(KafkaLoadService proxy, Client client) throws Exception {
 
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.Joint.class, client);
-        /*
+        proxy.send(this, client);
+
         connector1 = connector1.split("\\/")[0];
         connector2 = connector2.split("\\/")[0];
 
         //send(this);
-        */
-    }
+
+    }    */
 
     @Override
     public String getTopic() {
         return "joint";
     }
 
-
     @Override
     public KafkaTemplate<Object, Joint> getKafkaTemplate() {
         return KafkaTemplatesUtil.getKafkaJointTemplate();
+    }
+
+    @Override
+    public <T extends SpecificRecord> Class<T> mappingClass() {
+        return (Class<T>) com.mei.ergosurgeon.schema.entities.Joint.class;
     }
 }

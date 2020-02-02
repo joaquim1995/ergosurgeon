@@ -1,7 +1,6 @@
 package com.mei.ergosurgeon.load.data.rules;
 
-import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
-import com.mei.ergosurgeon.load.data.entities.id.Client;
+import org.apache.avro.specific.SpecificRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 
 /***
@@ -26,7 +25,28 @@ public interface KafkaTopic extends Topic {
      */
     <T extends AbstractKafkaTopic> T setEmail(String email);
 
-    void send(KafkaLoadService proxy, Client client) throws Exception;
+    /***
+     * Mapping to avro class
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T extends SpecificRecord> Class<T> mappingClass();
+
+
+    /***
+     * Get templato to a proxy for sending message.
+     * @param <T>
+     * @return
+     */
 
     <T extends AbstractKafkaTopic> KafkaTemplate<Object, T> getKafkaTemplate();
+
+
+    void validateRules(Object... args);
+
+    /***
+     * Prepare and clean up data.
+     */
+    void cleanUp(Object... args);
 }

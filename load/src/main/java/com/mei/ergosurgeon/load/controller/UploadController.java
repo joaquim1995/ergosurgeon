@@ -31,26 +31,29 @@ public class UploadController {
     @RequestMapping(value = "/doUpload", method = RequestMethod.POST, consumes = "multipart/form-data")
     public String upload(@RequestParam String email, @RequestParam MultipartFile file) {
         try {
-            Client client = (Client) new Client()
-                    .setEmail(email)
-                    .setUuid(UUID.randomUUID().toString());
+            processRequest(file, setClient(email));
 
-            Mvnx object = unmarshal.unmarshal(
-                    file.getInputStream()
-            );
-
-            client.setTimeStart(
-                    Clock
-                            .systemUTC()
-                            .millis()
-            );
-
-            object.send(impl, client);
-            client.send(impl, null);
         } catch (Exception e) {
             return "redirect:/failure.html";
         }
 
         return "redirect:/sucess.html";
+    }
+
+    private Client setClient(final String email) {
+        return ((Client)
+                new Client()
+                        .setEmail(email)
+                        .setUuid(UUID.randomUUID().toString())
+        )
+                .setTimeStart(Clock.systemUTC().millis());
+
+    }
+
+    private void processRequest(final MultipartFile file, final Client client) throws Exception {
+        Mvnx object = unmarshal.unmarshal(file.getInputStream());
+
+        object.send(impl, client);
+        client.send(impl, null);
     }
 }

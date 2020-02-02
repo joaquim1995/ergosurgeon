@@ -14,10 +14,12 @@ import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.entities.id.Client;
 import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
 import com.mei.ergosurgeon.load.data.rules.TopicFather;
+import org.apache.avro.specific.SpecificRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -70,8 +72,29 @@ public class Frames extends AbstractKafkaTopic implements TopicFather
     }
 
     @Override
-    public void send(KafkaLoadService proxy, Client client) throws Exception {
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.Frames.class, client);
+    public void cleanUp(Object... args) {
+        setId(1);
+        //could go with spliterator i think, not sure
+        Iterator iterator = frame.iterator();
+
+
+        //receive parameter frameRate
+        int frameRate = ((Long) args[0]).intValue();
+
+
+        if (frameRate <= 20)
+            return;
+
+        int aux = frameRate / 20;
+
+        //we want 20 fps. Tested with 120 frameRate. 120 / 20 = 6
+        for (int i = 1; iterator.hasNext(); i++) {
+            iterator.next();
+            if (i % aux == 0) {
+                continue;
+            } else
+                iterator.remove();
+        }
     }
 
     @Override
@@ -85,7 +108,13 @@ public class Frames extends AbstractKafkaTopic implements TopicFather
     }
 
     @Override
-    public void process(KafkaLoadService proxy, Client client) throws Exception {
+    public void send(KafkaLoadService proxy, Client client, Object... args) throws Exception {
+        super.send(proxy, client, args);
         process(proxy, client, getFrame());
+    }
+
+    @Override
+    public <T extends SpecificRecord> Class<T> mappingClass() {
+        return (Class<T>) com.mei.ergosurgeon.schema.entities.Frames.class;
     }
 }

@@ -4,6 +4,7 @@ import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.data.entities.id.Client;
 import lombok.Getter;
 import lombok.ToString;
+import org.apache.avro.specific.SpecificRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 
 @Getter
@@ -25,6 +26,7 @@ public abstract class AbstractKafkaTopic extends AbstractTopic implements KafkaT
 
     /**
      * To Set up identification for BigQuery and sendding emails
+     *
      * @param uuid
      * @return
      */
@@ -33,8 +35,13 @@ public abstract class AbstractKafkaTopic extends AbstractTopic implements KafkaT
         return (T) this;
     }
 
+    public void send(KafkaLoadService proxy, Client client, Object... args) throws Exception {
+        validateRules(args);
+        cleanUp(args);
+        proxy.send(this, client);
+    }
 
-    public abstract void send(KafkaLoadService proxy, Client client) throws Exception;
+    public abstract <T extends SpecificRecord> Class<T> mappingClass();
 
     public abstract <T extends AbstractKafkaTopic> KafkaTemplate<Object, T> getKafkaTemplate();
 }

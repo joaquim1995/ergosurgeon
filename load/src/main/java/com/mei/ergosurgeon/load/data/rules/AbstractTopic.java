@@ -11,6 +11,20 @@ public abstract class AbstractTopic implements Topic {
         return (T) this;
     }
 
+    /***
+     * Implement bussines rules that lead to a exception.
+     */
+    public void validateRules(Object... args) {
+        return;
+    }
+
+    /***
+     * Clean up data.
+     */
+    public void cleanUp(Object... args) {
+        return;
+    }
+
     public abstract String getTopic();
 
     public String getInternalTopic() {

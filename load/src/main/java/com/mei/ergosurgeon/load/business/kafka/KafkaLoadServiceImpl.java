@@ -26,7 +26,7 @@ public class KafkaLoadServiceImpl implements KafkaLoadService {
     // faço um flatMap(item-> item.getList().steam())
 
     @Override
-    public <S extends AbstractKafkaTopic> void send(S item, Class toClass, Client client) throws Exception {
+    public <S extends AbstractKafkaTopic> void send(S item, Client client) throws Exception {
         try {
             if (item instanceof Client)
                 ((Client) item).setTimeEnd(Clock.systemUTC().millis());
@@ -39,7 +39,7 @@ public class KafkaLoadServiceImpl implements KafkaLoadService {
             item.getKafkaTemplate().executeInTransaction(
                     (kafkaOperations) -> kafkaOperations.send(
                             MessageBuilder
-                                    .withPayload(modelMapper.map(item, toClass))
+                                    .withPayload(modelMapper.map(item, item.mappingClass()))
                                     .setHeader(KafkaHeaders.TOPIC, item.getInternalTopic())
                                     .setHeader("contentType", "application/*+avro")
                                     //.setHeader(KafkaHeaders.MESSAGE_KEY, client.getUuid())

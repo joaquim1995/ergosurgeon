@@ -6,6 +6,7 @@ import org.springframework.scheduling.annotation.Async;
 
 public interface KafkaLoadService {
 
+
     @Async
-    <T extends AbstractKafkaTopic> void send(T item, Class toClass, Client client) throws Exception;
+    <T extends AbstractKafkaTopic> void send(T item, Client client) throws Exception;
 }

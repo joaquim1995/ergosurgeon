@@ -14,13 +14,6 @@ import java.util.stream.Collectors;
  * You give the birth of a son.
  */
 public interface TopicFather {
-    /***
-     * Force a implementation that call, set ids
-     * @param proxy
-     * @param client
-     * @throws Exception
-     */
-    void process(KafkaLoadService proxy, Client client) throws Exception;
 
     default void process(KafkaLoadService proxy, Client client, List<?>... lists) throws Exception {
         for (List<?> messages : lists)

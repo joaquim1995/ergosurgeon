@@ -1,10 +1,9 @@
 package com.mei.ergosurgeon.load.data.entities.agregated;
 
 
-import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
-import com.mei.ergosurgeon.load.data.entities.id.Client;
 import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
+import org.apache.avro.specific.SpecificRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import java.util.Objects;
@@ -91,11 +90,6 @@ public class Vector extends AbstractKafkaTopic {
     }
 
     @Override
-    public void send(KafkaLoadService proxy, Client client) throws Exception {
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.custom.Vector.class, client);
-    }
-
-    @Override
     public String getTopic() {
         return "vector";
     }
@@ -103,5 +97,10 @@ public class Vector extends AbstractKafkaTopic {
     @Override
     public KafkaTemplate<Object, Vector> getKafkaTemplate() {
         return KafkaTemplatesUtil.getKafkaVectorTemplate();
+    }
+
+    @Override
+    public <T extends SpecificRecord> Class<T> mappingClass() {
+        return (Class<T>) com.mei.ergosurgeon.schema.entities.custom.Vector.class;
     }
 }

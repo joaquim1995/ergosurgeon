@@ -12,7 +12,6 @@ package com.mei.ergosurgeon.load.data.entities;
 import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.data.entities.id.Client;
 import com.mei.ergosurgeon.load.data.rules.AbstractTopicFather;
-import com.mei.ergosurgeon.load.data.rules.TopicFather;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -22,7 +21,7 @@ import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "sensors")
-public class Sensors extends AbstractTopicFather implements TopicFather {
+public class Sensors extends AbstractTopicFather {
     protected List<Sensor> sensor;
 
     public List<Sensor> getSensor() {
@@ -32,6 +31,7 @@ public class Sensors extends AbstractTopicFather implements TopicFather {
         return this.sensor;
     }
 
+    @Override
     public void process(KafkaLoadService proxy, Client client) throws Exception {
         process(proxy, client, getSensor());
     }

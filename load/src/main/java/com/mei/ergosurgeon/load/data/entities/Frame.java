@@ -17,6 +17,7 @@ import com.mei.ergosurgeon.load.data.entities.id.Client;
 import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
 import com.mei.ergosurgeon.load.data.rules.TopicFather;
 import lombok.ToString;
+import org.apache.avro.specific.SpecificRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
@@ -232,10 +233,7 @@ public class Frame extends AbstractKafkaTopic implements TopicFather
     }
 
     @Override
-    public void send(KafkaLoadService proxy, Client client) throws Exception {
-
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.Frame.class, client);
-
+    public void cleanUp(Object... args) {
         //TODO Fazer as ligações entre os rotulos, e classificar as posições em cada instante, passar para objectos dto,
         //não quero trabalhar com tanto lixo
 
@@ -261,8 +259,12 @@ public class Frame extends AbstractKafkaTopic implements TopicFather
             auxPositions.add(new Vector(Long.parseLong(time), positions[i], positions[i + 1], positions[i + 2], SegmentEnum.obtain(x++)));
 
         setPositions(auxPositions);
+    }
 
-        this.process(proxy, client);
+    @Override
+    public void send(KafkaLoadService proxy, Client client, Object... args) throws Exception {
+        super.send(proxy, client, args);
+        process(proxy, client, getOrientations(), getPositions());
     }
 
     @Override
@@ -276,7 +278,7 @@ public class Frame extends AbstractKafkaTopic implements TopicFather
     }
 
     @Override
-    public void process(KafkaLoadService proxy, Client client) throws Exception {
-        process(proxy, client, getOrientations(), getPositions());
+    public <T extends SpecificRecord> Class<T> mappingClass() {
+        return (Class<T>) com.mei.ergosurgeon.schema.entities.Frame.class;
     }
 }

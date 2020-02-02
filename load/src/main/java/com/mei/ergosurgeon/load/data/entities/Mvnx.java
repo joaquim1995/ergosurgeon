@@ -13,6 +13,7 @@ import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.entities.id.Client;
 import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
 import lombok.ToString;
+import org.apache.avro.specific.SpecificRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
@@ -77,8 +78,13 @@ public class Mvnx extends AbstractKafkaTopic {
     }
 
     @Override
-    public void send(KafkaLoadService proxy, Client client) throws Exception {
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.Mvnx.class, client);
+    public void cleanUp(Object... args) {
+        setId(1);
+    }
+
+    @Override
+    public void send(KafkaLoadService proxy, Client client, Object... args) throws Exception {
+        super.send(proxy, client, args);
         getSubject().send(proxy, client);
         getMvn().send(proxy, client);
     }
@@ -92,5 +98,10 @@ public class Mvnx extends AbstractKafkaTopic {
     @Override
     public KafkaTemplate<Object, Mvnx> getKafkaTemplate() {
         return KafkaTemplatesUtil.getKafkaMvnxTemplate();
+    }
+
+    @Override
+    public <T extends SpecificRecord> Class<T> mappingClass() {
+        return (Class<T>) com.mei.ergosurgeon.schema.entities.Mvnx.class;
     }
 }

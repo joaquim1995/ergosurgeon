@@ -12,6 +12,7 @@ import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.entities.id.Client;
 import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
+import org.apache.avro.specific.SpecificRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
@@ -140,16 +141,10 @@ public class Subject extends AbstractKafkaTopic {
     }
 
     @Override
-    public void send(KafkaLoadService proxy, Client client) throws Exception {
-
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.Subject.class, client);
-        getFrames().send(proxy, client);
-
-        getSegments().process(proxy, client);
-        getJoints().process(proxy, client);
-        getFrames().process(proxy, client);
-        getSensors().process(proxy, client);
+    public void cleanUp(Object... args) {
+        setId(1);
     }
+
 
     @Override
     public String getTopic() {
@@ -159,5 +154,20 @@ public class Subject extends AbstractKafkaTopic {
     @Override
     public KafkaTemplate<Object, Subject> getKafkaTemplate() {
         return KafkaTemplatesUtil.getKafkaSubjectTemplate();
+    }
+
+    @Override
+    public void send(KafkaLoadService proxy, Client client, Object... args) throws Exception {
+        super.send(proxy, client, args);
+
+        getFrames().send(proxy, client, frameRate);
+        getSegments().process(proxy, client);
+        getJoints().process(proxy, client);
+        getSensors().process(proxy, client);
+    }
+
+    @Override
+    public <T extends SpecificRecord> Class<T> mappingClass() {
+        return (Class<T>) com.mei.ergosurgeon.schema.entities.Subject.class;
     }
 }

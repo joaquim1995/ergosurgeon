@@ -8,10 +8,9 @@
 
 package com.mei.ergosurgeon.load.data.entities;
 
-import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
-import com.mei.ergosurgeon.load.data.entities.id.Client;
 import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
+import org.apache.avro.specific.SpecificRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.xml.bind.annotation.*;
@@ -41,11 +40,12 @@ public class Point extends AbstractKafkaTopic {
         this.label = value;
     }
 
+    /*
     @Override
-    public void send(KafkaLoadService proxy, Client client) throws Exception {
+    public void send(KafkaLoadService proxy, Client client, Object... args) throws Exception {
 
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.Point.class, client);
-        /*
+        proxy.send(this, client);
+
         //reset position to 0 after reduce the position of all frames so can be normalized the movement, else the IA
         //need to understand that a movement the distances and normal positions
         //If we dont reset this value we will have a lot of diferent points of "earth" of a signal.
@@ -57,10 +57,8 @@ public class Point extends AbstractKafkaTopic {
 
         //To 0 is given the meaning of start. The first position.
         setPosition(new Vector(0L, aux[0], aux[1], aux[2], getLabel()));
-
-        //send(this);
-        */
     }
+    */
 
     @Override
     public String getTopic() {
@@ -72,4 +70,8 @@ public class Point extends AbstractKafkaTopic {
         return KafkaTemplatesUtil.getKafkaPointTemplate();
     }
 
+    @Override
+    public <T extends SpecificRecord> Class<T> mappingClass() {
+        return (Class<T>) com.mei.ergosurgeon.schema.entities.Point.class;
+    }
 }

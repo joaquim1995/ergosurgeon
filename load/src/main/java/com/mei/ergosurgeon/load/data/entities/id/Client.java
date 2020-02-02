@@ -8,13 +8,12 @@
 
 package com.mei.ergosurgeon.load.data.entities.id;
 
-import com.mei.ergosurgeon.load.business.api.KafkaLoadService;
 import com.mei.ergosurgeon.load.business.utils.KafkaTemplatesUtil;
 import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
+import org.apache.avro.specific.SpecificRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 
 public class Client extends AbstractKafkaTopic {
-
     private Long timeStart;
 
     private Long timeEnd;
@@ -30,11 +29,6 @@ public class Client extends AbstractKafkaTopic {
     }
 
     @Override
-    public void send(KafkaLoadService proxy, Client client) throws Exception {
-        proxy.send(this, com.mei.ergosurgeon.schema.entities.Client.class, client);
-    }
-
-    @Override
     public String getTopic() {
         return "client";
     }
@@ -42,5 +36,10 @@ public class Client extends AbstractKafkaTopic {
     @Override
     public KafkaTemplate<Object, Client> getKafkaTemplate() {
         return KafkaTemplatesUtil.getKafkaClientTemplate();
+    }
+
+    @Override
+    public <T extends SpecificRecord> Class<T> mappingClass() {
+        return (Class<T>) com.mei.ergosurgeon.schema.entities.Client.class;
     }
 }

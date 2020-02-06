@@ -5,30 +5,39 @@
  */
 package com.mei.ergosurgeon.schema.entities;
 
-import org.apache.avro.generic.GenericArray;
-import org.apache.avro.specific.SpecificData;
-import org.apache.avro.util.Utf8;
-import org.apache.avro.message.BinaryMessageEncoder;
 import org.apache.avro.message.BinaryMessageDecoder;
+import org.apache.avro.message.BinaryMessageEncoder;
 import org.apache.avro.message.SchemaStore;
+import org.apache.avro.specific.SpecificData;
 
 @org.apache.avro.specific.AvroGenerated
 public class Client extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 6948522072762930580L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Client\",\"namespace\":\"com.mei.ergosurgeon.schema.entities\",\"fields\":[{\"name\":\"email\",\"type\":\"string\"},{\"name\":\"uuid\",\"type\":\"string\"},{\"name\":\"dateStart\",\"type\":\"long\"},{\"name\":\"dateEnd\",\"type\":\"long\"}]}");
-  public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
+    private static final long serialVersionUID = 6948522072762930580L;
+    public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Client\",\"namespace\":\"com.mei.ergosurgeon.schema.entities\",\"fields\":[{\"name\":\"email\",\"type\":\"string\"},{\"name\":\"uuid\",\"type\":\"string\"},{\"name\":\"dateStart\",\"type\":{\"type\":\"long\",\"logicalType\":\"timestamp-millis\"}},{\"name\":\"dateEnd\",\"type\":{\"type\":\"long\",\"logicalType\":\"timestamp-millis\"}}]}");
 
-  private static SpecificData MODEL$ = new SpecificData();
+    public static org.apache.avro.Schema getClassSchema() {
+        return SCHEMA$;
+    }
 
-  private static final BinaryMessageEncoder<Client> ENCODER =
-      new BinaryMessageEncoder<Client>(MODEL$, SCHEMA$);
+    private static SpecificData MODEL$ = new SpecificData();
+    private static final org.apache.avro.Conversion<?>[] conversions =
+            new org.apache.avro.Conversion<?>[]{
+                    null,
+                    null,
+                    new org.apache.avro.data.TimeConversions.TimestampMillisConversion(),
+                    new org.apache.avro.data.TimeConversions.TimestampMillisConversion(),
+                    null
+            };
 
-  private static final BinaryMessageDecoder<Client> DECODER =
-      new BinaryMessageDecoder<Client>(MODEL$, SCHEMA$);
+    private static final BinaryMessageEncoder<Client> ENCODER =
+            new BinaryMessageEncoder<Client>(MODEL$, SCHEMA$);
 
-  /**
-   * Return the BinaryMessageEncoder instance used by this class.
-   * @return the message encoder used by this class
+    private static final BinaryMessageDecoder<Client> DECODER =
+            new BinaryMessageDecoder<Client>(MODEL$, SCHEMA$);
+
+    /**
+     * Return the BinaryMessageEncoder instance used by this class.
+     * @return the message encoder used by this class
    */
   public static BinaryMessageEncoder<Client> getEncoder() {
     return ENCODER;
@@ -67,58 +76,91 @@ public class Client extends org.apache.avro.specific.SpecificRecordBase implemen
    * @throws java.io.IOException if the given bytes could not be deserialized into an instance of this class
    */
   public static Client fromByteBuffer(
-      java.nio.ByteBuffer b) throws java.io.IOException {
-    return DECODER.decode(b);
+          java.nio.ByteBuffer b) throws java.io.IOException {
+      return DECODER.decode(b);
   }
 
-  @Deprecated public java.lang.CharSequence email;
-  @Deprecated public java.lang.CharSequence uuid;
-  @Deprecated public long dateStart;
-  @Deprecated public long dateEnd;
+    @Deprecated
+    public java.lang.CharSequence email;
+    @Deprecated
+    public java.lang.CharSequence uuid;
 
-  /**
-   * Default constructor.  Note that this does not initialize fields
-   * to their default values from the schema.  If that is desired then
-   * one should use <code>newBuilder()</code>.
-   */
-  public Client() {}
+    static {
+        MODEL$.addLogicalTypeConversion(new org.apache.avro.data.TimeConversions.TimestampMillisConversion());
+    }
 
-  /**
-   * All-args constructor.
-   * @param email The new value for email
-   * @param uuid The new value for uuid
-   * @param dateStart The new value for dateStart
-   * @param dateEnd The new value for dateEnd
-   */
-  public Client(java.lang.CharSequence email, java.lang.CharSequence uuid, java.lang.Long dateStart, java.lang.Long dateEnd) {
-    this.email = email;
-    this.uuid = uuid;
-    this.dateStart = dateStart;
-    this.dateEnd = dateEnd;
-  }
+    @Deprecated
+    public java.time.Instant dateStart;
 
-  public org.apache.avro.specific.SpecificData getSpecificData() { return MODEL$; }
+    /**
+     * Default constructor.  Note that this does not initialize fields
+     * to their default values from the schema.  If that is desired then
+     * one should use <code>newBuilder()</code>.
+     */
+    public Client() {
+    }
+
+    @Deprecated
+    public java.time.Instant dateEnd;
+
+    public org.apache.avro.specific.SpecificData getSpecificData() {
+        return MODEL$;
+    }
   public org.apache.avro.Schema getSchema() { return SCHEMA$; }
   // Used by DatumWriter.  Applications should not call.
   public java.lang.Object get(int field$) {
-    switch (field$) {
-    case 0: return email;
-    case 1: return uuid;
-    case 2: return dateStart;
-    case 3: return dateEnd;
-    default: throw new org.apache.avro.AvroRuntimeException("Bad index");
-    }
+      switch (field$) {
+          case 0:
+              return email;
+          case 1:
+              return uuid;
+          case 2:
+              return dateStart;
+          case 3:
+              return dateEnd;
+          default:
+              throw new org.apache.avro.AvroRuntimeException("Bad index");
+      }
   }
 
-  // Used by DatumReader.  Applications should not call.
-  @SuppressWarnings(value="unchecked")
-  public void put(int field$, java.lang.Object value$) {
-    switch (field$) {
-    case 0: email = (java.lang.CharSequence)value$; break;
-    case 1: uuid = (java.lang.CharSequence)value$; break;
-    case 2: dateStart = (java.lang.Long)value$; break;
-    case 3: dateEnd = (java.lang.Long)value$; break;
-    default: throw new org.apache.avro.AvroRuntimeException("Bad index");
+    /**
+     * All-args constructor.
+     *
+     * @param email     The new value for email
+     * @param uuid      The new value for uuid
+     * @param dateStart The new value for dateStart
+     * @param dateEnd   The new value for dateEnd
+     */
+    public Client(java.lang.CharSequence email, java.lang.CharSequence uuid, java.time.Instant dateStart, java.time.Instant dateEnd) {
+        this.email = email;
+        this.uuid = uuid;
+        this.dateStart = dateStart.truncatedTo(java.time.temporal.ChronoUnit.MILLIS);
+        this.dateEnd = dateEnd.truncatedTo(java.time.temporal.ChronoUnit.MILLIS);
+    }
+
+    @Override
+    public org.apache.avro.Conversion<?> getConversion(int field) {
+        return conversions[field];
+    }
+
+    // Used by DatumReader.  Applications should not call.
+    @SuppressWarnings(value = "unchecked")
+    public void put(int field$, java.lang.Object value$) {
+        switch (field$) {
+            case 0:
+                email = (java.lang.CharSequence) value$;
+                break;
+            case 1:
+                uuid = (java.lang.CharSequence) value$;
+                break;
+            case 2:
+                dateStart = (java.time.Instant) value$;
+                break;
+            case 3:
+                dateEnd = (java.time.Instant) value$;
+                break;
+            default:
+                throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
 
@@ -153,41 +195,45 @@ public class Client extends org.apache.avro.specific.SpecificRecordBase implemen
    * @param value the value to set.
    */
   public void setUuid(java.lang.CharSequence value) {
-    this.uuid = value;
+      this.uuid = value;
   }
 
-  /**
-   * Gets the value of the 'dateStart' field.
-   * @return The value of the 'dateStart' field.
-   */
-  public long getDateStart() {
-    return dateStart;
-  }
+    /**
+     * Gets the value of the 'dateStart' field.
+     *
+     * @return The value of the 'dateStart' field.
+     */
+    public java.time.Instant getDateStart() {
+        return dateStart;
+    }
 
 
-  /**
-   * Sets the value of the 'dateStart' field.
-   * @param value the value to set.
-   */
-  public void setDateStart(long value) {
-    this.dateStart = value;
-  }
+    /**
+     * Sets the value of the 'dateStart' field.
+     *
+     * @param value the value to set.
+     */
+    public void setDateStart(java.time.Instant value) {
+        this.dateStart = value.truncatedTo(java.time.temporal.ChronoUnit.MILLIS);
+    }
 
-  /**
-   * Gets the value of the 'dateEnd' field.
-   * @return The value of the 'dateEnd' field.
-   */
-  public long getDateEnd() {
-    return dateEnd;
-  }
+    /**
+     * Gets the value of the 'dateEnd' field.
+     *
+     * @return The value of the 'dateEnd' field.
+     */
+    public java.time.Instant getDateEnd() {
+        return dateEnd;
+    }
 
 
-  /**
-   * Sets the value of the 'dateEnd' field.
-   * @param value the value to set.
-   */
-  public void setDateEnd(long value) {
-    this.dateEnd = value;
+    /**
+     * Sets the value of the 'dateEnd' field.
+     *
+     * @param value the value to set.
+     */
+    public void setDateEnd(java.time.Instant value) {
+        this.dateEnd = value.truncatedTo(java.time.temporal.ChronoUnit.MILLIS);
   }
 
   /**
@@ -220,28 +266,28 @@ public class Client extends org.apache.avro.specific.SpecificRecordBase implemen
     if (other == null) {
       return new com.mei.ergosurgeon.schema.entities.Client.Builder();
     } else {
-      return new com.mei.ergosurgeon.schema.entities.Client.Builder(other);
+        return new com.mei.ergosurgeon.schema.entities.Client.Builder(other);
     }
   }
 
-  /**
-   * RecordBuilder for Client instances.
-   */
-  public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<Client>
-    implements org.apache.avro.data.RecordBuilder<Client> {
-
-    private java.lang.CharSequence email;
-    private java.lang.CharSequence uuid;
-    private long dateStart;
-    private long dateEnd;
-
-    /** Creates a new Builder */
-    private Builder() {
-      super(SCHEMA$);
-    }
-
     /**
-     * Creates a Builder by copying an existing Builder.
+     * RecordBuilder for Client instances.
+     */
+    public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<Client>
+            implements org.apache.avro.data.RecordBuilder<Client> {
+
+        private java.lang.CharSequence email;
+        private java.lang.CharSequence uuid;
+        private java.time.Instant dateStart;
+        private java.time.Instant dateEnd;
+
+        /** Creates a new Builder */
+        private Builder() {
+            super(SCHEMA$);
+        }
+
+        /**
+         * Creates a Builder by copying an existing Builder.
      * @param other The existing Builder to copy.
      */
     private Builder(com.mei.ergosurgeon.schema.entities.Client.Builder other) {
@@ -363,28 +409,29 @@ public class Client extends org.apache.avro.specific.SpecificRecordBase implemen
       * @return This builder.
       */
     public com.mei.ergosurgeon.schema.entities.Client.Builder clearUuid() {
-      uuid = null;
-      fieldSetFlags()[1] = false;
-      return this;
+        uuid = null;
+        fieldSetFlags()[1] = false;
+        return this;
     }
 
-    /**
-      * Gets the value of the 'dateStart' field.
-      * @return The value.
-      */
-    public long getDateStart() {
-      return dateStart;
-    }
+        /**
+         * Gets the value of the 'dateStart' field.
+         * @return The value.
+         */
+        public java.time.Instant getDateStart() {
+            return dateStart;
+        }
 
 
-    /**
-      * Sets the value of the 'dateStart' field.
-      * @param value The value of 'dateStart'.
-      * @return This builder.
-      */
-    public com.mei.ergosurgeon.schema.entities.Client.Builder setDateStart(long value) {
-      validate(fields()[2], value);
-      this.dateStart = value;
+        /**
+         * Sets the value of the 'dateStart' field.
+         *
+         * @param value The value of 'dateStart'.
+         * @return This builder.
+         */
+        public com.mei.ergosurgeon.schema.entities.Client.Builder setDateStart(java.time.Instant value) {
+            validate(fields()[2], value);
+            this.dateStart = value.truncatedTo(java.time.temporal.ChronoUnit.MILLIS);
       fieldSetFlags()[2] = true;
       return this;
     }
@@ -403,27 +450,28 @@ public class Client extends org.apache.avro.specific.SpecificRecordBase implemen
       * @return This builder.
       */
     public com.mei.ergosurgeon.schema.entities.Client.Builder clearDateStart() {
-      fieldSetFlags()[2] = false;
-      return this;
+        fieldSetFlags()[2] = false;
+        return this;
     }
 
-    /**
-      * Gets the value of the 'dateEnd' field.
-      * @return The value.
-      */
-    public long getDateEnd() {
-      return dateEnd;
-    }
+        /**
+         * Gets the value of the 'dateEnd' field.
+         * @return The value.
+         */
+        public java.time.Instant getDateEnd() {
+            return dateEnd;
+        }
 
 
-    /**
-      * Sets the value of the 'dateEnd' field.
-      * @param value The value of 'dateEnd'.
-      * @return This builder.
-      */
-    public com.mei.ergosurgeon.schema.entities.Client.Builder setDateEnd(long value) {
-      validate(fields()[3], value);
-      this.dateEnd = value;
+        /**
+         * Sets the value of the 'dateEnd' field.
+         *
+         * @param value The value of 'dateEnd'.
+         * @return This builder.
+         */
+        public com.mei.ergosurgeon.schema.entities.Client.Builder setDateEnd(java.time.Instant value) {
+            validate(fields()[3], value);
+            this.dateEnd = value.truncatedTo(java.time.temporal.ChronoUnit.MILLIS);
       fieldSetFlags()[3] = true;
       return this;
     }
@@ -443,18 +491,18 @@ public class Client extends org.apache.avro.specific.SpecificRecordBase implemen
       */
     public com.mei.ergosurgeon.schema.entities.Client.Builder clearDateEnd() {
       fieldSetFlags()[3] = false;
-      return this;
+        return this;
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public Client build() {
-      try {
-        Client record = new Client();
-        record.email = fieldSetFlags()[0] ? this.email : (java.lang.CharSequence) defaultValue(fields()[0]);
-        record.uuid = fieldSetFlags()[1] ? this.uuid : (java.lang.CharSequence) defaultValue(fields()[1]);
-        record.dateStart = fieldSetFlags()[2] ? this.dateStart : (java.lang.Long) defaultValue(fields()[2]);
-        record.dateEnd = fieldSetFlags()[3] ? this.dateEnd : (java.lang.Long) defaultValue(fields()[3]);
+        @Override
+        @SuppressWarnings("unchecked")
+        public Client build() {
+            try {
+                Client record = new Client();
+                record.email = fieldSetFlags()[0] ? this.email : (java.lang.CharSequence) defaultValue(fields()[0]);
+                record.uuid = fieldSetFlags()[1] ? this.uuid : (java.lang.CharSequence) defaultValue(fields()[1]);
+                record.dateStart = fieldSetFlags()[2] ? this.dateStart : (java.time.Instant) defaultValue(fields()[2]);
+        record.dateEnd = fieldSetFlags()[3] ? this.dateEnd : (java.time.Instant) defaultValue(fields()[3]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;
@@ -482,59 +530,6 @@ public class Client extends org.apache.avro.specific.SpecificRecordBase implemen
     READER$.read(this, SpecificData.getDecoder(in));
   }
 
-  @Override protected boolean hasCustomCoders() { return true; }
-
-  @Override public void customEncode(org.apache.avro.io.Encoder out)
-    throws java.io.IOException
-  {
-    out.writeString(this.email);
-
-    out.writeString(this.uuid);
-
-    out.writeLong(this.dateStart);
-
-    out.writeLong(this.dateEnd);
-
-  }
-
-  @Override public void customDecode(org.apache.avro.io.ResolvingDecoder in)
-    throws java.io.IOException
-  {
-    org.apache.avro.Schema.Field[] fieldOrder = in.readFieldOrderIfDiff();
-    if (fieldOrder == null) {
-      this.email = in.readString(this.email instanceof Utf8 ? (Utf8)this.email : null);
-
-      this.uuid = in.readString(this.uuid instanceof Utf8 ? (Utf8)this.uuid : null);
-
-      this.dateStart = in.readLong();
-
-      this.dateEnd = in.readLong();
-
-    } else {
-      for (int i = 0; i < 4; i++) {
-        switch (fieldOrder[i].pos()) {
-        case 0:
-          this.email = in.readString(this.email instanceof Utf8 ? (Utf8)this.email : null);
-          break;
-
-        case 1:
-          this.uuid = in.readString(this.uuid instanceof Utf8 ? (Utf8)this.uuid : null);
-          break;
-
-        case 2:
-          this.dateStart = in.readLong();
-          break;
-
-        case 3:
-          this.dateEnd = in.readLong();
-          break;
-
-        default:
-          throw new java.io.IOException("Corrupt ResolvingDecoder.");
-        }
-      }
-    }
-  }
 }
 
 

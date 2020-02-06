@@ -10,7 +10,7 @@ import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
-import java.time.Clock;
+import java.time.Instant;
 
 @Slf4j
 @Service
@@ -29,7 +29,7 @@ public class KafkaLoadServiceImpl implements KafkaLoadService {
     public <S extends AbstractKafkaTopic> void send(S item, Client client) throws Exception {
         try {
             if (item instanceof Client)
-                ((Client) item).setTimeEnd(Clock.systemUTC().millis());
+                ((Client) item).setTimeEnd(Instant.now().toEpochMilli());
 
             else {
                 item.setEmail(client.getEmail());

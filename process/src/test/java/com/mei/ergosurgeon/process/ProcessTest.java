@@ -9,7 +9,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.Clock;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Properties;
 
 @RunWith(SpringRunner.class)
@@ -41,8 +42,8 @@ public class ProcessTest {
             Client item = new Client(
                     "joaquimcardoso12@hotmail.com",
                     "01234567-ABCD-abcd-3210-0123456789AB",
-                    Clock.systemUTC().millis(),
-                    Clock.systemUTC().millis()
+                    Instant.now(),
+                    Instant.now().plus(2, ChronoUnit.MINUTES)
             );
             SimpleMailMessage msg = new SimpleMailMessage();
 

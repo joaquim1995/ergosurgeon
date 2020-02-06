@@ -7,11 +7,17 @@
          {"name" : "uuid", "type": "string"},
     {
        "name" : "dateStart",
-       "type": "long"
+       "type" : {
+             "type" : "long",
+             "logicalType" : "timestamp-millis"
+           }
      },
      {
        "name" : "dateEnd",
-       "type": "long"
+       "type" : {
+             "type" : "long",
+             "logicalType" : "timestamp-millis"
+           }
      }]
 }
 

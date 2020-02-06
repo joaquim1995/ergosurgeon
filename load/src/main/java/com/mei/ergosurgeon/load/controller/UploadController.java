@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.Clock;
+import java.time.Instant;
 import java.util.UUID;
 
 @Controller
@@ -46,7 +46,7 @@ public class UploadController {
                         .setEmail(email)
                         .setUuid(UUID.randomUUID().toString())
         )
-                .setTimeStart(Clock.systemUTC().millis());
+                .setTimeStart(Instant.now().toEpochMilli());
 
     }
 

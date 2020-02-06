@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
+import java.time.Instant;
 import java.util.UUID;
 
 @Slf4j
@@ -21,8 +22,8 @@ public class BigQueryUtils {
     @GetMapping("/{email}/{uuid}/{dateStart}/{dateEnd}")
     public TableResult runQuery(@PathVariable @Email String email,
                                 @PathVariable @Pattern(regexp = "^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$", message = "UUID format error") String uuid,
-                                @PathVariable @Past Long dateStart,
-                                @PathVariable @Past Long dateEnd) throws InterruptedException {
+                                @PathVariable @Past Instant dateStart,
+                                @PathVariable @Past Instant dateEnd) throws InterruptedException {
         try {
             BigQuery bq = BigQueryOptions.newBuilder().setProjectId("investigation-265721").build().getService();
             QueryJobConfiguration queryConfig =
@@ -31,10 +32,11 @@ public class BigQueryUtils {
                                     "*\n" +
                                     "FROM 'Investigation.threated_point'\n" +
                                     //"WHERE DATE(_PARTITIONTIME) BETWEEN :dateStart AND :dateEnd AND\n" +
-                                    "WHERE UUID = :uuid AND Email = :email"
+                                    "WHERE _PARTITIONTIME BETWEEN (:dateStart AND :dateEnd) AND\n" +
+                                    "UUID = :uuid AND Email = :email"
                     )
-                            //.addNamedParameter("dateStart", QueryParameterValue.int64(dateStart))
-                            //.addNamedParameter("dateEnd", QueryParameterValue.int64(dateEnd))
+                            .addNamedParameter("dateStart", QueryParameterValue.timestamp(dateStart.getEpochSecond()))
+                            .addNamedParameter("dateEnd", QueryParameterValue.timestamp(dateEnd.getEpochSecond()))
                             .addNamedParameter("uuid", QueryParameterValue.string(uuid))
                             .addNamedParameter("email", QueryParameterValue.string(email))
                             // Use standard SQL syntax for queries.

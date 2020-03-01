@@ -29,7 +29,7 @@ public class KafkaLoadServiceImpl implements KafkaLoadService {
     public <S extends AbstractKafkaTopic> void send(S item, Client client) throws Exception {
         try {
             if (item instanceof Client)
-                ((Client) item).setTimeEnd(Instant.now().toEpochMilli());
+                ((Client) item).setDateEnd(Instant.now());
 
             else {
                 item.setEmail(client.getEmail());

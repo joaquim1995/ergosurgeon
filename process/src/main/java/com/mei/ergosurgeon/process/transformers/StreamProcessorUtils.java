@@ -15,12 +15,12 @@ public class StreamProcessorUtils {
         msg.setTo(item.getEmail().toString());
 
         msg.setSubject("Ergosurgeon");
-        msg.setText("Request data on:\n"+
-                "\nlocalhost:8080/"+
-                item.getEmail().toString()+"/"+
-                item.getUuid().toString()+"/"+
-                item.getDateStart()+"/"+
-                item.getDateEnd()+"\n\n"+
+        msg.setText("Request data on:\n" +
+                "\nhttps://ergosurgeon-evaluate-dot-investigation-265721.appspot.com/" +
+                item.getEmail().toString() + "/" +
+                item.getUuid().toString() + "/" +
+                item.getDateStart().toEpochMilli() + "/" +
+                item.getDateEnd().toEpochMilli() + "\n\n" +
                 "Give it some time to process data.\n"
         );
 

@@ -1,12 +1,25 @@
 spring:
   cloud:
     stream:
+      bindings:
+        output:
+          contentType: application/*+avro
       default:
         producer:
           useNativeEncoding: true
         consumer:
           useNativeEncoding: true
       kafka:
+        bindings:
+          channel:
+            consumer:
+              configuration:
+                specific:
+                  avro:
+                    reader: true
+                schema:
+                  registry:
+                    url: http://34.70.1.18:8081
         binder:
           producer-properties:
             value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer

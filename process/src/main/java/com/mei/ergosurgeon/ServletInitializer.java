@@ -1,4 +1,4 @@
-package com.mei.ergosurgeon.process;
+package com.mei.ergosurgeon;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

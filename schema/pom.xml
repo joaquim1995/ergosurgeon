@@ -15,6 +15,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.avro</groupId>
             <artifactId>avro</artifactId>
         </dependency>
@@ -50,6 +54,8 @@
                                 <configuration>
                                     <sourceDirectory>${project.basedir}/src/main/resources/</sourceDirectory>
                                     <outputDirectory>${project.basedir}/src/main/java/</outputDirectory>
+                                    <dateTimeLogicalTypeImplementation>jsr310</dateTimeLogicalTypeImplementation>
+                                    <enableDecimalLogicalType>true</enableDecimalLogicalType>
                                 </configuration>
                             </execution>
                         </executions>

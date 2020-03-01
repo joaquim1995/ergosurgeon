@@ -13,18 +13,28 @@ import com.mei.ergosurgeon.load.data.rules.AbstractKafkaTopic;
 import org.apache.avro.specific.SpecificRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 
+import java.time.Instant;
+
 public class Client extends AbstractKafkaTopic {
-    private Long timeStart;
+    private Instant dateStart;
 
-    private Long timeEnd;
+    private Instant dateEnd;
 
-    public Client setTimeStart(Long timeStart) {
-        this.timeStart = timeStart;
+    public Instant getDateStart() {
+        return dateStart;
+    }
+
+    public Client setDateStart(Instant dateStart) {
+        this.dateStart = dateStart;
         return this;
     }
 
-    public Client setTimeEnd(Long timeEnd) {
-        this.timeEnd = timeEnd;
+    public Instant getDateEnd() {
+        return dateEnd;
+    }
+
+    public Client setDateEnd(Instant dateEnd) {
+        this.dateEnd = dateEnd;
         return this;
     }
 

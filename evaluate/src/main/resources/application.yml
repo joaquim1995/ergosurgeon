@@ -3,8 +3,8 @@ spring:
     gcp:
       bigquery:
         credentials:
-          location: file:C:\Projects\ergosurgeon\evaluate\src\main\resources\bigquery.json
-          #location: file:WEB-INF/classes/bigquery.json
+          #location: file:C:\Projects\ergosurgeon\evaluate\src\main\resources\bigquery.json
+          location: file:WEB-INF/classes/bigquery.json
         project-id: investigation-265721
         enabled: true
         datasetName: ErgoSurgeonDataSet
